@@ -1,16 +1,30 @@
 import 'package:intl/intl.dart';
 
 class DateTimeUtils {
-
   static DateTime _getCurrentTime() {
     return DateTime.now();
   }
 
   /// Gets today's date formatted as 'yyyy-MM-dd'.
   static String getTodayDate() {
-    // final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
     return formatter.format(_getCurrentTime());
+  }
+
+  static String convertToddMMyyyy(DateTime dateTime) {
+    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    return formatter.format(dateTime);
+  }
+
+  String changeDateTime(bool isAdd, String dateString) {
+    DateTime dateTime = DateFormat("dd-MM-yyyy").parse(dateString);
+    if (isAdd) {
+      dateTime = dateTime.add(const Duration(days: 1));
+    } else {
+      dateTime = dateTime.subtract(const Duration(days: 1));
+    }
+    
+   return convertToddMMyyyy(dateTime);
   }
 
   /// Gets today's date formatted in a custom format.
@@ -59,7 +73,7 @@ class DateTimeUtils {
     return sortedTimings;
   }
 
-  static String getCurrentTimeZoneName(){
+  static String getCurrentTimeZoneName() {
     DateTime time = _getCurrentTime();
     return time.timeZoneName;
   }

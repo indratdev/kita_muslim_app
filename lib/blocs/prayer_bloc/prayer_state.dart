@@ -36,3 +36,33 @@ class SuccessNextPrayerTime extends PrayerState {
   @override
   List<Object> get props => [result];
 }
+
+// prayer time
+class FailurePrayerTime extends FailurePrayer {
+  FailurePrayerTime({required super.message});
+}
+
+class LoadingPrayerTime extends PrayerState {}
+
+class SuccessPrayerTime extends PrayerState {
+  Map<String, dynamic> result;
+
+  SuccessPrayerTime({
+    required this.result,
+  });
+
+  @override
+  List<Object> get props => [result];
+}
+
+// change date prayer
+class SuccessChangeDatePrayer extends PrayerState {
+  String date;
+
+  SuccessChangeDatePrayer({
+    required this.date,
+  });
+
+  @override
+  List<Object> get props => [date];
+}

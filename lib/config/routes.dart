@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/presentation/screens/calculator_screen/calculator_screen.dart';
 import 'package:kita_muslim/presentation/screens/favorite_screens/favoritescreen.dart';
 import 'package:kita_muslim/presentation/screens/hadist_screen/hadistSRscreen.dart';
 import 'package:kita_muslim/presentation/screens/hadist_screen/hadistdetailscreen.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String hadistDetail = "/hadistdetail";
   static const String hadistsSR = "/hadistsSR";
   static const String qiblahScreen = "/qiblahscreen";
+  static const String calculatorScreen = "/calculatorscreen";
 
   Map<String, WidgetBuilder> getRoutes = {
     homeScreen: (_) => const HomeScreenV2(),
@@ -39,5 +41,6 @@ class Routes {
     hadistsSR: (_) => HadistSRScreen(),
     splash: (_) => const SplashScreen(),
     qiblahScreen: (_) => QiblahScreen(),
+    calculatorScreen: (_) => CalculatorScreen(),
   };
 }

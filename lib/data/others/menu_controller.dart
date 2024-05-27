@@ -69,6 +69,13 @@ class MenusController {
       },
     ),
     MenuModel(
+      menuIcon: Constants.qiblaIcon,
+      menuName: "Kalkulator",
+      menuRoute: (context) {
+        Navigator.of(context).pushNamed(Routes.calculatorScreen);
+      },
+    ),
+    MenuModel(
       menuIcon: Constants.favoriteImage,
       menuName: "Favorit",
       menuRoute: (context) {

@@ -30,17 +30,18 @@ class Constants {
   static const favoriteImage = "assets/icons/favorite.png";
   static const hadistImage = "assets/icons/hadits.png";
   // v2
-   static const prayIcon = "assets/icons/pray.png";
-   static const shalatIcon = "assets/icons/shalat.png";
-   static const allIcon = "assets/icons/select-all.png";
-   static const mosqueIcon = "assets/icons/mosque.png";
-   static const quranV2Icon = "assets/icons/quran_v2.png";
-   static const readQuranIcon = "assets/icons/read_quran.png";
-   static const prayingIcon = "assets/icons/praying.png";
-   static const prayShalatIcon = "assets/icons/pray_shalat.png";
-   static const qiblaIcon = "assets/icons/qibla.png";
-   static const bannerImage = "assets/images/banner_image.png";
-   
+  static const prayIcon = "assets/icons/pray.png";
+  static const shalatIcon = "assets/icons/shalat.png";
+  static const allIcon = "assets/icons/select-all.png";
+  static const mosqueIcon = "assets/icons/mosque.png";
+  static const quranV2Icon = "assets/icons/quran_v2.png";
+  static const readQuranIcon = "assets/icons/read_quran.png";
+  static const prayingIcon = "assets/icons/praying.png";
+  static const prayShalatIcon = "assets/icons/pray_shalat.png";
+  static const qiblaIcon = "assets/icons/qibla.png";
+  static const bannerImage = "assets/images/banner_image.png";
+  static const compassImage = "assets/images/compass.png";
+  static const needleImage = "assets/images/needle.png";
 
   // end image
 

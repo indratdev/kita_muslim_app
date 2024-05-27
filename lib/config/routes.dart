@@ -6,6 +6,8 @@ import 'package:kita_muslim/presentation/screens/hadist_screen/hadistdetailscree
 import 'package:kita_muslim/presentation/screens/hadist_screen/hadistscreen.dart';
 import 'package:kita_muslim/presentation/screens/home_screen/home_screen_v2.dart';
 import 'package:kita_muslim/presentation/screens/home_screen/homescreen.dart';
+import 'package:kita_muslim/presentation/screens/qiblah_screen/qiblah_compass.dart';
+import 'package:kita_muslim/presentation/screens/qiblah_screen/qiblah_screen.dart';
 import 'package:kita_muslim/presentation/screens/quranscreen.dart';
 import 'package:kita_muslim/presentation/screens/splash_screen/splashscreen.dart';
 import 'package:kita_muslim/presentation/screens/surah_detail/surahdetailscreen.dart';
@@ -23,6 +25,7 @@ class Routes {
   static const String hadists = "/hadists";
   static const String hadistDetail = "/hadistdetail";
   static const String hadistsSR = "/hadistsSR";
+  static const String qiblahScreen = "/qiblahscreen";
 
   Map<String, WidgetBuilder> getRoutes = {
     homeScreen: (_) => const HomeScreenV2(),
@@ -35,5 +38,6 @@ class Routes {
     hadistDetail: (_) => HadistDetailScreen(nameHadist: ""),
     hadistsSR: (_) => HadistSRScreen(),
     splash: (_) => const SplashScreen(),
+    qiblahScreen: (_) => QiblahScreen(),
   };
 }

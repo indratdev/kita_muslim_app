@@ -64,7 +64,9 @@ class MenusController {
     MenuModel(
       menuIcon: Constants.qiblaIcon,
       menuName: "Arah Kiblat",
-      menuRoute: (context) {},
+      menuRoute: (context) {
+        Navigator.of(context).pushNamed(Routes.qiblahScreen);
+      },
     ),
     MenuModel(
       menuIcon: Constants.favoriteImage,

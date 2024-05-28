@@ -69,7 +69,7 @@ class MenusController {
       },
     ),
     MenuModel(
-      menuIcon: Constants.qiblaIcon,
+      menuIcon: Constants.calculatorIcon,
       menuName: "Kalkulator",
       menuRoute: (context) {
         Navigator.of(context).pushNamed(Routes.calculatorScreen);

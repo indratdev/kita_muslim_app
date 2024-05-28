@@ -6,23 +6,20 @@ import 'package:kita_muslim/blocs/calculator_bloc/calculator_bloc.dart';
 import 'package:kita_muslim/presentation/widgets/textformfied_custom.dart';
 import 'package:kita_muslim/utils/constants.dart';
 
-class IncomeCalculatorWidget extends StatefulWidget {
-  const IncomeCalculatorWidget({super.key});
+class GoldCalculatorWidget extends StatefulWidget {
+  const GoldCalculatorWidget({super.key});
 
   @override
-  State<IncomeCalculatorWidget> createState() => _IncomeCalculatorWidgetState();
+  State<GoldCalculatorWidget> createState() => _GoldCalculatorWidgetState();
 }
 
-class _IncomeCalculatorWidgetState extends State<IncomeCalculatorWidget> {
-  final TextEditingController _incomeController =
-      TextEditingController(text: "0");
-  final TextEditingController _otherIncomeController =
+class _GoldCalculatorWidgetState extends State<GoldCalculatorWidget> {
+  final TextEditingController _goldController =
       TextEditingController(text: "0");
 
   @override
   void dispose() {
-    _incomeController.dispose();
-    _otherIncomeController.dispose();
+    _goldController.dispose();
     super.dispose();
   }
 
@@ -34,38 +31,30 @@ class _IncomeCalculatorWidgetState extends State<IncomeCalculatorWidget> {
         // shrinkWrap: true,
         children: [
           CustomTextfieldWidget(
-            controller: _incomeController,
-            label: "Pendapatan /bulan",
-          ),
-          CustomTextfieldWidget(
-            controller: _otherIncomeController,
-            label: "Penghasilan lain-lainnya /bulan",
+            controller: _goldController,
+            label: "Jumlah emas /gram",
           ),
           ElevatedButton(
             onPressed: () async {
               context.read<CalculatorBloc>().add(
-                    CalculateZakatPenghasilanEvent(
-                      income: double.tryParse(_incomeController.text) ?? 0.0,
-                      otherIncome:
-                          double.tryParse(_otherIncomeController.text) ?? 0.0,
+                    CalculateZakatGoldEvent(
+                      gold: double.tryParse(_goldController.text) ?? 0.0,
                     ),
                   );
-              // var result = await ApiMoslemAddProvider().getSellPriceGold();
-              // print("result : $result");
             },
             child: const Text("Hitung"),
           ),
           BlocBuilder<CalculatorBloc, CalculatorState>(
             builder: (context, state) {
-              if (state is FailureCalculateZakatPenghasilan) {
+              if (state is FailureCalculateZakatGold) {
                 return Center(child: Text("Error : ${state.message}"));
               }
 
-              if (state is LoadingCalculateZakatPenghasilan) {
+              if (state is LoadingCalculateZakatGold) {
                 return const Center(child: Text("Loading..."));
               }
 
-              if (state is SuccessCalculateZakatPenghasilan) {
+              if (state is SuccessCalculateZakatGold) {
                 Map<String, dynamic> datas = state.result;
 
                 return SingleChildScrollView(
@@ -136,8 +125,7 @@ class _IncomeCalculatorWidgetState extends State<IncomeCalculatorWidget> {
                                 style: DefaultTextStyle.of(context).style,
                                 children: <TextSpan>[
                                   const TextSpan(
-                                      text:
-                                          'Total Zakat Penghasilan Sebulan \n'),
+                                      text: 'Total Zakat Emas Setahun \n'),
                                   TextSpan(
                                     text: "Rp. ${datas["total_pay"]} \n\n",
                                     style: TextStyle(

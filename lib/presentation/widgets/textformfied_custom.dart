@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/utils/constants.dart';
 
 import '../../utils/formaters.dart';
 import '../../utils/validator.dart';
@@ -19,6 +20,8 @@ class CustomTextfieldWidget extends StatefulWidget {
   bool isUppercase;
   bool useValidator;
   EdgeInsetsGeometry customPadding;
+  String label;
+  String? initialValue;
 
   CustomTextfieldWidget({
     super.key,
@@ -36,7 +39,9 @@ class CustomTextfieldWidget extends StatefulWidget {
     this.isUppercase = false,
     this.onChanges,
     this.useValidator = true,
-    this.customPadding = const EdgeInsets.only(bottom: 12.0),
+    this.customPadding = const EdgeInsets.only(bottom: 8.0),
+    this.label = "",
+    this.initialValue,
   });
 
   @override
@@ -60,6 +65,7 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
           const SizedBox(height: 8),
           TextFormField(
             onChanged: widget.onChanges,
+            initialValue: widget.initialValue,
             readOnly: widget.readOnly,
             maxLines: widget.maxLines,
             controller: widget.controller,
@@ -73,6 +79,8 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
             inputFormatters:
                 (widget.isUppercase) ? [UpperCaseTextFormatter()] : [],
             decoration: InputDecoration(
+              labelText: widget.label,
+              // labelText: ,
               filled: widget.readOnly,
               suffixIcon: widget.suffixIcon,
               fillColor: Colors.grey.shade300,
@@ -80,25 +88,25 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
                   ? null
                   : Icon(
                       widget.icon,
-                      color: Colors.amber,
+                      color: Constants.colorBlack,
                     ),
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.amber,
+                  color: Constants.colorBlack,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                borderRadius: BorderRadius.all(Radius.circular(4)),
               ),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.amber,
+                  color: Constants.colorBlack,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                borderRadius: BorderRadius.all(Radius.circular(4)),
               ),
               contentPadding: const EdgeInsets.all(10),
               hintText: widget.hintText,
               hintStyle: const TextStyle(
                 fontSize: 14,
-                color: Colors.amber,
+                color: Constants.colorBlack,
               ),
             ),
           ),

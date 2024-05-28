@@ -7,7 +7,7 @@ class ApiPrayerProvider {
 
   final dio = Dio();
 
-// dd-mm-yyyy
+  // dd-mm-yyyy
   Future<PrayerTimeModel?> getPrayerTimeSpesific(
       String date, double lat, double long) async {
     try {

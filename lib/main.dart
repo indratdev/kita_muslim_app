@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/blocs/calculator_bloc/calculator_bloc.dart';
 import 'package:kita_muslim/config/routes.dart';
 import 'blocs/export.dart';
 
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PrayerBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CalculatorBloc(),
         ),
       ],
       child: MaterialApp(

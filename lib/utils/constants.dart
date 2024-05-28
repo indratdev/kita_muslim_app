@@ -39,6 +39,7 @@ class Constants {
   static const prayingIcon = "assets/icons/praying.png";
   static const prayShalatIcon = "assets/icons/pray_shalat.png";
   static const qiblaIcon = "assets/icons/qibla.png";
+  static const calculatorIcon = "assets/icons/calculator.png";
   static const bannerImage = "assets/images/banner_image.png";
   static const compassImage = "assets/images/compass.png";
   static const needleImage = "assets/images/needle.png";
@@ -97,3 +98,4 @@ class Constants {
 // <a href="https://www.flaticon.com/free-icons/pray" title="pray icons">Pray icons created by Marz Gallery - Flaticon</a>
 // <a href="https://www.flaticon.com/free-icons/select-all" title="select all icons">Select all icons created by bsd - Flaticon</a>
 // <a href="https://www.flaticon.com/free-icons/qibla" title="qibla icons">Qibla icons created by Aranagraphics - Flaticon</a>
+// <a href="https://www.flaticon.com/free-icons/calculator" title="calculator icons">Calculator icons created by Freepik - Flaticon</a>

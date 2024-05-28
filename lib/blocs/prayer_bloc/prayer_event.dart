@@ -8,3 +8,5 @@ sealed class PrayerEvent extends Equatable {
 }
 
 class NextPrayerTimeEvent extends PrayerEvent {}
+
+class GetRandomWallpaper extends PrayerEvent {}

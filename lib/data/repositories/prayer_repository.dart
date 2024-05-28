@@ -15,6 +15,10 @@ class PrayerRepository {
     return await prayerApiProvider.getPrayerTimeSpesific(today, lat, long);
   }
 
+  Future<String> getRandomWallpaper() async {
+    return await prayerApiProvider.getRandomWallpaper();
+  }
+
   // Future<SurahModel> getAllSurah() {
   //   log(">>> Surah Repository Run : getAllSurah ");
   //   return prayerApiProvider.getSurah();

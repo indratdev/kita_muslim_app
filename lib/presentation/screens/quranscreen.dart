@@ -2,6 +2,7 @@ import 'dart:isolate';
 
 import 'package:flutter/material.dart';
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
+import 'package:kita_muslim/data/providers/api_prayer_provider.dart';
 import 'package:kita_muslim/data/providers/audio_provider.dart';
 import 'package:kita_muslim/presentation/widgets/customwidgets.dart';
 import 'package:kita_muslim/utils/constants.dart';
@@ -26,6 +27,7 @@ class _QuranScreenState extends State<QuranScreen> {
 
   @override
   void initState() {
+   
     super.initState();
   }
 

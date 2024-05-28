@@ -60,5 +60,18 @@ class PrayerBloc extends Bloc<PrayerEvent, PrayerState> {
         }
       },
     );
+
+    on<GetRandomWallpaper>((event, emit) async {
+      // https://images.unsplash.com/photo-1574545640323-59dc7a2b4a6d?crop=entropy&cs=srgb&fm=jpg&ixid=M3wyMTMxMTh8MHwxfHNlYXJjaHwxfHxtdXNsaW18ZW58MHwwfHx8MTcxNjkxMjA3MHww&ixlib=rb-4.0.3&q=85
+      emit(LoadingRandomWallpaper());
+      try {
+        String result = await prayerRepository.getRandomWallpaper();
+        print("result : $result");
+        emit(SuccessRandomWallpaper(urlImage: result));
+
+      } catch (e) {
+        emit(FailureRandomWallpaper(message: e.toString()));
+      }
+    },);
   }
 }

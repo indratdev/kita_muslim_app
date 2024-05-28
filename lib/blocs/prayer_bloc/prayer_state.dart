@@ -36,3 +36,22 @@ class SuccessNextPrayerTime extends PrayerState {
   @override
   List<Object> get props => [result];
 }
+
+// GetRandomWallpaper
+class FailureRandomWallpaper extends FailurePrayer {
+  FailureRandomWallpaper({required super.message});
+}
+
+class LoadingRandomWallpaper extends PrayerState {}
+
+class SuccessRandomWallpaper extends PrayerState {
+  // Map<String, dynamic> result;
+  String urlImage;
+
+  SuccessRandomWallpaper({
+    required this.urlImage,
+  });
+
+  @override
+  List<Object> get props => [urlImage];
+}

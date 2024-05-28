@@ -21,6 +21,7 @@ class Constants {
   static const textQuran = "Qur'an";
   static const appVersion = "v.1.1.0";
   static const appDevEmail = "indrat.dev@gmail.com";
+  static const clientIdUnsplash = "LbvlfhTLNsdV4qp5Rsm0JlfsBR06GTEuP_b9mjcjOJ4";
 
   static const assetsLocation = "assets\\audios\\";
 

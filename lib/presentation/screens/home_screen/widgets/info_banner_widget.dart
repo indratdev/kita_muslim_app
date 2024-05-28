@@ -27,7 +27,9 @@ class InfoBannerWidget extends StatelessWidget {
         child:
             // Center(child: CircularProgressIndicator.adaptive(),),
             BlocBuilder<PrayerBloc, PrayerState>(
+              buildWhen: (previous, current) => current is NextPrayerTimeEvent,
           builder: (context, state) {
+
             if (state is LoadingNextPrayerTime) {
               return const Center(
                 child: CircularProgressIndicator.adaptive(),
@@ -67,10 +69,11 @@ class InfoBannerWidget extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                           fontSize: MediaQuery.sizeOf(context).width / 15),
                     ),
+                
                     NextTimeDurationWidget(
                       datas: datas,
-                      currentTimeString: datas['current_times'],
-                      targetTimeeString: datas['next_times'],
+                      currentTimeString: datas['current_times'] ?? "00:00",
+                      targetTimeeString: datas['next_times'] ?? "00:00",
                     ),
                   ],
                 ),

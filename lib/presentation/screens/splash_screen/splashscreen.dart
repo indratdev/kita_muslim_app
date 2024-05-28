@@ -21,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 2),
       () {
         BlocProvider.of<PrayerBloc>(context).add(NextPrayerTimeEvent());
+        BlocProvider.of<PrayerBloc>(context).add(GetRandomWallpaper());
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

@@ -1,9 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart';
-import 'package:intl/intl.dart';
-import 'package:kita_muslim/data/providers/api_prayer_provider.dart';
 import 'package:kita_muslim/data/repositories/prayer_repository.dart';
 import 'package:kita_muslim/data/services/location_services.dart';
 import 'package:kita_muslim/utils/datetime_utils.dart';
@@ -17,6 +14,10 @@ class PrayerBloc extends Bloc<PrayerEvent, PrayerState> {
   final prayerRepository = PrayerRepository();
 
   PrayerBloc() : super(PrayerInitial()) {
+    on<InitialPrayerEvent>((event, emit) {
+      emit(PrayerInitial());
+    });
+
     on<NextPrayerTimeEvent>(
       (event, emit) async {
         try {
@@ -58,6 +59,47 @@ class PrayerBloc extends Bloc<PrayerEvent, PrayerState> {
         } catch (e) {
           emit(FailureNextPrayerTime(message: e.toString()));
         }
+      },
+    );
+
+    // prayer time
+    on<GetPrayerTimeEvent>(
+      (event, emit) async {
+        try {
+          emit(LoadingPrayerTime());
+
+          late String datePrayer;
+
+          (event.date != null)
+              ? datePrayer = event.date!
+              : datePrayer = DateTimeUtils.getTodayDate();
+
+          LocationService locationService = LocationService();
+          Position? locations = await locationService.getCurrentPosition();
+          if (locations == null) {
+            return;
+          }
+
+          PrayerTimeModel? prayerTime =
+              await prayerRepository.getPrayerTimeSpesific(
+                  datePrayer, locations.latitude, locations.longitude);
+
+          Map<String, dynamic> sortedTimings =
+              DateTimeUtils().sortTimings(prayerTime!.data.timings.toJson());
+
+          print(sortedTimings);
+
+          emit(SuccessPrayerTime(result: sortedTimings));
+        } catch (e) {
+          emit(FailurePrayerTime(message: e.toString()));
+        }
+      },
+    );
+
+    on<ChangeDatePrayerEvent>(
+      (event, emit) {
+        String result = DateTimeUtils().changeDateTime(event.isAdd, event.date);
+        emit(SuccessChangeDatePrayer(date: result));
       },
     );
 

@@ -4,10 +4,21 @@ import 'package:kita_muslim/presentation/screens/home_screen/widgets/next_time_d
 
 import '../../../../utils/constants.dart';
 
-class InfoBannerWidget extends StatelessWidget {
+class InfoBannerWidget extends StatefulWidget {
   const InfoBannerWidget({
     super.key,
   });
+
+  @override
+  State<InfoBannerWidget> createState() => _InfoBannerWidgetState();
+}
+
+class _InfoBannerWidgetState extends State<InfoBannerWidget> {
+@override
+  void dispose() {
+    BlocProvider.of<PrayerBloc>(context).add(InitialPrayerEvent());
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +39,8 @@ class InfoBannerWidget extends StatelessWidget {
             // Center(child: CircularProgressIndicator.adaptive(),),
             BlocBuilder<PrayerBloc, PrayerState>(
               buildWhen: (previous, current) => current is NextPrayerTimeEvent,
+             
+
           builder: (context, state) {
 
             if (state is LoadingNextPrayerTime) {
@@ -42,7 +55,9 @@ class InfoBannerWidget extends StatelessWidget {
             }
 
             if (state is SuccessNextPrayerTime) {
+              //  context.read<PrayerBloc>().add(InitialPrayerEvent());
               Map<String, dynamic> datas = state.result;
+            
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Column(
@@ -78,7 +93,9 @@ class InfoBannerWidget extends StatelessWidget {
                   ],
                 ),
               );
-            } else {
+              //  BlocProvider.of<PrayerBloc>(context).add(InitialPrayerEvent());
+            } 
+            else {
               return const Center(
                 child: Text("Failed to load data"),
               );

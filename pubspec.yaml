@@ -37,7 +37,7 @@ dependencies:
   equatable: ^2.0.3
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.1
+  flutter_bloc: ^8.1.5
   flutter_qiblah: ^3.0.3
   flutter_svg: ^2.0.10+1
   geocoding: ^3.0.0

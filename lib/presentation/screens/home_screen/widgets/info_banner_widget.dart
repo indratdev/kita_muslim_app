@@ -14,7 +14,7 @@ class InfoBannerWidget extends StatefulWidget {
 }
 
 class _InfoBannerWidgetState extends State<InfoBannerWidget> {
-@override
+  @override
   void dispose() {
     BlocProvider.of<PrayerBloc>(context).add(InitialPrayerEvent());
     super.dispose();
@@ -38,11 +38,11 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
         child:
             // Center(child: CircularProgressIndicator.adaptive(),),
             BlocBuilder<PrayerBloc, PrayerState>(
-              buildWhen: (previous, current) => current is NextPrayerTimeEvent,
-             
-
+          buildWhen: (previous, current) =>
+              current is LoadingNextPrayerTime ||
+              current is FailureNextPrayerTime ||
+              current is SuccessNextPrayerTime,
           builder: (context, state) {
-
             if (state is LoadingNextPrayerTime) {
               return const Center(
                 child: CircularProgressIndicator.adaptive(),
@@ -57,7 +57,7 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
             if (state is SuccessNextPrayerTime) {
               //  context.read<PrayerBloc>().add(InitialPrayerEvent());
               Map<String, dynamic> datas = state.result;
-            
+
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Column(
@@ -84,7 +84,6 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
                           fontWeight: FontWeight.w800,
                           fontSize: MediaQuery.sizeOf(context).width / 15),
                     ),
-                
                     NextTimeDurationWidget(
                       datas: datas,
                       currentTimeString: datas['current_times'] ?? "00:00",
@@ -94,8 +93,7 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
                 ),
               );
               //  BlocProvider.of<PrayerBloc>(context).add(InitialPrayerEvent());
-            } 
-            else {
+            } else {
               return const Center(
                 child: Text("Failed to load data"),
               );

@@ -42,15 +42,13 @@ class ApiPrayerProvider {
         'client_id': Constants.clientIdUnsplash,
         'per_page': 20,
         'orientation': "landscape",
+        'order_by': 'latest',
       };
 
       response = await dio.get(
         urlWallpaper,
         queryParameters: params,
       );
-
-      // print(response.data);
-      // print(response.data["results"][0]["urls"]["full"]);
 
       return response.data["results"][0]["urls"]["full"];
     } catch (e) {

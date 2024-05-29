@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kita_muslim/blocs/article_bloc/article_bloc.dart';
 import 'package:kita_muslim/data/models/article/article_muslim_model.dart';
+import 'package:kita_muslim/data/providers/api_article_provider.dart';
+import 'package:kita_muslim/presentation/screens/article_screen/article_detail_screen.dart';
 import 'package:kita_muslim/utils/constants.dart';
 
 class NewsMenuWidget extends StatelessWidget {
@@ -70,51 +72,64 @@ class NewsMenuWidget extends StatelessWidget {
                   items: articles.data!.data!.map((e) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4.0),
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: CachedNetworkImage(
-                                    fit: BoxFit.fill,
-                                    imageUrl: e.thumbnail ??
-                                        Constants.urlImageNotFound,
-                                    progressIndicatorBuilder:
-                                        (context, url, downloadProgress) =>
-                                            Center(
-                                      child: CircularProgressIndicator(
-                                        value: downloadProgress.progress,
+                        return InkWell(
+                          onTap: () {
+                            context.read<ArticleBloc>().add(
+                                GetDetailArticleEvent(articleId: e.id ?? ""));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ArticleDetailScreen(),
+                                ));
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(4.0),
+                              child: Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.fill,
+                                      imageUrl: e.thumbnail ??
+                                          Constants.urlImageNotFound,
+                                      progressIndicatorBuilder:
+                                          (context, url, downloadProgress) =>
+                                              Center(
+                                        child: CircularProgressIndicator(
+                                          value: downloadProgress.progress,
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          const Center(
+                                        child: Icon(Icons.error),
                                       ),
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                        const Center(
-                                      child: Icon(Icons.error),
+                                  ),
+                                  Positioned(
+                                    bottom: 10.0,
+                                    left: 8.0,
+                                    right: 8.0,
+                                    child: Text(
+                                      e.title ?? "",
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize:
+                                            MediaQuery.sizeOf(context).width /
+                                                25,
+                                        color: Colors.white,
+                                        backgroundColor: const Color.fromARGB(
+                                            115, 54, 43, 43),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  bottom: 10.0,
-                                  left: 8.0,
-                                  right: 8.0,
-                                  child: Text(
-                                    e.title ?? "",
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.sizeOf(context).width / 25,
-                                      color: Colors.white,
-                                      backgroundColor:
-                                          const Color.fromARGB(115, 54, 43, 43),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );

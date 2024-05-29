@@ -11,7 +11,6 @@ class ApiArticleProvider {
     try {
       Response response;
       String url = muslimorid;
-
       Map<String, dynamic> params = {
         'page': 1,
         // 's': "Tata cara sholat", // "s" for searching query
@@ -23,6 +22,23 @@ class ApiArticleProvider {
       );
 
       return ArticleMuslimModel.fromJson(response.data);
+    } catch (e) {
+      // return null;
+      print(e.toString());
+      throw e.toString();
+    }
+  }
+
+  // detail
+  Future<Datum> getDetailArticle(String id) async {
+    try {
+      Response response;
+      String url = "$muslimorid/detail/$id";
+
+      response = await dio.get(url);
+      Map<String, dynamic> result = response.data["data"];
+
+      return Datum.fromJson(result);
     } catch (e) {
       // return null;
       print(e.toString());

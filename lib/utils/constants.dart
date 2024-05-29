@@ -49,6 +49,14 @@ class Constants {
 
   static const urlImageNotFound = "https://demofree.sirv.com/nope-not-here.jpg";
 
+  static List<Color> tagColors = [
+    Colors.amber,
+    Colors.blue,
+    Colors.green,
+    Colors.red,
+    Colors.purple,
+  ];
+
   static const sizeBottomNav = 30.0;
 
   static const sizeTextTitle = 23.0;

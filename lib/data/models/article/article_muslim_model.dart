@@ -47,6 +47,7 @@ class Datum {
   String? url;
   String? type;
   List<dynamic>? categories;
+  String? content_html;
 
   Datum({
     this.id,
@@ -59,6 +60,7 @@ class Datum {
     this.url,
     this.type,
     this.categories,
+    this.content_html,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);

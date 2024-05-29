@@ -21,5 +21,18 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
         emit(FailureRandomArticle(message: e.toString()));
       }
     });
+
+    // detail article
+    on<GetDetailArticleEvent>((event, emit) async {
+      emit(LoadingDetailArticle());
+      try {
+        Datum detailArticle =
+            await articleRepository.getDetailArticle(event.articleId);
+
+        emit(SuccessDetailArticle(result: detailArticle));
+      } catch (e) {
+        emit(FailureDetailArticle(message: e.toString()));
+      }
+    });
   }
 }

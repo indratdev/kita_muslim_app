@@ -8,3 +8,11 @@ sealed class ArticleEvent extends Equatable {
 }
 
 class GetRandomArticleEvent extends ArticleEvent {}
+
+class GetDetailArticleEvent extends ArticleEvent {
+  String articleId;
+
+  GetDetailArticleEvent({
+    required this.articleId,
+  });
+}

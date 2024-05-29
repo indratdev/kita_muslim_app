@@ -36,3 +36,21 @@ class SuccessRandomArticle extends ArticleState {
   @override
   List<Object> get props => [result];
 }
+
+///
+class FailureDetailArticle extends FailureArticle {
+  FailureDetailArticle({required super.message});
+}
+
+class LoadingDetailArticle extends ArticleState {}
+
+class SuccessDetailArticle extends ArticleState {
+  Datum result;
+
+  SuccessDetailArticle({
+    required this.result,
+  });
+
+  @override
+  List<Object> get props => [result];
+}

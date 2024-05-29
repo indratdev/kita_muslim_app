@@ -4,9 +4,12 @@ import '../models/article/article_muslim_model.dart';
 
 class ArticleRepository {
   final apiArticleProvider = ApiArticleProvider();
-  // final sharedPref = MySharedPref();
 
   Future<ArticleMuslimModel> getRandomArticle() async {
     return await apiArticleProvider.getRandomArticle();
+  }
+
+  Future<Datum> getDetailArticle(String id) async {
+    return await apiArticleProvider.getDetailArticle(id);
   }
 }

@@ -47,6 +47,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       url: json['url'] as String?,
       type: json['type'] as String?,
       categories: json['categories'] as List<dynamic>?,
+      content_html: json['content_html'] as String?,
     );
 
 Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
@@ -60,6 +61,7 @@ Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'url': instance.url,
       'type': instance.type,
       'categories': instance.categories,
+      'content_html': instance.content_html,
     };
 
 Pagination _$PaginationFromJson(Map<String, dynamic> json) => Pagination(

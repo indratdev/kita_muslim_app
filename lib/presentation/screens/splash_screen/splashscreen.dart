@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/blocs/article_bloc/article_bloc.dart';
 import 'package:kita_muslim/blocs/export.dart';
+import 'package:kita_muslim/blocs/prayer_bloc/prayer_bloc.dart';
+import 'package:kita_muslim/data/providers/api_article_provider.dart';
 import 'package:kita_muslim/presentation/screens/home_screen/home_screen_v2.dart';
 import 'package:kita_muslim/presentation/screens/home_screen/homescreen.dart';
 import 'package:kita_muslim/utils/constants.dart';
@@ -20,8 +23,13 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(seconds: 2),
       () {
-        BlocProvider.of<PrayerBloc>(context).add(NextPrayerTimeEvent());
-        BlocProvider.of<PrayerBloc>(context).add(GetRandomWallpaper());
+        // BlocProvider.of<PrayerBloc>(context).add(NextPrayerTimeEvent());
+        // BlocProvider.of<PrayerBloc>(context).add(GetRandomWallpaper());
+        BlocProvider.of<PrayerBloc>(context)
+          ..add(NextPrayerTimeEvent())
+          ..add(GetRandomWallpaper());
+        BlocProvider.of<ArticleBloc>(context).add(GetRandomArticleEvent());
+
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

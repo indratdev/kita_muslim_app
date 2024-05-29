@@ -25,7 +25,7 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
     return Positioned(
       right: 10,
       left: 10,
-      bottom: 3,
+      bottom: 2,
       child: Container(
         height: MediaQuery.sizeOf(context).height / 7,
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -35,9 +35,7 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
               image: AssetImage(Constants.bannerImage),
               fit: BoxFit.fitWidth,
             )),
-        child:
-            // Center(child: CircularProgressIndicator.adaptive(),),
-            BlocBuilder<PrayerBloc, PrayerState>(
+        child: BlocBuilder<PrayerBloc, PrayerState>(
           buildWhen: (previous, current) =>
               current is LoadingNextPrayerTime ||
               current is FailureNextPrayerTime ||
@@ -55,9 +53,7 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
             }
 
             if (state is SuccessNextPrayerTime) {
-              //  context.read<PrayerBloc>().add(InitialPrayerEvent());
               Map<String, dynamic> datas = state.result;
-
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Column(

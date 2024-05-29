@@ -47,6 +47,8 @@ class Constants {
 
   // end image
 
+  static const urlImageNotFound = "https://demofree.sirv.com/nope-not-here.jpg";
+
   static const sizeBottomNav = 30.0;
 
   static const sizeTextTitle = 23.0;

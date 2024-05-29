@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kita_muslim/blocs/export.dart';
 import 'package:kita_muslim/presentation/screens/home_screen/widgets/export.dart';
 
+import '../../../data/providers/api_article_provider.dart';
 import '../../../utils/constants.dart';
 import '../../widgets/customwidgets.dart';
 
@@ -25,12 +26,17 @@ class HomeScreenV2 extends StatelessWidget {
               print("press");
               // LocationService().getLocationNameByCoordinate();
               // ApiPrayerProvider().getRandomWallpaper();
+              /// test
+
+              ApiArticleProvider().getRandomArticle();
             },
             icon: const Icon(Icons.check),
           ),
         ],
       ),
       body: ListView(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
         children: [
           Stack(
             children: [
@@ -44,7 +50,6 @@ class HomeScreenV2 extends StatelessWidget {
                         current is FailureRandomWallpaper ||
                         current is SuccessRandomWallpaper,
                     builder: (context, state) {
-                      print(">> state : $state");
                       if (state is LoadingRandomWallpaper) {
                         return const Center(
                           child: CircularProgressIndicator.adaptive(),
@@ -57,7 +62,6 @@ class HomeScreenV2 extends StatelessWidget {
                         );
                       }
                       if (state is SuccessRandomWallpaper) {
-                        print("state : ${state.urlImage}");
                         return Image.network(
                           state.urlImage,
                           fit: BoxFit.cover,
@@ -69,13 +73,13 @@ class HomeScreenV2 extends StatelessWidget {
                   ),
                 ),
               ),
-              InfoBannerWidget(),
+              const InfoBannerWidget(),
             ],
           ),
 
           // 2
-          MainMenuWidget(),
-          NewsMenuWidget()
+          const MainMenuWidget(),
+          const NewsMenuWidget()
         ],
       ),
     );

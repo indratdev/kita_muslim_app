@@ -50,7 +50,7 @@ class ApiPrayerProvider {
         queryParameters: params,
       );
 
-      return response.data["results"][0]["urls"]["full"];
+      return response.data["results"][0]["urls"]["regular"];
     } catch (e) {
       throw e.toString();
     }

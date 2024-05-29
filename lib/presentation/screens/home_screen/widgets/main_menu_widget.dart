@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../data/others/menu_controller.dart';
@@ -12,7 +11,7 @@ class MainMenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.sizeOf(context).height / 4,
+      height: MediaQuery.sizeOf(context).height / 4.2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: Constants.color3,

@@ -96,6 +96,14 @@ class MenusController {
         Navigator.pushNamed(context, Routes.hadists);
       },
     ),
+    // MenuModel(
+    //   menuIcon: (Constants.hadistImage),
+    //   menuName: "Artikel ",
+    //   menuRoute: (context) {
+    //     Navigator.pushNamed(context, Routes.articleScreen);
+    //     // context.read<HadistsBloc>().add(GetListBookHadists());
+    //   },
+    // ),
     MenuModel(
       menuIcon: Constants.allIcon,
       menuName: "Semua",

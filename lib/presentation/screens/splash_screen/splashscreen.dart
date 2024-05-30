@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:kita_muslim/blocs/article_bloc/article_bloc.dart';
 import 'package:kita_muslim/blocs/export.dart';
 import 'package:kita_muslim/blocs/prayer_bloc/prayer_bloc.dart';
+import 'package:kita_muslim/data/datasources/db/sqlhelper.dart';
+import 'package:kita_muslim/data/datasources/local_data_source.dart';
 import 'package:kita_muslim/data/providers/api_article_provider.dart';
 import 'package:kita_muslim/presentation/screens/home_screen/home_screen_v2.dart';
 import 'package:kita_muslim/presentation/screens/home_screen/homescreen.dart';
@@ -17,8 +19,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final LocalDataSourceImpl _helper = LocalDataSourceImpl();
   @override
   void initState() {
+    _helper.readSurah();
+
     super.initState();
     Timer(
       const Duration(seconds: 2),

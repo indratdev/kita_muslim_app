@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:kita_muslim/data/models/hadits/hadistRange_model.dart';
 import 'package:kita_muslim/data/models/hadits/hadistsR_model.dart';
 import 'package:kita_muslim/data/models/hadits/hadists_model.dart';
@@ -11,6 +12,8 @@ import 'package:http/http.dart' as http;
 class ApiSurahProvider {
   String baseUrl = 'https://quran-api-mu.vercel.app/';
   String baseUrlHadists = 'https://hadith-api-one.vercel.app';
+
+  final dio = Dio();
   // String basePrayerTime = ' http://api.aladhan.com/v1/calendar/';
   //     'http://api.aladhan.com/v1/timings/21-05-2024?latitude=-6.273298&longitude=106.869469&method=20';
   // final currentTime = Times().currentTime();
@@ -29,17 +32,45 @@ class ApiSurahProvider {
   //   }
   // }
 
-  Future<SurahModel> getSurah() async {
-    Uri url = Uri.parse('$baseUrl/surah');
-    var response = await http.get(url);
-    var result = jsonDecode(response.body);
+  // old version
+  // Future<SurahModel> getSurah() async {
+  //   Uri url = Uri.parse('$baseUrl/surah');
+  //   var response = await http.get(url);
+  //   var result = jsonDecode(response.body);
 
-    if (result['code'] == 200 || result['status'] == 'OK.') {
-      return SurahModel.fromJson(result);
-    } else {
-      throw Exception('Failed Get Surah');
+  //   if (result['code'] == 200 || result['status'] == 'OK.') {
+  //     return SurahModel.fromJson(result);
+  //   } else {
+  //     throw Exception('Failed Get Surah');
+  //   }
+  // }
+
+  Future<SurahModel> getSurah() async {
+    try {
+      Response response;
+      String url = '$baseUrl/surah';
+      response = await dio.get(url);
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed Get Surah');
+      }
+
+      return SurahModel.fromJson(response.data);
+    } catch (e) {
+      throw Exception('Failed Get Surah : $e');
     }
   }
+
+  //   Uri url = Uri.parse('$baseUrl/surah');
+  //   var response = await http.get(url);
+  //   var result = jsonDecode(response.body);
+
+  //   if (result['code'] == 200 || result['status'] == 'OK.') {
+  //     return SurahModel.fromJson(result);
+  //   } else {
+  //     throw Exception('Failed Get Surah');
+  //   }
+  // }
 
   Future<List<SurahHarianModel>> getSurahHarian() async {
     Uri url = Uri.parse("https://doa-doa-api-ahmadramadhan.fly.dev/api");

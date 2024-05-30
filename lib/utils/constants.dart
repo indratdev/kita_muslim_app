@@ -44,6 +44,7 @@ class Constants {
   static const bannerImage = "assets/images/banner_image.png";
   static const compassImage = "assets/images/compass.png";
   static const needleImage = "assets/images/needle.png";
+  static const backgroundImage = "assets/images/background.png";
 
   // end image
 
@@ -110,3 +111,4 @@ class Constants {
 // <a href="https://www.flaticon.com/free-icons/select-all" title="select all icons">Select all icons created by bsd - Flaticon</a>
 // <a href="https://www.flaticon.com/free-icons/qibla" title="qibla icons">Qibla icons created by Aranagraphics - Flaticon</a>
 // <a href="https://www.flaticon.com/free-icons/calculator" title="calculator icons">Calculator icons created by Freepik - Flaticon</a>
+// https://unsplash.com/photos/white-wall-paint-with-black-shadow-zGZYQQVmXw0?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash

@@ -114,5 +114,21 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
         emit(FailureSurah(errorMessage: "Error: Gagal Memuat Index Data"));
       }
     });
+
+    /// localstorage
+    on<GetNumberOfSurahOnLocalStorage>((event, emit) async {
+      emit(LoadingGetNumberOfSurahOnLocalStorage());
+
+      try {
+        // check total number surah on localstorage
+        String totalSurah =
+            await surahRepository.getStatusSurahOnLocalStorage();
+
+        // if number of surah not 144 let's download
+        if (totalSurah != "144") {}
+      } catch (e) {
+        emit(FailureGetNumberOfSurahOnLocalStorage(errorMessage: e.toString()));
+      }
+    });
   }
 }

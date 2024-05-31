@@ -77,3 +77,5 @@ class SendIndexDoaHarianEvent extends SurahEvent {
     required this.indexSurah,
   });
 }
+
+class GetNumberOfSurahOnLocalStorage extends SurahEvent {}

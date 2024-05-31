@@ -28,14 +28,14 @@ class Data {
   Name name;
   Revelation revelation;
   Tafsir tafsir;
-  // String preBismillah;
+  String preBismillah;
   List<Verses> verses;
 
   Data({
     required this.name,
     this.number = 0,
     this.numberOfVerses = 0,
-    // this.preBismillah = '',
+    this.preBismillah = '',
     required this.revelation,
     this.sequence = 0,
     required this.tafsir,

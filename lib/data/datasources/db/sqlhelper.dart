@@ -1,6 +1,7 @@
-import 'package:http/http.dart';
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../../models/surah/surah_model.dart';
 
 class SqlHelper {
   final String dbName = 'dbmuslim.db';
@@ -34,6 +35,13 @@ class SqlHelper {
     await db.execute('''
     CREATE TABLE $tableDetailSurah    (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      prebismillah_arab TEXT NULL,
+      prebismillah_transliteration_en TEXT NULL,
+      prebismillah_translation_en TEXT NULL,
+      prebismillah_translation_id TEXT NULL,
+      prebismillah_audio_primary TEXT NULL,
+      prebismillah_audio_secondary_1 TEXT NULL,
+      prebismillah_audio_secondary_2 TEXT NULL,
       number_inquran TEXT NULL,
       number_insurah TEXT NULL,
       juz TEXT NULL,
@@ -44,7 +52,7 @@ class SqlHelper {
       sajda_recomended TEXT NULL,
       sajda_obligatory TEXT NULL,
       text_arab TEXT NULL,
-      text_transliteration_en TEXT NULL,
+      text_transliteration_en TEXT NULL,      
       translation_en TEXT NULL,
       translation_id TEXT NULL,
       audio_primary TEXT NULL,
@@ -221,6 +229,48 @@ class SqlHelper {
   //   }
   //   return result;
   // }
+
+  Future<int> insertSurahHeader(
+      Database? db, SqlDatabase instance, Data data) async {
+    final db = await instance.database;
+    int result = 0;
+    if (db != null) {
+      result = await db.rawInsert('''
+      INSERT INTO $tableSurah (number,sequence,number_of_verses,name_short,name_long,transliteration_en,transliteration_id,translation_en,translation_id,revelation_arab,revelation_en,revelation_id,tafsir)
+      VALUES
+      (
+        '${data.number}'
+      ,'${data.sequence}'
+      ,'${data.numberOfVerses}'
+      ,'${data.name.short}'
+      ,'${data.name.long}'
+      ,'${data.name.transliteration.en}'
+      ,'${data.name.transliteration.id}'
+      ,'${data.name.translation.en}'
+      ,'${data.name.translation.id}'
+      ,'${data.revelation.arab}'
+      ,'${data.revelation.en}'
+      ,'${data.revelation.id}'      
+      , "${data.tafsir.id}"
+      );
+      ''');
+    }
+    return result;
+  }
+
+  //  "${data.number}"
+  //     ,"${data.sequence}"
+  //     ,"${data.numberOfVerses}"
+  //     ,"${data.name.short}"
+  //     ,"${data.name.long}"
+  //     ,"${data.name.transliteration.en}"
+  //     ,"${data.name.transliteration.id}"
+  //     ,"${data.name.translation.en}"
+  //     ,"${data.name.translation.id}"
+  //     ,"${data.revelation.arab}"
+  //     ,"${data.revelation.en}"
+  //     ,"${data.revelation.id}"
+  //     ,"${data.tafsir.id.replaceAll("'", "`").replaceAll('"', '`')}"
 
   // // Future<List<TransactionModel>>
   // Future<List<TransactionModel>> readTransaction(
@@ -414,7 +464,7 @@ class SqlHelper {
   // }
 
   // // read passcode exist
-  readSurah(Database? db, SqlDatabase instance) async {
+  Future<String> readNumberOfSurah(Database? db, SqlDatabase instance) async {
     final db = await instance.database;
 
     String query = """ select count(id) from $tableSurah ; """;
@@ -422,12 +472,13 @@ class SqlHelper {
     if (db != null) {
       final result = await db.rawQuery(''' $query''');
 
-      var countData = result.first.values.first.toString();
-      print(">>> countData : $countData");
+      String countData = result.first.values.first.toString();
+      // print(">>> countData : $countData");
 
       // return (result.first.values.first.toString() == defaultPasscode) // 00000
       //     ? false
       //     : true;
+      return countData;
     } else {
       throw Exception('DB is null');
     }

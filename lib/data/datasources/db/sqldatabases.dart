@@ -1,4 +1,5 @@
 import 'package:kita_muslim/data/datasources/db/sqlhelper.dart';
+import 'package:kita_muslim/data/models/surah/surah_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:path/path.dart';
@@ -53,6 +54,12 @@ class SqlDatabase {
   //   final result = await sqlHelper.createCategory(db, instance, category);
   //   return result;
   // }
+
+  insertInitialSurahHeader(Data data) async {
+    final db = await instance.database;
+    final result = await sqlHelper.insertSurahHeader(db, instance, data);
+    return result;
+  }
 
   // //read master category
   // Future<List<CategoryModel>> readCategory(int isDefault) async {
@@ -150,10 +157,10 @@ class SqlDatabase {
 
   // // read passcode - exist
   // Future<bool>
-  readSurah() async {
+  Future<String> readNumberOfSurah() async {
     final db = await instance.database;
-    final result = await sqlHelper.readSurah(db, instance);
-    return result;
+    return await sqlHelper.readNumberOfSurah(db, instance);
+    // return result;
   }
 
   // // saving new passcode

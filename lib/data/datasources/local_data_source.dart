@@ -1,4 +1,5 @@
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
+import 'package:kita_muslim/data/models/surah/surah_model.dart';
 
 abstract class LocalDataSource {
   // getInitCategory();
@@ -18,7 +19,10 @@ abstract class LocalDataSource {
 //       int idTransaction, Transaction valueTransaction);
 //   Future<void> deleteAllData();
   // Future<bool>
-  readSurah();
+  Future<String> readNumberOfSurah();
+  insertInitialSurahHeader(Data data);
+  // insertInitialSurahDetail(Data data);
+  Data removeDoubleQuotes(Data data);
 
 //   // parameter
 //   Future<List<Map<String, dynamic>>> readParamThemes();
@@ -119,11 +123,6 @@ class LocalDataSourceImpl implements LocalDataSource {
   //   return await dbprovider.updateThemes(value);
   // }
 
-  @override
-  readSurah() async {
-    return await dbprovider.readSurah();
-  }
-
   // @override
   // Future<bool> savingPasscode(String value) async {
   //   return await dbprovider.savingNewPasscode(value);
@@ -142,5 +141,128 @@ class LocalDataSourceImpl implements LocalDataSource {
   // @override
   // Future<List<ReportModel>> generatedTransactionByYear(String year) async {
   //   return await dbprovider.generateReportYearly(year);
+  // }
+
+  @override
+  Future<String> readNumberOfSurah() async {
+    return await dbprovider.readNumberOfSurah();
+  }
+
+  @override
+  insertInitialSurahHeader(Data data) {
+    Data finalData = removeDoubleQuotes(data);
+    return dbprovider.insertInitialSurahHeader(finalData);
+  }
+
+  @override
+  // removeDoubleQuotes(Data data) {
+  //   Data? finalData;
+
+  //   finalData?.number = data.number.toInt();
+  //   finalData?.sequence = data.sequence.toInt();
+  //   finalData?.numberOfVerses = data.numberOfVerses.toInt();
+  //   finalData!.name.short =
+  //       data.name.short.toString().replaceAll("'", "`").replaceAll('"', '`');
+  //   finalData.name.long =
+  //       data.name.long.toString().replaceAll("'", "`").replaceAll('"', '`');
+  //   finalData.name.transliteration.en = data.name.transliteration.en
+  //       .toString()
+  //       .replaceAll("'", "`")
+  //       .replaceAll('"', '`');
+  //   finalData.name.transliteration.id = data.name.transliteration.id
+  //       .toString()
+  //       .replaceAll("'", "`")
+  //       .replaceAll('"', '`');
+  //   finalData.name.translation.en = data.name.translation.en
+  //       .toString()
+  //       .replaceAll("'", "`")
+  //       .replaceAll('"', '`');
+  //   finalData.name.translation.id = data.name.translation.id
+  //       .toString()
+  //       .replaceAll("'", "`")
+  //       .replaceAll('"', '`');
+  //   finalData.revelation.arab = data.revelation.arab
+  //       .toString()
+  //       .replaceAll("'", "`")
+  //       .replaceAll('"', '`');
+  //   finalData.revelation.en =
+  //       data.revelation.en.toString().replaceAll("'", "`").replaceAll('"', '`');
+  //   finalData.revelation.id =
+  //       data.revelation.id.toString().replaceAll("'", "`").replaceAll('"', '`');
+  //   finalData.tafsir.id =
+  //       data.tafsir.id.toString().replaceAll("'", "`").replaceAll('"', '`');
+
+  //   return finalData;
+  // }
+  Data removeDoubleQuotes(Data data) {
+    // Inisialisasi finalData dengan menyalin data yang ada
+    Data finalData = Data(
+      number: data.number,
+      sequence: data.sequence,
+      numberOfVerses: data.numberOfVerses,
+      name: Name(
+        short: data.name.short,
+        long: data.name.long,
+        transliteration: Transliteration(
+          en: data.name.transliteration.en,
+          id: data.name.transliteration.id,
+        ),
+        translation: Translation(
+          en: data.name.translation.en,
+          id: data.name.translation.id,
+        ),
+      ),
+      revelation: Revelation(
+        arab: data.revelation.arab,
+        en: data.revelation.en,
+        id: data.revelation.id,
+      ),
+      tafsir: Tafsir(
+        id: data.tafsir.id,
+      ),
+    );
+
+    // Memodifikasi data pada finalData
+    finalData.number = data.number.toInt();
+    finalData.sequence = data.sequence.toInt();
+    finalData.numberOfVerses = data.numberOfVerses.toInt();
+    finalData.name.short =
+        data.name.short.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.name.long =
+        data.name.long.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.name.transliteration.en = data.name.transliteration.en
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.name.transliteration.id = data.name.transliteration.id
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.name.translation.en = data.name.translation.en
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.name.translation.id = data.name.translation.id
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.revelation.arab = data.revelation.arab
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.revelation.en =
+        data.revelation.en.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.revelation.id =
+        data.revelation.id.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.tafsir.id =
+        data.tafsir.id.toString().replaceAll("'", "`").replaceAll('"', '`');
+
+    return finalData;
+  }
+
+  // @override
+  // insertInitialSurahDetail(SurahModel surahModel) {
+  //   // TODO: implement insertInitialSurahDetail
+  //   throw UnimplementedError();
   // }
 }

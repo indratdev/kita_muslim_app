@@ -174,3 +174,29 @@ class SuccessSendIndexSurahHarian extends SurahState {
   @override
   List<Object> get props => [indexSurah, surah];
 }
+
+/// localstorage
+///
+class LoadingGetNumberOfSurahOnLocalStorage extends SurahState {}
+
+class FailureGetNumberOfSurahOnLocalStorage extends SurahState {
+  String errorMessage;
+
+  FailureGetNumberOfSurahOnLocalStorage({
+    required this.errorMessage,
+  });
+
+  @override
+  List<Object> get props => [errorMessage];
+}
+
+class SuccessGetNumberOfSurahOnLocalStorage extends SurahState {
+  String result;
+
+  SuccessGetNumberOfSurahOnLocalStorage({
+    required this.result,
+  });
+
+  @override
+  List<Object> get props => [result];
+}

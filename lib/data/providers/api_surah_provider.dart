@@ -61,6 +61,22 @@ class ApiSurahProvider {
     }
   }
 
+  Future<SpesifikSurahModel> getDetailSurah(int number) async {
+     try {
+      Response response;
+      String url = '$baseUrl/surah/$number';
+      response = await dio.get(url);
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed Get Detail Surah');
+      }
+
+      return SpesifikSurahModel.fromJson(response.data);
+    } catch (e) {
+      throw Exception('Failed Get Detail Surah : $e');
+    }
+  }
+
   //   Uri url = Uri.parse('$baseUrl/surah');
   //   var response = await http.get(url);
   //   var result = jsonDecode(response.body);
@@ -86,18 +102,21 @@ class ApiSurahProvider {
     }
   }
 
-  Future<SpesifikSurahModel> getDetailSurah(int number) async {
-    Uri url = Uri.parse('$baseUrl/surah/$number');
-    var response = await http.get(url);
-    var result = jsonDecode(response.body);
+  
 
-    if (result['code'] == 200 || result['code'] == 'OK.') {
-      // var data = result['data'];
-      return SpesifikSurahModel.fromJson(result);
-    } else {
-      throw Exception('Failed Get Detail Surah');
-    }
-  }
+  ///old
+  // Future<SpesifikSurahModel> getDetailSurah(int number) async {
+  //   Uri url = Uri.parse('$baseUrl/surah/$number');
+  //   var response = await http.get(url);
+  //   var result = jsonDecode(response.body);
+
+  //   if (result['code'] == 200 || result['code'] == 'OK.') {
+  //     // var data = result['data'];
+  //     return SpesifikSurahModel.fromJson(result);
+  //   } else {
+  //     throw Exception('Failed Get Detail Surah');
+  //   }
+  // }
 
   Future<List<SpesifikSurahModel>> getListFavoriteSurah(
       List<String> listSurahNumber) async {

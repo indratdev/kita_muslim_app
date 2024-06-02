@@ -1,4 +1,6 @@
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
+import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
+    as spesifik;
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
 
 abstract class LocalDataSource {
@@ -21,8 +23,11 @@ abstract class LocalDataSource {
   // Future<bool>
   Future<String> readNumberOfSurah();
   insertInitialSurahHeader(Data data);
+  insertInitialSurahDetail(
+      int number, int sequence, int numberOfVerses, spesifik.Verses verses);
   // insertInitialSurahDetail(Data data);
   Data removeDoubleQuotes(Data data);
+  spesifik.Verses removeDoubleQuotesVerses(spesifik.Verses verses);
 
 //   // parameter
 //   Future<List<Map<String, dynamic>>> readParamThemes();
@@ -155,45 +160,14 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  // removeDoubleQuotes(Data data) {
-  //   Data? finalData;
+  insertInitialSurahDetail(
+      int number, int sequence, int numberOfVerses, spesifik.Verses verse) {
+    spesifik.Verses finalData = removeDoubleQuotesVerses(verse);
+    return dbprovider.insertInitialSurahDetail(
+        number, sequence, numberOfVerses, finalData);
+  }
 
-  //   finalData?.number = data.number.toInt();
-  //   finalData?.sequence = data.sequence.toInt();
-  //   finalData?.numberOfVerses = data.numberOfVerses.toInt();
-  //   finalData!.name.short =
-  //       data.name.short.toString().replaceAll("'", "`").replaceAll('"', '`');
-  //   finalData.name.long =
-  //       data.name.long.toString().replaceAll("'", "`").replaceAll('"', '`');
-  //   finalData.name.transliteration.en = data.name.transliteration.en
-  //       .toString()
-  //       .replaceAll("'", "`")
-  //       .replaceAll('"', '`');
-  //   finalData.name.transliteration.id = data.name.transliteration.id
-  //       .toString()
-  //       .replaceAll("'", "`")
-  //       .replaceAll('"', '`');
-  //   finalData.name.translation.en = data.name.translation.en
-  //       .toString()
-  //       .replaceAll("'", "`")
-  //       .replaceAll('"', '`');
-  //   finalData.name.translation.id = data.name.translation.id
-  //       .toString()
-  //       .replaceAll("'", "`")
-  //       .replaceAll('"', '`');
-  //   finalData.revelation.arab = data.revelation.arab
-  //       .toString()
-  //       .replaceAll("'", "`")
-  //       .replaceAll('"', '`');
-  //   finalData.revelation.en =
-  //       data.revelation.en.toString().replaceAll("'", "`").replaceAll('"', '`');
-  //   finalData.revelation.id =
-  //       data.revelation.id.toString().replaceAll("'", "`").replaceAll('"', '`');
-  //   finalData.tafsir.id =
-  //       data.tafsir.id.toString().replaceAll("'", "`").replaceAll('"', '`');
-
-  //   return finalData;
-  // }
+  @override
   Data removeDoubleQuotes(Data data) {
     // Inisialisasi finalData dengan menyalin data yang ada
     Data finalData = Data(
@@ -256,6 +230,47 @@ class LocalDataSourceImpl implements LocalDataSource {
         data.revelation.id.toString().replaceAll("'", "`").replaceAll('"', '`');
     finalData.tafsir.id =
         data.tafsir.id.toString().replaceAll("'", "`").replaceAll('"', '`');
+
+    return finalData;
+  }
+
+  @override
+  spesifik.Verses removeDoubleQuotesVerses(spesifik.Verses data) {
+    spesifik.Verses finalData = data;
+    finalData.audio.primary =
+        data.audio.primary.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.audio.secondary[0] = data.audio.secondary[0]
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.audio.secondary[1] = data.audio.secondary[1]
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.text.arab =
+        data.text.arab.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.text.transliteration.en = data.text.transliteration.en
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.translation.en = data.translation.en
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.translation.id = data.translation.id
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.tafsir.id["short"] = data.tafsir.id["short"]
+        .toString()
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.tafsir.id["long"] = data.tafsir.id["long"]
+        .toString()
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
 
     return finalData;
   }

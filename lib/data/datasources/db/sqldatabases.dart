@@ -1,4 +1,5 @@
 import 'package:kita_muslim/data/datasources/db/sqlhelper.dart';
+import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart' as spesifik;
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -58,6 +59,12 @@ class SqlDatabase {
   insertInitialSurahHeader(Data data) async {
     final db = await instance.database;
     final result = await sqlHelper.insertSurahHeader(db, instance, data);
+    return result;
+  }
+
+  insertInitialSurahDetail(int number, int sequence, int numberOfVerses, spesifik.Verses data) async {
+    final db = await instance.database;
+    final result = await sqlHelper.insertSurahDetail(db, instance, number, sequence, numberOfVerses, data);
     return result;
   }
 

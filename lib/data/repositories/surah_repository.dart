@@ -45,6 +45,23 @@ class SurahRepository {
     }
 
     print("### downloadAllSurahToLocal : done");
+    downloadAllDetailSurah();
+  }
+
+  downloadAllDetailSurah() async {
+    for (var i = 108; i <= 108; i++) {
+      SpesifikSurahModel details = await prayerApiProvider.getDetailSurah(i);
+      saveDetailSurahToLocal(details);
+    }
+    print("### downloadAllDetailSurah : done");
+  }
+
+  saveDetailSurahToLocal(SpesifikSurahModel surah) async {
+    var allData = surah.data;
+    for (var datas in allData.verses) {
+      await helperDB.insertInitialSurahDetail(
+          allData.number, allData.sequence, allData.numberOfVerses, datas);
+    }
   }
 
   /// backup

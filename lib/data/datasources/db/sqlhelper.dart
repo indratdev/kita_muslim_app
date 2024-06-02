@@ -1,4 +1,6 @@
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
+import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
+    as spesifik;
 import 'package:sqflite/sqflite.dart';
 
 import '../../models/surah/surah_model.dart';
@@ -35,6 +37,9 @@ class SqlHelper {
     await db.execute('''
     CREATE TABLE $tableDetailSurah    (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      number TEXT NULL,
+      sequence TEXT NULL,
+      number_of_verses TEXT NULL,
       prebismillah_arab TEXT NULL,
       prebismillah_transliteration_en TEXT NULL,
       prebismillah_translation_en TEXT NULL,
@@ -251,11 +256,64 @@ class SqlHelper {
       ,'${data.revelation.arab}'
       ,'${data.revelation.en}'
       ,'${data.revelation.id}'      
-      , "${data.tafsir.id}"
+      ,'${data.tafsir.id}'
       );
       ''');
     }
     return result;
+  }
+
+  Future<int> insertSurahDetail(Database? db, SqlDatabase instance, int number,
+      int sequence, int numberOfVerses, spesifik.Verses data) async {
+    final db = await instance.database;
+    int result = 0;
+    if (db != null) {
+      deleteSurahDetail(db, number, data.number.inSurah);
+
+      result = await db.rawInsert('''
+      INSERT INTO $tableDetailSurah (number, sequence, number_of_verses, prebismillah_arab, prebismillah_transliteration_en, prebismillah_translation_en, prebismillah_translation_id, prebismillah_audio_primary, prebismillah_audio_secondary_1, prebismillah_audio_secondary_2, number_inquran, number_insurah, juz, page, manzil, ruku, hizbquarter, sajda_recomended, sajda_obligatory, text_arab, text_transliteration_en, translation_en, translation_id, audio_primary, audio_secondary_0, audio_secondary_1, tafsir_id_short, tafsir_id_long)
+      VALUES
+      (
+        '$number'
+      ,'$sequence'
+      ,'$numberOfVerses'
+      ,'prebismillah_arab'
+      ,'prebismillah_arab'
+      ,'prebismillah_arab'
+      ,'prebismillah_arab'
+      ,'prebismillah_arab'
+      ,'prebismillah_arab'
+      ,'prebismillah_arab'
+      ,'${data.number.inQuran}'
+      ,'${data.number.inSurah}'
+      ,'${data.meta.juz}'
+      ,'${data.meta.page}'
+      ,'${data.meta.manzil}'
+      ,'${data.meta.ruku}'
+      ,'${data.meta.hizbQuarter}'
+      ,'${data.meta.sajda.recommended}'
+      ,'${data.meta.sajda.obligatory}'
+      ,'${data.text.arab}'
+      ,'${data.text.transliteration.en}'
+      ,'${data.translation.en}'
+      ,'${data.translation.id}'
+      ,'${data.audio.primary}'
+      ,'${data.audio.secondary[0]}'
+      ,'${data.audio.secondary[1]}'
+      ,'${data.tafsir.id["short"]}'
+      ,'${data.tafsir.id["long"]}'
+      );
+      ''');
+    }
+    return result;
+  }
+
+  Future<void> deleteSurahDetail(Database? db, int number, int inSurah) async {
+    if (db != null) {
+      await db.rawDelete('''
+      DELETE FROM $tableDetailSurah WHERE number = ? and number_insurah = ? ''',
+          [number, inSurah]);
+    }
   }
 
   //  "${data.number}"

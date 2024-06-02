@@ -264,7 +264,7 @@ class SqlHelper {
   }
 
   Future<int> insertSurahDetail(Database? db, SqlDatabase instance, int number,
-      int sequence, int numberOfVerses, spesifik.Verses data) async {
+      int sequence, int numberOfVerses, spesifik.PreBismillah? preBismillah, spesifik.Verses data) async {
     final db = await instance.database;
     int result = 0;
     if (db != null) {
@@ -277,13 +277,13 @@ class SqlHelper {
         '$number'
       ,'$sequence'
       ,'$numberOfVerses'
-      ,'prebismillah_arab'
-      ,'prebismillah_arab'
-      ,'prebismillah_arab'
-      ,'prebismillah_arab'
-      ,'prebismillah_arab'
-      ,'prebismillah_arab'
-      ,'prebismillah_arab'
+      ,'${preBismillah?.text?.arab}'
+      ,'${preBismillah?.text?.transliteration?.en}'
+      ,'${preBismillah?.translation?.en}'
+      ,'${preBismillah?.translation?.id}'
+      ,'${preBismillah?.audio?.primary}'
+      ,'${preBismillah?.audio?.secondary?[0]}'
+      ,'${preBismillah?.audio?.secondary?[1]}'
       ,'${data.number.inQuran}'
       ,'${data.number.inSurah}'
       ,'${data.meta.juz}'

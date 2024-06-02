@@ -8,7 +8,7 @@ part of 'hadistsR_model.dart';
 
 HadistsRModel _$HadistsRModelFromJson(Map<String, dynamic> json) =>
     HadistsRModel(
-      code: json['code'] as int? ?? 0,
+      code: (json['code'] as num?)?.toInt() ?? 0,
       message: json['message'] as String? ?? '',
       data: json['data'] == null
           ? null
@@ -27,7 +27,7 @@ Map<String, dynamic> _$HadistsRModelToJson(HadistsRModel instance) =>
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
       name: json['name'] as String,
       id: json['id'] as String,
-      available: json['available'] as int? ?? 0,
+      available: (json['available'] as num?)?.toInt() ?? 0,
       contents: ContentsR.fromJson(json['contents'] as Map<String, dynamic>),
     );
 
@@ -39,7 +39,7 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
     };
 
 ContentsR _$ContentsRFromJson(Map<String, dynamic> json) => ContentsR(
-      number: json['number'] as int? ?? 0,
+      number: (json['number'] as num?)?.toInt() ?? 0,
       arab: json['arab'] as String,
       id: json['id'] as String,
     );

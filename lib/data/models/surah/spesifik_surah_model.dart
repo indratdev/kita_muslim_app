@@ -28,14 +28,14 @@ class Data {
   Name name;
   Revelation revelation;
   Tafsir tafsir;
-  String preBismillah;
+  PreBismillah? preBismillah;
   List<Verses> verses;
 
   Data({
     required this.name,
     this.number = 0,
     this.numberOfVerses = 0,
-    this.preBismillah = '',
+    this.preBismillah,
     required this.revelation,
     this.sequence = 0,
     required this.tafsir,
@@ -123,6 +123,88 @@ class Tafsir {
 
   Map<String, dynamic> toJson() => _$TafsirToJson(this);
 }
+
+@JsonSerializable()
+class PreBismillah {
+  TextPre? text;
+  TranslationPre? translation;
+  AudioPre? audio;
+
+
+  PreBismillah({
+    this.text,
+    this.audio,
+    this.translation,
+  });
+
+  factory PreBismillah.fromJson(Map<String, dynamic> json) => _$PreBismillahFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PreBismillahToJson(this);
+}
+
+
+@JsonSerializable()
+class TextPre {
+  String? arab;
+  TransliterationPre? transliteration;
+
+
+ TextPre({
+    this.arab,
+    this.transliteration,
+  });
+
+  factory TextPre.fromJson(Map<String, dynamic> json) => _$TextPreFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TextPreToJson(this);
+
+}
+
+@JsonSerializable()
+class TransliterationPre {
+  String? en;
+
+
+ TransliterationPre({
+    this.en,
+  });
+
+  factory TransliterationPre.fromJson(Map<String, dynamic> json) => _$TransliterationPreFromJson(json);
+  Map<String, dynamic> toJson() => _$TransliterationPreToJson(this);
+
+}
+
+
+@JsonSerializable()
+class TranslationPre {
+  String en, id;
+
+  TranslationPre({
+    this.en = '',
+    this.id = '',
+  });
+
+  factory TranslationPre.fromJson(Map<String, dynamic> json) =>
+      _$TranslationPreFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TranslationPreToJson(this);
+}
+
+@JsonSerializable()
+class AudioPre {
+  String? primary;
+  List<String>? secondary;
+
+  AudioPre({
+    this.primary = '',
+    required this.secondary,
+  });
+
+  factory AudioPre.fromJson(Map<String, dynamic> json) => _$AudioPreFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AudioPreToJson(this);
+}
+
 
 @JsonSerializable()
 class Verses {

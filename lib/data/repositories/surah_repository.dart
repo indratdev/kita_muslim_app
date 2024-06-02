@@ -49,7 +49,7 @@ class SurahRepository {
   }
 
   downloadAllDetailSurah() async {
-    for (var i = 108; i <= 108; i++) {
+    for (var i = 1; i <= 114; i++) {
       SpesifikSurahModel details = await prayerApiProvider.getDetailSurah(i);
       saveDetailSurahToLocal(details);
     }
@@ -60,7 +60,7 @@ class SurahRepository {
     var allData = surah.data;
     for (var datas in allData.verses) {
       await helperDB.insertInitialSurahDetail(
-          allData.number, allData.sequence, allData.numberOfVerses, datas);
+          allData.number, allData.sequence, allData.numberOfVerses, allData.preBismillah, datas);
     }
   }
 

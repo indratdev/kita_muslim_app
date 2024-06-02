@@ -7,7 +7,7 @@ part of 'hadists_model.dart';
 // **************************************************************************
 
 HadistsModel _$HadistsModelFromJson(Map<String, dynamic> json) => HadistsModel(
-      code: json['code'] as int,
+      code: (json['code'] as num).toInt(),
       message: json['message'] as String,
       data: (json['data'] as List<dynamic>)
           .map((e) => DataBooksHadists.fromJson(e as Map<String, dynamic>))
@@ -27,7 +27,7 @@ DataBooksHadists _$DataBooksHadistsFromJson(Map<String, dynamic> json) =>
     DataBooksHadists(
       name: json['name'] as String,
       id: json['id'] as String,
-      available: json['available'] as int,
+      available: (json['available'] as num).toInt(),
     );
 
 Map<String, dynamic> _$DataBooksHadistsToJson(DataBooksHadists instance) =>

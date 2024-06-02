@@ -10,7 +10,7 @@ SurahModel _$SurahModelFromJson(Map<String, dynamic> json) => SurahModel(
       data: (json['data'] as List<dynamic>)
           .map((e) => Data.fromJson(e as Map<String, dynamic>))
           .toList(),
-      code: json['code'] as int,
+      code: (json['code'] as num).toInt(),
       message: json['message'] as String,
       status: json['status'] as String,
     );
@@ -24,9 +24,9 @@ Map<String, dynamic> _$SurahModelToJson(SurahModel instance) =>
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
-      number: json['number'] as int? ?? 0,
-      sequence: json['sequence'] as int? ?? 0,
-      numberOfVerses: json['numberOfVerses'] as int? ?? 0,
+      number: (json['number'] as num?)?.toInt() ?? 0,
+      sequence: (json['sequence'] as num?)?.toInt() ?? 0,
+      numberOfVerses: (json['numberOfVerses'] as num?)?.toInt() ?? 0,
       name: Name.fromJson(json['name'] as Map<String, dynamic>),
       revelation:
           Revelation.fromJson(json['revelation'] as Map<String, dynamic>),

@@ -24,7 +24,7 @@ abstract class LocalDataSource {
   Future<String> readNumberOfSurah();
   insertInitialSurahHeader(Data data);
   insertInitialSurahDetail(
-      int number, int sequence, int numberOfVerses, spesifik.Verses verses);
+      int number, int sequence, int numberOfVerses, spesifik.PreBismillah? prebismillah, spesifik.Verses verses);
   // insertInitialSurahDetail(Data data);
   Data removeDoubleQuotes(Data data);
   spesifik.Verses removeDoubleQuotesVerses(spesifik.Verses verses);
@@ -161,10 +161,10 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   insertInitialSurahDetail(
-      int number, int sequence, int numberOfVerses, spesifik.Verses verse) {
+      int number, int sequence, int numberOfVerses, spesifik.PreBismillah? preBismillah, spesifik.Verses verse) {
     spesifik.Verses finalData = removeDoubleQuotesVerses(verse);
     return dbprovider.insertInitialSurahDetail(
-        number, sequence, numberOfVerses, finalData);
+        number, sequence, numberOfVerses, preBismillah, finalData);
   }
 
   @override

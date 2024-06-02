@@ -8,7 +8,7 @@ part of 'spesifik_surah_model.dart';
 
 SpesifikSurahModel _$SpesifikSurahModelFromJson(Map<String, dynamic> json) =>
     SpesifikSurahModel(
-      code: json['code'] as int,
+      code: (json['code'] as num).toInt(),
       status: json['status'] as String,
       message: json['message'] as String,
       data: Data.fromJson(json['data'] as Map<String, dynamic>),
@@ -24,11 +24,14 @@ Map<String, dynamic> _$SpesifikSurahModelToJson(SpesifikSurahModel instance) =>
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
       name: Name.fromJson(json['name'] as Map<String, dynamic>),
-      number: json['number'] as int? ?? 0,
-      numberOfVerses: json['numberOfVerses'] as int? ?? 0,
+      number: (json['number'] as num?)?.toInt() ?? 0,
+      numberOfVerses: (json['numberOfVerses'] as num?)?.toInt() ?? 0,
+      preBismillah: json['preBismillah'] == null
+          ? null
+          : PreBismillah.fromJson(json['preBismillah'] as Map<String, dynamic>),
       revelation:
           Revelation.fromJson(json['revelation'] as Map<String, dynamic>),
-      sequence: json['sequence'] as int? ?? 0,
+      sequence: (json['sequence'] as num?)?.toInt() ?? 0,
       tafsir: Tafsir.fromJson(json['tafsir'] as Map<String, dynamic>),
       verses: (json['verses'] as List<dynamic>)
           .map((e) => Verses.fromJson(e as Map<String, dynamic>))
@@ -42,6 +45,7 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'name': instance.name,
       'revelation': instance.revelation,
       'tafsir': instance.tafsir,
+      'preBismillah': instance.preBismillah,
       'verses': instance.verses,
     };
 
@@ -106,6 +110,73 @@ Map<String, dynamic> _$TafsirToJson(Tafsir instance) => <String, dynamic>{
       'en': instance.en,
     };
 
+PreBismillah _$PreBismillahFromJson(Map<String, dynamic> json) => PreBismillah(
+      text: json['text'] == null
+          ? null
+          : TextPre.fromJson(json['text'] as Map<String, dynamic>),
+      audio: json['audio'] == null
+          ? null
+          : AudioPre.fromJson(json['audio'] as Map<String, dynamic>),
+      translation: json['translation'] == null
+          ? null
+          : TranslationPre.fromJson(
+              json['translation'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$PreBismillahToJson(PreBismillah instance) =>
+    <String, dynamic>{
+      'text': instance.text,
+      'translation': instance.translation,
+      'audio': instance.audio,
+    };
+
+TextPre _$TextPreFromJson(Map<String, dynamic> json) => TextPre(
+      arab: json['arab'] as String?,
+      transliteration: json['transliteration'] == null
+          ? null
+          : TransliterationPre.fromJson(
+              json['transliteration'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$TextPreToJson(TextPre instance) => <String, dynamic>{
+      'arab': instance.arab,
+      'transliteration': instance.transliteration,
+    };
+
+TransliterationPre _$TransliterationPreFromJson(Map<String, dynamic> json) =>
+    TransliterationPre(
+      en: json['en'] as String?,
+    );
+
+Map<String, dynamic> _$TransliterationPreToJson(TransliterationPre instance) =>
+    <String, dynamic>{
+      'en': instance.en,
+    };
+
+TranslationPre _$TranslationPreFromJson(Map<String, dynamic> json) =>
+    TranslationPre(
+      en: json['en'] as String? ?? '',
+      id: json['id'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$TranslationPreToJson(TranslationPre instance) =>
+    <String, dynamic>{
+      'en': instance.en,
+      'id': instance.id,
+    };
+
+AudioPre _$AudioPreFromJson(Map<String, dynamic> json) => AudioPre(
+      primary: json['primary'] as String? ?? '',
+      secondary: (json['secondary'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+    );
+
+Map<String, dynamic> _$AudioPreToJson(AudioPre instance) => <String, dynamic>{
+      'primary': instance.primary,
+      'secondary': instance.secondary,
+    };
+
 Verses _$VersesFromJson(Map<String, dynamic> json) => Verses(
       number: Number.fromJson(json['number'] as Map<String, dynamic>),
       meta: Meta.fromJson(json['meta'] as Map<String, dynamic>),
@@ -126,8 +197,8 @@ Map<String, dynamic> _$VersesToJson(Verses instance) => <String, dynamic>{
     };
 
 Number _$NumberFromJson(Map<String, dynamic> json) => Number(
-      inQuran: json['inQuran'] as int? ?? 0,
-      inSurah: json['inSurah'] as int? ?? 0,
+      inQuran: (json['inQuran'] as num?)?.toInt() ?? 0,
+      inSurah: (json['inSurah'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$NumberToJson(Number instance) => <String, dynamic>{
@@ -136,11 +207,11 @@ Map<String, dynamic> _$NumberToJson(Number instance) => <String, dynamic>{
     };
 
 Meta _$MetaFromJson(Map<String, dynamic> json) => Meta(
-      juz: json['juz'] as int? ?? 0,
-      page: json['page'] as int? ?? 0,
-      manzil: json['manzil'] as int? ?? 0,
-      ruku: json['ruku'] as int? ?? 0,
-      hizbQuarter: json['hizbQuarter'] as int? ?? 0,
+      juz: (json['juz'] as num?)?.toInt() ?? 0,
+      page: (json['page'] as num?)?.toInt() ?? 0,
+      manzil: (json['manzil'] as num?)?.toInt() ?? 0,
+      ruku: (json['ruku'] as num?)?.toInt() ?? 0,
+      hizbQuarter: (json['hizbQuarter'] as num?)?.toInt() ?? 0,
       sajda: Sajda.fromJson(json['sajda'] as Map<String, dynamic>),
     );
 

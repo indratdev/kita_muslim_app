@@ -9,7 +9,7 @@ part of 'prayer_time_model.dart';
 PrayerTimeModel _$PrayerTimeModelFromJson(Map<String, dynamic> json) =>
     PrayerTimeModel(
       data: Data.fromJson(json['data'] as Map<String, dynamic>),
-      code: json['code'] as int,
+      code: (json['code'] as num).toInt(),
       status: json['status'] as String,
     );
 
@@ -82,7 +82,7 @@ Map<String, dynamic> _$DesignationToJson(Designation instance) =>
 
 GregorianMonth _$GregorianMonthFromJson(Map<String, dynamic> json) =>
     GregorianMonth(
-      number: json['number'] as int,
+      number: (json['number'] as num).toInt(),
       en: json['en'] as String,
     );
 
@@ -126,7 +126,7 @@ Map<String, dynamic> _$HijriToJson(Hijri instance) => <String, dynamic>{
     };
 
 HijriMonth _$HijriMonthFromJson(Map<String, dynamic> json) => HijriMonth(
-      number: json['number'] as int,
+      number: (json['number'] as num).toInt(),
       en: json['en'] as String,
       ar: json['ar'] as String,
     );
@@ -172,7 +172,7 @@ Map<String, dynamic> _$MetaToJson(Meta instance) => <String, dynamic>{
     };
 
 Method _$MethodFromJson(Map<String, dynamic> json) => Method(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       params: Params.fromJson(json['params'] as Map<String, dynamic>),
       location: Location.fromJson(json['location'] as Map<String, dynamic>),
@@ -196,8 +196,8 @@ Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
     };
 
 Params _$ParamsFromJson(Map<String, dynamic> json) => Params(
-      Fajr: json['Fajr'] as int,
-      Isha: json['Isha'] as int,
+      Fajr: (json['Fajr'] as num).toInt(),
+      Isha: (json['Isha'] as num).toInt(),
     );
 
 Map<String, dynamic> _$ParamsToJson(Params instance) => <String, dynamic>{

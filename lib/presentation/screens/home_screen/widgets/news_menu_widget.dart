@@ -97,13 +97,13 @@ class NewsMenuWidget extends StatelessWidget {
                                       fit: BoxFit.fill,
                                       imageUrl: e.thumbnail ??
                                           Constants.urlImageNotFound,
-                                      progressIndicatorBuilder:
-                                          (context, url, downloadProgress) =>
-                                              Center(
-                                        child: CircularProgressIndicator(
-                                          value: downloadProgress.progress,
-                                        ),
-                                      ),
+                                      // progressIndicatorBuilder:
+                                      //     (context, url, downloadProgress) =>
+                                      //         Center(
+                                      //   child: CircularProgressIndicator(
+                                      //     value: downloadProgress.progress,
+                                      //   ),
+                                      // ),
                                       errorWidget: (context, url, error) =>
                                           const Center(
                                         child: Icon(Icons.error),

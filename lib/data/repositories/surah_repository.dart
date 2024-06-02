@@ -52,6 +52,8 @@ class SurahRepository {
     for (var i = 1; i <= 114; i++) {
       SpesifikSurahModel details = await prayerApiProvider.getDetailSurah(i);
       saveDetailSurahToLocal(details);
+
+      print(">>> downloadAllDetailSurah from $i to 144");
     }
     print("### downloadAllDetailSurah : done");
   }

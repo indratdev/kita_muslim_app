@@ -28,7 +28,7 @@ class HomeScreenV2 extends StatelessWidget {
               // ApiPrayerProvider().getRandomWallpaper();
               /// test
 
-              ApiArticleProvider().getRandomArticle();
+              // ApiArticleProvider().getRandomArticle();
             },
             icon: const Icon(Icons.check),
           ),

@@ -90,9 +90,7 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
               );
               //  BlocProvider.of<PrayerBloc>(context).add(InitialPrayerEvent());
             } else {
-              return const Center(
-                child: Text("Failed to load data"),
-              );
+              return const SizedBox();
             }
           },
         ),

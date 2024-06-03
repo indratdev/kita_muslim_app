@@ -389,8 +389,8 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                                     BlocProvider.of<SurahBloc>(
                                                             context)
                                                         .add(ViewDetailSurah(
-                                                            number:
-                                                                data.number));
+                                                            number: data.number
+                                                                .toString()));
                                                     BlocProvider.of<SurahBloc>(
                                                             context)
                                                         .add(GetLastAyatSurah(

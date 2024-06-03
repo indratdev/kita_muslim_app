@@ -24,15 +24,16 @@ class SurahModel {
 
 @JsonSerializable()
 class Data {
-  int number, sequence, numberOfVerses;
+  // int number, sequence, numberOfVerses;
+  String number, sequence, numberOfVerses;
   Name name;
   Revelation revelation;
   Tafsir tafsir;
 
   Data({
-    this.number = 0,
-    this.sequence = 0,
-    this.numberOfVerses = 0,
+    this.number = "",
+    this.sequence = "",
+    this.numberOfVerses = "",
     required this.name,
     required this.revelation,
     required this.tafsir,

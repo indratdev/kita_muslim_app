@@ -61,8 +61,8 @@ class ApiSurahProvider {
     }
   }
 
-  Future<SpesifikSurahModel> getDetailSurah(int number) async {
-     try {
+  Future<SpesifikSurahModel> getDetailSurah(String number) async {
+    try {
       Response response;
       String url = '$baseUrl/surah/$number';
       response = await dio.get(url);
@@ -102,8 +102,6 @@ class ApiSurahProvider {
     }
   }
 
-  
-
   ///old
   // Future<SpesifikSurahModel> getDetailSurah(int number) async {
   //   Uri url = Uri.parse('$baseUrl/surah/$number');
@@ -123,7 +121,7 @@ class ApiSurahProvider {
     List<SpesifikSurahModel> result = [];
 
     for (var surah in listSurahNumber) {
-      var data = await getDetailSurah(int.parse(surah));
+      var data = await getDetailSurah(surah);
       result.add(data);
     }
 

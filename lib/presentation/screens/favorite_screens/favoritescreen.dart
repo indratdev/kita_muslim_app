@@ -30,9 +30,8 @@ class FavoriteScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    context
-                        .read<SurahBloc>()
-                        .add(ViewDetailSurah(number: datas[index].data.number));
+                    context.read<SurahBloc>().add(ViewDetailSurah(
+                        number: datas[index].data.number.toString()));
 
                     // // check have you ever read
                     context.read<SurahBloc>().add(GetLastAyatSurah(
@@ -41,7 +40,7 @@ class FavoriteScreen extends StatelessWidget {
                     // // check all file audio is exist
                     context.read<AudiomanagementBloc>().add(
                         CheckAudioExistEvent(
-                            listAudio: datas[index].data.number));
+                            listAudio: datas[index].data.number.toString()));
 
                     // check this surah is favorite?
                     context.read<FavoriteBloc>().add(

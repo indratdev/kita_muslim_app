@@ -1,6 +1,7 @@
 import 'dart:isolate';
 
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/data/models/local/surah_local_model.dart';
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
 import 'package:kita_muslim/data/providers/api_prayer_provider.dart';
 import 'package:kita_muslim/data/providers/audio_provider.dart';
@@ -20,14 +21,13 @@ class QuranScreen extends StatefulWidget {
 class _QuranScreenState extends State<QuranScreen> {
   TextEditingController _searchController = TextEditingController();
   AudioProvider audioProvider = AudioProvider();
-  List<Data> dataSurah = [];
+  List<SurahLocalModel> dataSurah = [];
   int _indexSurah = 0;
 
   ReceivePort _port = ReceivePort();
 
   @override
   void initState() {
-   
     super.initState();
   }
 
@@ -45,7 +45,8 @@ class _QuranScreenState extends State<QuranScreen> {
                     child: Column(
                       children: [
                         listviewBody(
-                          data: state.surah.data,
+                          // data: state.surah.data,
+                          data: [],
                           indexSurah: state.indexSurah,
                         ),
                       ],
@@ -62,7 +63,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   );
                 }
                 if (state is SuccessGetSurah) {
-                  var data = state.surah.data;
+                  List<SurahLocalModel> data = state.surah;
                   dataSurah = data;
 
                   return Expanded(
@@ -93,7 +94,7 @@ class listviewBody extends StatelessWidget {
     required this.indexSurah,
   }) : super(key: key);
 
-  List<Data> data;
+  List<SurahLocalModel> data;
   int indexSurah;
 
   // Future<bool> audioFilesOnce(int data) async {
@@ -115,23 +116,23 @@ class listviewBody extends StatelessWidget {
             onTap: () {
               context
                   .read<SurahBloc>()
-                  .add(ViewDetailSurah(number: data[index].number));
+                  .add(ViewDetailSurah(number: data[index].number.toString()));
 
-              // check have you ever read
-              context.read<SurahBloc>().add(
-                  GetLastAyatSurah(surah: data[index].name.transliteration.id));
+              // // check have you ever read
+              // context.read<SurahBloc>().add(
+              //     GetLastAyatSurah(surah: data[index].name.transliteration.id));
 
-              // check all file audio is exist
-              context
-                  .read<AudiomanagementBloc>()
-                  .add(CheckAudioExistEvent(listAudio: data[index].number));
+              // // check all file audio is exist
+              // context
+              //     .read<AudiomanagementBloc>()
+              //     .add(CheckAudioExistEvent(listAudio: data[index].number));
 
-              // check this surah is favorite?
-              context.read<FavoriteBloc>().add(GetFavoriteSurahStatusEvent(
-                  surah: data[index].number.toString()));
+              // // check this surah is favorite?
+              // context.read<FavoriteBloc>().add(GetFavoriteSurahStatusEvent(
+              //     surah: data[index].number.toString()));
 
-              // set indexsurah
-              context.read<SurahBloc>().add(GetIndexSurah(indexSurah: index));
+              // // set indexsurah
+              // context.read<SurahBloc>().add(GetIndexSurah(indexSurah: index));
 
               Navigator.pushNamed(context, '/surahdetail');
             },
@@ -142,20 +143,23 @@ class listviewBody extends StatelessWidget {
                 style: const TextStyle(fontSize: Constants.sizeTextTitle),
               ),
               title: Text(
-                data[index].name.transliteration.id,
+                // data[index].name.transliteration.id,
+                data[index].transliteration_id.toString(),
                 style: const TextStyle(
                   fontSize: Constants.sizeTextTitle,
                 ),
               ),
               subtitle: Text(
-                '${data[index].name.translation.id} (${data[index].numberOfVerses}) ',
+                // '${data[index].name.translation.id} (${data[index].numberOfVerses}) ',
+                '${data[index].translation_id} (${data[index].number_of_verses}) ',
                 style: const TextStyle(
                   fontSize: Constants.sizeText,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
               trailing: Text(
-                data[index].name.short,
+                // data[index].name.short,
+                data[index].name_short.toString(),
                 style: const TextStyle(
                   fontSize: Constants.sizeTextArabian,
                   fontWeight: FontWeight.bold,

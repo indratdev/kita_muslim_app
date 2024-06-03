@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart';
-import 'package:kita_muslim/data/models/surah/surah_harian_model.dart';
+import 'package:kita_muslim/data/models/local/surah_local_model.dart';
+import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
+    as spesifik;
+import 'package:kita_muslim/data/models/surah/surah_harian_model.dart'
+    as harian;
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
 import 'package:kita_muslim/data/others/shared_preferences.dart';
 
@@ -20,9 +23,11 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     on<GetAllSurah>((event, emit) async {
       try {
         emit(LoadingSurah());
-        final result = await surahRepository.getAllSurah();
+        // final result = await surahRepository.getAllSurah();
+        final result = await surahRepository.getSurahLocal();
         emit(SuccessGetSurah(surah: result));
       } catch (e) {
+        print(e.toString());
         emit(FailureSurah(
             errorMessage: "Error: Gagal Memuat Data, Silahkan dicoba Kembali"));
       }
@@ -75,7 +80,7 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     on<SendDoaHarianDetailEvent>((event, emit) {
       try {
         emit(LoadingDoaHarianDetail());
-        SurahHarianModel result = event.surah;
+        harian.SurahHarianModel result = event.surah;
         emit(SuccessSendDoaHarianDetailState(
             surah: result, indexSurah: event.indexSurah));
       } catch (e) {

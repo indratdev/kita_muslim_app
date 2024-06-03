@@ -164,7 +164,7 @@ class AudioProvider {
     return result;
   }
 
-  Future<List<String>> getAudioResource(int number) async {
+  Future<List<String>> getAudioResource(String number) async {
     var result = await apiProvider.getDetailSurah(number);
     List<String> urlAudio = [];
 

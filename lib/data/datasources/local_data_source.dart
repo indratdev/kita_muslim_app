@@ -1,4 +1,5 @@
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
+import 'package:kita_muslim/data/models/local/surah_local_model.dart';
 import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
     as spesifik;
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
@@ -23,11 +24,12 @@ abstract class LocalDataSource {
   // Future<bool>
   Future<String> readNumberOfSurah();
   insertInitialSurahHeader(Data data);
-  insertInitialSurahDetail(
-      int number, int sequence, int numberOfVerses, spesifik.PreBismillah? prebismillah, spesifik.Verses verses);
+  insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
+      spesifik.PreBismillah? prebismillah, spesifik.Verses verses);
   // insertInitialSurahDetail(Data data);
   Data removeDoubleQuotes(Data data);
   spesifik.Verses removeDoubleQuotesVerses(spesifik.Verses verses);
+  Future<List<SurahLocalModel>> getAllSurah();
 
 //   // parameter
 //   Future<List<Map<String, dynamic>>> readParamThemes();
@@ -160,8 +162,8 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  insertInitialSurahDetail(
-      int number, int sequence, int numberOfVerses, spesifik.PreBismillah? preBismillah, spesifik.Verses verse) {
+  insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
+      spesifik.PreBismillah? preBismillah, spesifik.Verses verse) {
     spesifik.Verses finalData = removeDoubleQuotesVerses(verse);
     return dbprovider.insertInitialSurahDetail(
         number, sequence, numberOfVerses, preBismillah, finalData);
@@ -197,9 +199,9 @@ class LocalDataSourceImpl implements LocalDataSource {
     );
 
     // Memodifikasi data pada finalData
-    finalData.number = data.number.toInt();
-    finalData.sequence = data.sequence.toInt();
-    finalData.numberOfVerses = data.numberOfVerses.toInt();
+    finalData.number = data.number;
+    finalData.sequence = data.sequence;
+    finalData.numberOfVerses = data.numberOfVerses;
     finalData.name.short =
         data.name.short.toString().replaceAll("'", "`").replaceAll('"', '`');
     finalData.name.long =
@@ -275,9 +277,8 @@ class LocalDataSourceImpl implements LocalDataSource {
     return finalData;
   }
 
-  // @override
-  // insertInitialSurahDetail(SurahModel surahModel) {
-  //   // TODO: implement insertInitialSurahDetail
-  //   throw UnimplementedError();
-  // }
+  @override
+  Future<List<SurahLocalModel>> getAllSurah() async {
+    return await dbprovider.getAllSurah();
+  }
 }

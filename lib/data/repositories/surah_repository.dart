@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:kita_muslim/data/models/local/surah_local_model.dart';
+
 import '../datasources/local_data_source.dart';
-import '../models/surah/spesifik_surah_model.dart';
-import '../models/surah/surah_harian_model.dart';
-import '../models/surah/surah_model.dart' as surahmodel;
+import '../models/surah/spesifik_surah_model.dart' as spesifik;
+import '../models/surah/surah_harian_model.dart' as harian;
+import '../models/surah/surah_model.dart';
 import '../others/shared_preferences.dart';
 import '../providers/api_surah_provider.dart';
 
@@ -12,16 +14,16 @@ class SurahRepository {
   final helperDB = LocalDataSourceImpl();
   final sharedPref = MySharedPref();
 
-  Future<surahmodel.SurahModel> getAllSurah() {
+  Future<SurahModel> getAllSurah() {
     log(">>> Surah Repository Run : getAllSurah ");
     return prayerApiProvider.getSurah();
   }
 
-  Future<SpesifikSurahModel> getDetailSurah(int number) {
+  Future<spesifik.SpesifikSurahModel> getDetailSurah(String number) {
     return prayerApiProvider.getDetailSurah(number);
   }
 
-  Future<List<SurahHarianModel>> getSurahHarian() {
+  Future<List<harian.SurahHarianModel>> getSurahHarian() {
     return prayerApiProvider.getSurahHarian();
   }
 
@@ -38,7 +40,7 @@ class SurahRepository {
   }
 
   downloadAllSurahToLocal() async {
-    surahmodel.SurahModel result = await prayerApiProvider.getSurah();
+    SurahModel result = await prayerApiProvider.getSurah();
     print(">>> downloadAllSurahToLocal");
     for (var element in result.data) {
       await helperDB.insertInitialSurahHeader(element);
@@ -50,7 +52,8 @@ class SurahRepository {
 
   downloadAllDetailSurah() async {
     for (var i = 1; i <= 114; i++) {
-      SpesifikSurahModel details = await prayerApiProvider.getDetailSurah(i);
+      spesifik.SpesifikSurahModel details =
+          await prayerApiProvider.getDetailSurah(i.toString());
       saveDetailSurahToLocal(details);
 
       print(">>> downloadAllDetailSurah from $i to 144");
@@ -58,11 +61,11 @@ class SurahRepository {
     print("### downloadAllDetailSurah : done");
   }
 
-  saveDetailSurahToLocal(SpesifikSurahModel surah) async {
+  saveDetailSurahToLocal(spesifik.SpesifikSurahModel surah) async {
     var allData = surah.data;
     for (var datas in allData.verses) {
-      await helperDB.insertInitialSurahDetail(
-          allData.number, allData.sequence, allData.numberOfVerses, allData.preBismillah, datas);
+      await helperDB.insertInitialSurahDetail(allData.number, allData.sequence,
+          allData.numberOfVerses, allData.preBismillah, datas);
     }
   }
 
@@ -83,5 +86,8 @@ class SurahRepository {
     return await helperDB.readNumberOfSurah();
   }
 
-  removeDoubleQuotes(var data) {}
+  Future<List<SurahLocalModel>> getSurahLocal() async {
+    print(">>> getSurahLocal run...");
+    return await helperDB.getAllSurah();
+  }
 }

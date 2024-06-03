@@ -26,7 +26,7 @@ class GetAllSurahHarian extends SurahEvent {
 }
 
 class ViewDetailSurah extends SurahEvent {
-  int number;
+  String number;
   // BuildContext context;
   // Route routeName;
 
@@ -61,7 +61,7 @@ class GetFavoriteSurahStatus extends SurahEvent {
 }
 
 class SendDoaHarianDetailEvent extends SurahEvent {
-  SurahHarianModel surah;
+  harian.SurahHarianModel surah;
   int indexSurah;
 
   SendDoaHarianDetailEvent({

@@ -21,7 +21,7 @@ class FailureSurahDetail extends SurahState {
 }
 
 class SuccessGetSurahDetail extends SurahState {
-  SpesifikSurahModel data;
+  spesifik.SpesifikSurahModel data;
   // String status;
   // var uuid = Uuid().v1();
 
@@ -104,7 +104,9 @@ class FailureSurah extends SurahState {
 }
 
 class SuccessGetSurah extends SurahState {
-  SurahModel surah;
+  // SurahModel surah;
+  // List<Data> surah;
+  List<SurahLocalModel> surah;
 
   SuccessGetSurah({
     required this.surah,
@@ -115,7 +117,7 @@ class SuccessGetSurah extends SurahState {
 }
 
 class SuccessGetSurahHarian extends SurahState {
-  List<SurahHarianModel> surah;
+  List<harian.SurahHarianModel> surah;
   int indexSurah;
 
   SuccessGetSurahHarian({
@@ -139,7 +141,7 @@ class SuccessGetSurahHarian extends SurahState {
 // }
 
 class SuccessSendDoaHarianDetailState extends SurahState {
-  SurahHarianModel surah;
+  harian.SurahHarianModel surah;
   int indexSurah;
 
   SuccessSendDoaHarianDetailState({
@@ -164,7 +166,7 @@ class FailureDoaHarianDetail extends SurahState {
 
 class SuccessSendIndexSurahHarian extends SurahState {
   int indexSurah;
-  List<SurahHarianModel> surah;
+  List<harian.SurahHarianModel> surah;
 
   SuccessSendIndexSurahHarian({
     required this.indexSurah,

@@ -8,7 +8,7 @@ abstract class AudiomanagementEvent extends Equatable {
 }
 
 class CheckAudioExistEvent extends AudiomanagementEvent {
-  int listAudio;
+  String listAudio;
 
   CheckAudioExistEvent({
     required this.listAudio,

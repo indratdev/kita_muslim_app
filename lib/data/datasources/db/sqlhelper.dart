@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
+import 'package:kita_muslim/data/models/hadits/hadistRange_model.dart' as range;
+import 'package:kita_muslim/data/models/local/surah_local_model.dart';
 import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
     as spesifik;
+import 'package:kita_muslim/data/models/surah/surah_model.dart' as surah;
 import 'package:sqflite/sqflite.dart';
-
-import '../../models/surah/surah_model.dart';
 
 class SqlHelper {
   final String dbName = 'dbmuslim.db';
@@ -235,8 +238,28 @@ class SqlHelper {
   //   return result;
   // }
 
+  // Future<List<surah.Data>> readAllSurah(
+  Future<List<SurahLocalModel>> readAllSurah(
+    Database? db,
+    SqlDatabase instance,
+  ) async {
+    final db = await instance.database;
+
+    String query = "";
+
+    query =
+        "select id,number,sequence,number_of_verses ,name_short,name_long ,transliteration_en,transliteration_id,translation_en,translation_id,revelation_arab,revelation_en,revelation_id,tafsir from $tableSurah ;";
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+      return result.map((e) => SurahLocalModel.fromJson(e)).toList();
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
   Future<int> insertSurahHeader(
-      Database? db, SqlDatabase instance, Data data) async {
+      Database? db, SqlDatabase instance, surah.Data data) async {
     final db = await instance.database;
     int result = 0;
     if (db != null) {
@@ -263,8 +286,14 @@ class SqlHelper {
     return result;
   }
 
-  Future<int> insertSurahDetail(Database? db, SqlDatabase instance, int number,
-      int sequence, int numberOfVerses, spesifik.PreBismillah? preBismillah, spesifik.Verses data) async {
+  Future<int> insertSurahDetail(
+      Database? db,
+      SqlDatabase instance,
+      int number,
+      int sequence,
+      int numberOfVerses,
+      spesifik.PreBismillah? preBismillah,
+      spesifik.Verses data) async {
     final db = await instance.database;
     int result = 0;
     if (db != null) {

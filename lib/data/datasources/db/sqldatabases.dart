@@ -1,5 +1,7 @@
 import 'package:kita_muslim/data/datasources/db/sqlhelper.dart';
-import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart' as spesifik;
+import 'package:kita_muslim/data/models/local/surah_local_model.dart';
+import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
+    as spesifik;
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -62,9 +64,17 @@ class SqlDatabase {
     return result;
   }
 
-  insertInitialSurahDetail(int number, int sequence, int numberOfVerses, spesifik.PreBismillah? prebismillah, spesifik.Verses data) async {
+  insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
+      spesifik.PreBismillah? prebismillah, spesifik.Verses data) async {
     final db = await instance.database;
-    final result = await sqlHelper.insertSurahDetail(db, instance, number, sequence, numberOfVerses, prebismillah, data);
+    final result = await sqlHelper.insertSurahDetail(
+        db, instance, number, sequence, numberOfVerses, prebismillah, data);
+    return result;
+  }
+
+  Future<List<SurahLocalModel>> getAllSurah() async {
+    final db = await instance.database;
+    final result = await sqlHelper.readAllSurah(db, instance);
     return result;
   }
 

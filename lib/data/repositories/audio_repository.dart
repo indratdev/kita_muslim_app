@@ -12,7 +12,7 @@ class AudioRepository {
     return audioManagement.onPressedPlayButton(fileName);
   }
 
-  Future<List<String>> isAllAudioExist(int numberOfSurah) {
+  Future<List<String>> isAllAudioExist(String numberOfSurah) {
     return audioProvider.getAudioResource(numberOfSurah);
   }
 

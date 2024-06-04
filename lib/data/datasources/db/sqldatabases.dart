@@ -64,11 +64,26 @@ class SqlDatabase {
     return result;
   }
 
+  // insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
+  //     spesifik.PreBismillah? prebismillah, spesifik.Verses data) async {
+  //   final db = await instance.database;
+  //   final result = await sqlHelper.insertSurahDetail(
+  //       db, instance, number, sequence, numberOfVerses, prebismillah, data);
+  //   return result;
+  // }
+
   insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
-      spesifik.PreBismillah? prebismillah, spesifik.Verses data) async {
+      spesifik.Data data, spesifik.Verses verse) async {
     final db = await instance.database;
     final result = await sqlHelper.insertSurahDetail(
-        db, instance, number, sequence, numberOfVerses, prebismillah, data);
+      db,
+      instance,
+      number,
+      sequence,
+      numberOfVerses,
+      data,
+      verse,
+    );
     return result;
   }
 

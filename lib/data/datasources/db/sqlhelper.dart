@@ -43,6 +43,16 @@ class SqlHelper {
       number TEXT NULL,
       sequence TEXT NULL,
       number_of_verses TEXT NULL,
+      name_short TEXT NULL,
+      name_long TEXT NULL,
+      name_transliteration_en TEXT NULL,
+      name_transliteration_id TEXT NULL,
+      name_translation_en TEXT NULL,
+      name_translation_id TEXT NULL,
+      revelation_arab TEXT NULL,
+      revelation_en TEXT NULL,
+      revelation_id TEXT NULL,
+      tafsir_id TEXT NULL,    
       prebismillah_arab TEXT NULL,
       prebismillah_transliteration_en TEXT NULL,
       prebismillah_translation_en TEXT NULL,
@@ -287,52 +297,107 @@ class SqlHelper {
   }
 
   Future<int> insertSurahDetail(
-      Database? db,
-      SqlDatabase instance,
-      int number,
-      int sequence,
-      int numberOfVerses,
-      spesifik.PreBismillah? preBismillah,
-      spesifik.Verses data) async {
+    Database? db,
+    SqlDatabase instance,
+    int number,
+    int sequence,
+    int numberOfVerses,
+    // spesifik.Name? spesifikName,
+    // spesifik.Revelation? spesifikRevelation,
+    // spesifik.Tafsir? spefisikTafsir,
+    // spesifik.PreBismillah? preBismillah,
+    // spesifik.Verses data,
+    spesifik.Data data,
+    spesifik.Verses verse,
+  ) async {
     final db = await instance.database;
     int result = 0;
     if (db != null) {
-      deleteSurahDetail(db, number, data.number.inSurah);
+      // deleteSurahDetail(db, number, data.number.inSurah);
+      // deleteSurahDetail(db, number, data.data.verses.first.number.inSurah);
+      deleteSurahDetail(db, number, verse.number.inSurah);
 
-      result = await db.rawInsert('''
-      INSERT INTO $tableDetailSurah (number, sequence, number_of_verses, prebismillah_arab, prebismillah_transliteration_en, prebismillah_translation_en, prebismillah_translation_id, prebismillah_audio_primary, prebismillah_audio_secondary_1, prebismillah_audio_secondary_2, number_inquran, number_insurah, juz, page, manzil, ruku, hizbquarter, sajda_recomended, sajda_obligatory, text_arab, text_transliteration_en, translation_en, translation_id, audio_primary, audio_secondary_0, audio_secondary_1, tafsir_id_short, tafsir_id_long)
+      result = await db.rawInsert("""
+      INSERT INTO $tableDetailSurah (number,
+       sequence,
+       number_of_verses,
+       name_short,
+       name_long,
+       name_transliteration_en,
+       name_transliteration_id,
+       name_translation_en,
+       name_translation_id,
+       revelation_arab,
+       revelation_en,
+       revelation_id,
+       tafsir_id,
+       prebismillah_arab,
+       prebismillah_transliteration_en,
+       prebismillah_translation_en,
+       prebismillah_translation_id,
+       prebismillah_audio_primary,
+       prebismillah_audio_secondary_1,
+       prebismillah_audio_secondary_2,
+       number_inquran,
+       number_insurah,
+       juz,
+       page,
+       manzil,
+       ruku,
+       hizbquarter,
+       sajda_recomended,
+       sajda_obligatory,
+       text_arab,
+       text_transliteration_en,
+       translation_en,
+       translation_id,
+       audio_primary,
+       audio_secondary_0,
+       audio_secondary_1,
+       tafsir_id_short,
+       tafsir_id_long)
       VALUES
       (
         '$number'
       ,'$sequence'
       ,'$numberOfVerses'
-      ,'${preBismillah?.text?.arab}'
-      ,'${preBismillah?.text?.transliteration?.en}'
-      ,'${preBismillah?.translation?.en}'
-      ,'${preBismillah?.translation?.id}'
-      ,'${preBismillah?.audio?.primary}'
-      ,'${preBismillah?.audio?.secondary?[0]}'
-      ,'${preBismillah?.audio?.secondary?[1]}'
-      ,'${data.number.inQuran}'
-      ,'${data.number.inSurah}'
-      ,'${data.meta.juz}'
-      ,'${data.meta.page}'
-      ,'${data.meta.manzil}'
-      ,'${data.meta.ruku}'
-      ,'${data.meta.hizbQuarter}'
-      ,'${data.meta.sajda.recommended}'
-      ,'${data.meta.sajda.obligatory}'
-      ,'${data.text.arab}'
-      ,'${data.text.transliteration.en}'
-      ,'${data.translation.en}'
-      ,'${data.translation.id}'
-      ,'${data.audio.primary}'
-      ,'${data.audio.secondary[0]}'
-      ,'${data.audio.secondary[1]}'
-      ,'${data.tafsir.id["short"]}'
-      ,'${data.tafsir.id["long"]}'
+      ,'${data.name.short}'
+      ,'${data.name.long}'
+      ,'${data.name.transliteration.en}'
+      ,'${data.name.transliteration.id}'
+      ,'${data.name.translation.en}'
+      ,'${data.name.translation.id}'
+      ,'${data.revelation.arab}'
+      ,'${data.revelation.en}'
+      ,'${data.revelation.id}'
+      ,'${data.tafsir.id}'      
+      ,'${data.preBismillah?.text?.arab}'
+      ,'${data.preBismillah?.text?.transliteration?.en}'
+      ,'${data.preBismillah?.translation?.en}'
+      ,'${data.preBismillah?.translation?.id}'
+      ,'${data.preBismillah?.audio?.primary}'
+      ,'${data.preBismillah?.audio?.secondary?[0]}'
+      ,'${data.preBismillah?.audio?.secondary?[1]}'
+      ,'${verse.number.inQuran}'      
+      ,'${verse.number.inSurah}'
+      ,'${verse.meta.juz}'
+      ,'${verse.meta.page}'
+      ,'${verse.meta.manzil}'
+      ,'${verse.meta.ruku}'
+      ,'${verse.meta.hizbQuarter}'
+      ,'${verse.meta.sajda.recommended}'
+      ,'${verse.meta.sajda.obligatory}'
+      ,'${verse.text.arab}'
+      ,'${verse.text.transliteration.en}'
+      ,'${verse.translation.en}'
+      ,'${verse.translation.id}'
+      ,'${verse.audio.primary}'
+      ,'${verse.audio.secondary[0]}'
+      ,'${verse.audio.secondary[1]}'
+      ,'${verse.tafsir.id["short"]}'
+      ,'${verse.tafsir.id["long"]}'
       );
-      ''');
+      """);
     }
     return result;
   }

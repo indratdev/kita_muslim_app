@@ -56,17 +56,20 @@ class SurahRepository {
           await prayerApiProvider.getDetailSurah(i.toString());
       saveDetailSurahToLocal(details);
 
-      print(">>> downloadAllDetailSurah from $i to 144");
+      print(">>> downloadAllDetailSurah from $i to 114");
     }
     print("### downloadAllDetailSurah : done");
   }
 
   saveDetailSurahToLocal(spesifik.SpesifikSurahModel surah) async {
-    var allData = surah.data;
-    for (var datas in allData.verses) {
+    spesifik.Data allData = surah.data;
+
+    for (var verse in allData.verses) {
+      print("======== run $verse ==========");
       await helperDB.insertInitialSurahDetail(allData.number, allData.sequence,
-          allData.numberOfVerses, allData.preBismillah, datas);
+          allData.numberOfVerses, allData, verse);
     }
+    print("================ end ======================;;;");
   }
 
   /// backup

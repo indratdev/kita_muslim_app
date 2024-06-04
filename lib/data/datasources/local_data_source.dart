@@ -25,10 +25,13 @@ abstract class LocalDataSource {
   Future<String> readNumberOfSurah();
   insertInitialSurahHeader(Data data);
   insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
-      spesifik.PreBismillah? prebismillah, spesifik.Verses verses);
+      spesifik.Data data, spesifik.Verses verse);
+  // insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
+  //     spesifik.PreBismillah? prebismillah, spesifik.Verses verses);
   // insertInitialSurahDetail(Data data);
   Data removeDoubleQuotes(Data data);
-  spesifik.Verses removeDoubleQuotesVerses(spesifik.Verses verses);
+  Map<String, dynamic> removeDoubleQuotesVerses(
+      spesifik.Data data, spesifik.Verses verses);
   Future<List<SurahLocalModel>> getAllSurah();
 
 //   // parameter
@@ -162,12 +165,25 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
-      spesifik.PreBismillah? preBismillah, spesifik.Verses verse) {
-    spesifik.Verses finalData = removeDoubleQuotesVerses(verse);
+  insertInitialSurahDetail(
+    int number,
+    int sequence,
+    int numberOfVerses,
+    spesifik.Data data,
+    spesifik.Verses verse,
+  ) {
+    Map<String, dynamic> result = removeDoubleQuotesVerses(data, verse);
     return dbprovider.insertInitialSurahDetail(
-        number, sequence, numberOfVerses, preBismillah, finalData);
+        number, sequence, numberOfVerses, result["data"], result["verse"]);
   }
+
+  // @override
+  // insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
+  //     spesifik.PreBismillah? preBismillah, spesifik.Verses verse) {
+  //   spesifik.Verses finalData = removeDoubleQuotesVerses(verse);
+  //   return dbprovider.insertInitialSurahDetail(
+  //       number, sequence, numberOfVerses, preBismillah, finalData);
+  // }
 
   @override
   Data removeDoubleQuotes(Data data) {
@@ -237,44 +253,136 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  spesifik.Verses removeDoubleQuotesVerses(spesifik.Verses data) {
-    spesifik.Verses finalData = data;
-    finalData.audio.primary =
-        data.audio.primary.toString().replaceAll("'", "`").replaceAll('"', '`');
-    finalData.audio.secondary[0] = data.audio.secondary[0]
+  Map<String, dynamic> removeDoubleQuotesVerses(
+      spesifik.Data data, spesifik.Verses verse) {
+    Map<String, dynamic> result = {};
+    spesifik.Verses finalVerse = verse;
+    spesifik.Data finalData = data;
+
+    finalData.name.short =
+        data.name.short.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.name.long =
+        data.name.long.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.name.translation.en = data.name.translation.en
         .toString()
         .replaceAll("'", "`")
         .replaceAll('"', '`');
-    finalData.audio.secondary[1] = data.audio.secondary[1]
+    finalData.name.translation.id = data.name.translation.id
         .toString()
         .replaceAll("'", "`")
         .replaceAll('"', '`');
-    finalData.text.arab =
-        data.text.arab.toString().replaceAll("'", "`").replaceAll('"', '`');
-    finalData.text.transliteration.en = data.text.transliteration.en
+    finalData.name.transliteration.en = data.name.transliteration.en
         .toString()
         .replaceAll("'", "`")
         .replaceAll('"', '`');
-    finalData.translation.en = data.translation.en
+    finalData.name.transliteration.id = data.name.transliteration.id
         .toString()
         .replaceAll("'", "`")
         .replaceAll('"', '`');
-    finalData.translation.id = data.translation.id
+    finalData.preBismillah?.audio?.primary = data.preBismillah?.audio?.primary
         .toString()
         .replaceAll("'", "`")
         .replaceAll('"', '`');
-    finalData.tafsir.id["short"] = data.tafsir.id["short"]
+    finalData.preBismillah?.audio?.secondary?[0] =
+        data.preBismillah?.audio?.secondary?[0] ??
+            "".toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.preBismillah?.audio?.secondary?[1] =
+        data.preBismillah?.audio?.secondary?[1] ??
+            "".toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.preBismillah?.text?.arab = data.preBismillah?.text?.arab
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.preBismillah?.text?.transliteration?.en = data
+        .preBismillah?.text?.transliteration?.en
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalData.preBismillah?.translation?.en =
+        data.preBismillah?.translation?.en ??
+            "".toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.preBismillah?.translation?.id =
+        data.preBismillah?.translation?.id ??
+            "".toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.revelation.arab = finalData.revelation.en =
+        finalData.revelation.id = finalData.tafsir.en = finalData.tafsir.id =
+            finalVerse.audio.primary = verse.audio.primary
+                .toString()
+                .replaceAll("'", "`")
+                .replaceAll('"', '`');
+
+    finalVerse.audio.secondary[0] = verse.audio.secondary[0]
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalVerse.audio.secondary[1] = verse.audio.secondary[1]
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalVerse.text.arab =
+        verse.text.arab.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalVerse.text.transliteration.en = verse.text.transliteration.en
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalVerse.translation.en = verse.translation.en
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalVerse.translation.id = verse.translation.id
+        .toString()
+        .replaceAll("'", "`")
+        .replaceAll('"', '`');
+    finalVerse.tafsir.id["short"] = verse.tafsir.id["short"]
         .toString()
         .toString()
         .replaceAll("'", "`")
         .replaceAll('"', '`');
-    finalData.tafsir.id["long"] = data.tafsir.id["long"]
+    finalVerse.tafsir.id["long"] = verse.tafsir.id["long"]
         .toString()
         .toString()
         .replaceAll("'", "`")
         .replaceAll('"', '`');
 
-    return finalData;
+    // finalData.audio.primary =
+    //     data.audio.primary.toString().replaceAll("'", "`").replaceAll('"', '`');
+    // finalData.audio.secondary[0] = data.audio.secondary[0]
+    //     .toString()
+    //     .replaceAll("'", "`")
+    //     .replaceAll('"', '`');
+    // finalData.audio.secondary[1] = data.audio.secondary[1]
+    //     .toString()
+    //     .replaceAll("'", "`")
+    //     .replaceAll('"', '`');
+    // finalData.text.arab =
+    //     data.text.arab.toString().replaceAll("'", "`").replaceAll('"', '`');
+    // finalData.text.transliteration.en = data.text.transliteration.en
+    //     .toString()
+    //     .replaceAll("'", "`")
+    //     .replaceAll('"', '`');
+    // finalData.translation.en = data.translation.en
+    //     .toString()
+    //     .replaceAll("'", "`")
+    //     .replaceAll('"', '`');
+    // finalData.translation.id = data.translation.id
+    //     .toString()
+    //     .replaceAll("'", "`")
+    //     .replaceAll('"', '`');
+    // finalData.tafsir.id["short"] = data.tafsir.id["short"]
+    //     .toString()
+    //     .toString()
+    //     .replaceAll("'", "`")
+    //     .replaceAll('"', '`');
+    // finalData.tafsir.id["long"] = data.tafsir.id["long"]
+    //     .toString()
+    //     .toString()
+    //     .replaceAll("'", "`")
+    //     .replaceAll('"', '`');
+
+    result["data"] = finalData;
+    result["verse"] = finalVerse;
+
+    return result;
   }
 
   @override

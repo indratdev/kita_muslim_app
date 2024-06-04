@@ -24,9 +24,9 @@ Map<String, dynamic> _$SurahModelToJson(SurahModel instance) =>
     };
 
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
-      number: json['number'] as String? ?? "",
-      sequence: json['sequence'] as String? ?? "",
-      numberOfVerses: json['numberOfVerses'] as String? ?? "",
+      number: (json['number'] as num?)?.toInt() ?? 0,
+      sequence: (json['sequence'] as num?)?.toInt() ?? 0,
+      numberOfVerses: (json['numberOfVerses'] as num?)?.toInt() ?? 0,
       name: Name.fromJson(json['name'] as Map<String, dynamic>),
       revelation:
           Revelation.fromJson(json['revelation'] as Map<String, dynamic>),

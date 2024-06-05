@@ -16,6 +16,9 @@ class Constants {
   static const iFebruaryInk1 = Color(0xFFADCCEF);
   static const iFebruaryInk2 = Color(0xFFE7F0FD);
 
+  /// new color
+  static const lightGreenColor = Color(0xFFd5f3d1);
+
   static const appName = 'Kita Muslim';
   static const appWallpaper = "assets/images/wallpaper.png";
   static const textQuran = "Qur'an";
@@ -88,6 +91,14 @@ class Constants {
     spreadRadius: 1,
     blurRadius: 3,
     // offset: const Offset(0, 1), // changes position of shadow
+  );
+
+  static BoxShadow boxShadowMenuNewVersion = BoxShadow(
+    color: Constants.color1.withOpacity(0.5),
+    spreadRadius: 1,
+    blurRadius: 1,
+
+    offset: const Offset(0, 2), // changes position of shadow
   );
 }
 

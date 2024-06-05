@@ -12,6 +12,8 @@ import 'package:kita_muslim/data/others/shared_preferences.dart';
 
 import 'package:kita_muslim/data/repositories/surah_repository.dart';
 
+import '../../data/models/local/export.dart';
+
 part 'surah_event.dart';
 part 'surah_state.dart';
 
@@ -36,7 +38,10 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     on<ViewDetailSurah>((event, emit) async {
       try {
         emit(LoadingSurahDetail());
-        var result = await surahRepository.getDetailSurah(event.number);
+        // var result = await surahRepository.getDetailSurah(event.number);
+
+        List<DetailSurahLocalModel> result =
+            await surahRepository.getDetailSurahLocal(event.number);
         emit(SuccessGetSurahDetail(data: result));
       } catch (e) {
         emit(FailureSurahDetail(info: "Error: Gagal Memuat Detail Surat"));

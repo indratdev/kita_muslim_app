@@ -21,9 +21,10 @@ class FailureSurahDetail extends SurahState {
 }
 
 class SuccessGetSurahDetail extends SurahState {
-  spesifik.SpesifikSurahModel data;
+  // spesifik.SpesifikSurahModel data;
   // String status;
   // var uuid = Uuid().v1();
+  List<DetailSurahLocalModel> data;
 
   SuccessGetSurahDetail({
     required this.data,

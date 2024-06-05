@@ -1,8 +1,7 @@
 import 'dart:developer';
 
-import 'package:kita_muslim/data/models/local/surah_local_model.dart';
-
 import '../datasources/local_data_source.dart';
+import '../models/local/export.dart';
 import '../models/surah/spesifik_surah_model.dart' as spesifik;
 import '../models/surah/surah_harian_model.dart' as harian;
 import '../models/surah/surah_model.dart';
@@ -92,5 +91,9 @@ class SurahRepository {
   Future<List<SurahLocalModel>> getSurahLocal() async {
     print(">>> getSurahLocal run...");
     return await helperDB.getAllSurah();
+  }
+
+  Future<List<DetailSurahLocalModel>> getDetailSurahLocal(String number) async {
+    return await helperDB.getDetailSurah(number);
   }
 }

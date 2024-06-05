@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // _helper.readNumberOfSurah();
-    _hh.downloadAllSurahToLocal();
+    // _hh.downloadAllSurahToLocal();
 
     super.initState();
     Timer(

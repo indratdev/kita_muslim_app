@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
 import 'package:kita_muslim/data/models/hadits/hadistRange_model.dart' as range;
+import 'package:kita_muslim/data/models/local/detail_surah_local_model.dart';
 import 'package:kita_muslim/data/models/local/surah_local_model.dart';
 import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
     as spesifik;
@@ -263,6 +264,69 @@ class SqlHelper {
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
       return result.map((e) => SurahLocalModel.fromJson(e)).toList();
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  Future<List<DetailSurahLocalModel>> readDetailSurah(
+    Database? db,
+    SqlDatabase instance,
+    String number,
+  ) async {
+    final db = await instance.database;
+
+    String query = "";
+
+    query = """
+        SELECT id,
+       number,
+       sequence,
+       number_of_verses,
+       name_short,
+       name_long,
+       name_transliteration_en,
+       name_transliteration_id,
+       name_translation_en,
+       name_translation_id,
+       revelation_arab,
+       revelation_en,
+       revelation_id,
+       tafsir_id,
+       prebismillah_arab,
+       prebismillah_transliteration_en,
+       prebismillah_translation_en,
+       prebismillah_translation_id,
+       prebismillah_audio_primary,
+       prebismillah_audio_secondary_1,
+       prebismillah_audio_secondary_2,
+       number_inquran,
+       number_insurah,
+       juz,
+       page,
+       manzil,
+       ruku,
+       hizbquarter,
+       sajda_recomended,
+       sajda_obligatory,
+       text_arab,
+       text_transliteration_en,
+       translation_en,
+       translation_id,
+       audio_primary,
+       audio_secondary_0,
+       audio_secondary_1,
+       tafsir_id_short,
+       tafsir_id_long
+      FROM $tableDetailSurah
+      where number = $number      
+      order by abs(number_insurah)
+      ;
+        """;
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+      return result.map((e) => DetailSurahLocalModel.fromJson(e)).toList();
     } else {
       throw Exception('DB is NULL');
     }

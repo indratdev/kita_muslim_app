@@ -1,0 +1,93 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'detail_surah_local_model.g.dart';
+
+@JsonSerializable()
+class DetailSurahLocalModel {
+  int? id;
+  String? number,
+      sequence,
+      number_of_verses,
+      name_short,
+      name_long,
+      name_transliteration_en,
+      name_transliteration_id,
+      name_translation_en,
+      name_translation_id,
+      revelation_arab,
+      revelation_en,
+      revelation_id,
+      tafsir_id,
+      prebismillah_arab,
+      prebismillah_transliteration_en,
+      prebismillah_translation_en,
+      prebismillah_translation_id,
+      prebismillah_audio_primary,
+      prebismillah_audio_secondary_1,
+      prebismillah_audio_secondary_2,
+      number_inquran,
+      number_insurah,
+      juz,
+      page,
+      manzil,
+      ruku,
+      hizbquarter,
+      sajda_recomended,
+      sajda_obligatory,
+      text_arab,
+      text_transliteration_en,
+      translation_en,
+      translation_id,
+      audio_primary,
+      audio_secondary_0,
+      audio_secondary_1,
+      tafsir_id_short,
+      tafsir_id_long;
+
+  DetailSurahLocalModel({
+    this.id,
+    this.number,
+    this.sequence,
+    this.number_of_verses,
+    this.name_short,
+    this.name_long,
+    this.name_transliteration_en,
+    this.name_transliteration_id,
+    this.name_translation_en,
+    this.name_translation_id,
+    this.revelation_arab,
+    this.revelation_en,
+    this.revelation_id,
+    this.tafsir_id,
+    this.prebismillah_arab,
+    this.prebismillah_transliteration_en,
+    this.prebismillah_translation_en,
+    this.prebismillah_translation_id,
+    this.prebismillah_audio_primary,
+    this.prebismillah_audio_secondary_1,
+    this.prebismillah_audio_secondary_2,
+    this.number_inquran,
+    this.number_insurah,
+    this.juz,
+    this.page,
+    this.manzil,
+    this.ruku,
+    this.hizbquarter,
+    this.sajda_recomended,
+    this.sajda_obligatory,
+    this.text_arab,
+    this.text_transliteration_en,
+    this.translation_en,
+    this.translation_id,
+    this.audio_primary,
+    this.audio_secondary_0,
+    this.audio_secondary_1,
+    this.tafsir_id_short,
+    this.tafsir_id_long,
+  });
+
+  factory DetailSurahLocalModel.fromJson(Map<String, dynamic> json) =>
+      _$DetailSurahLocalModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DetailSurahLocalModelToJson(this);
+}

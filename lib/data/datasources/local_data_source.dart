@@ -1,4 +1,5 @@
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
+import 'package:kita_muslim/data/models/local/detail_surah_local_model.dart';
 import 'package:kita_muslim/data/models/local/surah_local_model.dart';
 import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
     as spesifik;
@@ -33,6 +34,7 @@ abstract class LocalDataSource {
   Map<String, dynamic> removeDoubleQuotesVerses(
       spesifik.Data data, spesifik.Verses verses);
   Future<List<SurahLocalModel>> getAllSurah();
+  Future<List<DetailSurahLocalModel>> getDetailSurah(String number);
 
 //   // parameter
 //   Future<List<Map<String, dynamic>>> readParamThemes();
@@ -388,5 +390,10 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<List<SurahLocalModel>> getAllSurah() async {
     return await dbprovider.getAllSurah();
+  }
+
+  @override
+  Future<List<DetailSurahLocalModel>> getDetailSurah(String number) async {
+    return await dbprovider.getDetailSurah(number);
   }
 }

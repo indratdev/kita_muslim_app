@@ -1,11 +1,13 @@
 import 'package:kita_muslim/data/datasources/db/sqlhelper.dart';
-import 'package:kita_muslim/data/models/local/surah_local_model.dart';
+
 import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
     as spesifik;
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:path/path.dart';
+
+import '../../models/local/export.dart';
 
 class SqlDatabase {
   static final SqlDatabase instance = SqlDatabase._init();
@@ -90,6 +92,12 @@ class SqlDatabase {
   Future<List<SurahLocalModel>> getAllSurah() async {
     final db = await instance.database;
     final result = await sqlHelper.readAllSurah(db, instance);
+    return result;
+  }
+
+  Future<List<DetailSurahLocalModel>> getDetailSurah(String number) async {
+    final db = await instance.database;
+    final result = await sqlHelper.readDetailSurah(db, instance, number);
     return result;
   }
 

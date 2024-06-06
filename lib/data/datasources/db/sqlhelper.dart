@@ -13,6 +13,7 @@ class SqlHelper {
   final String dbName = 'dbmuslim.db';
   final String tableSurah = 'th_surah';
   final String tableDetailSurah = 'td_detailsurah';
+  final String tableSurahUser = 'th_surah_user';
   final String tableMasterParameter = 'm_parameter';
 
   // init tables
@@ -79,6 +80,18 @@ class SqlHelper {
       audio_secondary_1 TEXT NULL,
       tafsir_id_short TEXT NULL,
       tafsir_id_long TEXT NULL
+      )
+      ''');
+
+    await db.execute('''
+    CREATE TABLE $tableSurahUser    (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      surah_number INTEGER,
+      surah_name TEXT NULL,
+      is_favorite INTEGER,
+      total_verse INTEGER,
+      last_verse_number INTEGER,
+      active INTEGER      
       )
       ''');
 

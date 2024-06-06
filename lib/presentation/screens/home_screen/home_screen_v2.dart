@@ -14,7 +14,7 @@ class HomeScreenV2 extends StatelessWidget {
     return Scaffold(
       appBar: CustomWidgets.basicAppBar(
         Constants.appName,
-        <Widget>[
+        listAction: <Widget>[
           IconButton(
             onPressed: () {
               CustomWidgets.showDialogAppInfo(context);

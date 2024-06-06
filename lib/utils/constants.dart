@@ -57,6 +57,13 @@ class Constants {
   static const colorYellowV2 = Color(0xFFffd102);
   static const colorWhitekV2 = Color(0xFFedecf2);
 
+  static const colorDeepBlackV2 = Color(0xFF152232);
+  static const colorDeepBrownV2 = Color(0xFF253c2c);
+  static const colorGreenV2 = Color(0xFF4c683f);
+  static const colorlightGreenV2 = Color(0xFF7d9c72);
+  static const colorLightBlueV2 = Color(0xFFc2d9df);
+  static const colorRedV2 = Color(0xFFf96645);
+
   // end image
 
   static const urlImageNotFound = "https://demofree.sirv.com/nope-not-here.jpg";

@@ -65,11 +65,22 @@ class CustomWidgets {
     );
   }
 
+  // static PreferredSizeWidget basicAppBar(String title, bool centerTitle=false,
+  //     [List<Widget>? listAction] ) {
+  //   return AppBar(
+  //     title: Text(title),
+  //     centerTitle: centerTitle,
+  //     // backgroundColor: Constants.colorGreenDeep,
+  //     backgroundColor: Constants.iwhite,
+  //     actions: listAction,
+  //   );
+  // }
+
   static PreferredSizeWidget basicAppBar(String title,
-      [List<Widget>? listAction]) {
+      {bool centerTitle = false, List<Widget>? listAction}) {
     return AppBar(
       title: Text(title),
-      // backgroundColor: Constants.colorGreenDeep,
+      centerTitle: centerTitle,
       backgroundColor: Constants.iwhite,
       actions: listAction,
     );

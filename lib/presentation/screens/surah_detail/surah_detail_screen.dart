@@ -1,12 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:kita_muslim/blocs/surahbloc/surah_bloc.dart';
-import 'package:kita_muslim/presentation/screens/surah_detail/widgets/download_audio_icon_widget.dart';
+
 import 'package:kita_muslim/presentation/widgets/customwidgets.dart';
-import 'package:kita_muslim/utils/number_utils.dart';
+import 'package:kita_muslim/presentation/widgets/icon_number_arabic_widget.dart';
+
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../blocs/export.dart';
@@ -266,16 +262,12 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  width: MediaQuery.sizeOf(context).width / 10,
-                                  color: Colors.amber,
-                                  child: Text(
-                                    NumberUtils.convertToArabicNumber(
-                                      int.parse(detailSurah.number_insurah!),
-                                    ),
-                                    style: TextStyle(fontSize: 40),
-                                  ),
-                                ),
+                                SizedBox(
+                                    width:
+                                        MediaQuery.sizeOf(context).width / 10,
+                                    child: IconNumberArabicWidget(
+                                        number: int.parse(
+                                            detailSurah.number_insurah!))),
                                 Expanded(
                                   child: Container(
                                     margin: const EdgeInsets.symmetric(

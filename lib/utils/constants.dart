@@ -33,6 +33,7 @@ class Constants {
   static const dailyPrayerImage = "assets/icons/doaharian.png";
   static const favoriteImage = "assets/icons/favorite.png";
   static const hadistImage = "assets/icons/hadits.png";
+
   // v2
   static const prayIcon = "assets/icons/pray.png";
   static const shalatIcon = "assets/icons/shalat.png";
@@ -48,6 +49,13 @@ class Constants {
   static const compassImage = "assets/images/compass.png";
   static const needleImage = "assets/images/needle.png";
   static const backgroundImage = "assets/images/background.png";
+  static const frameCircleImage = "assets/images/frame_circle.png";
+
+  static const colorBlackV2 = Color(0xFF323e2a);
+  static const colorDeepGreenV2 = Color(0xFF677842);
+  static const colorDeepYellowV2 = Color(0xFFd8b207);
+  static const colorYellowV2 = Color(0xFFffd102);
+  static const colorWhitekV2 = Color(0xFFedecf2);
 
   // end image
 
@@ -123,3 +131,6 @@ class Constants {
 // <a href="https://www.flaticon.com/free-icons/qibla" title="qibla icons">Qibla icons created by Aranagraphics - Flaticon</a>
 // <a href="https://www.flaticon.com/free-icons/calculator" title="calculator icons">Calculator icons created by Freepik - Flaticon</a>
 // https://unsplash.com/photos/white-wall-paint-with-black-shadow-zGZYQQVmXw0?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash
+
+///bingkai
+///https://toppng.com/freepng/162901/round-frame-gold-clip-picture-frame#google_vignette

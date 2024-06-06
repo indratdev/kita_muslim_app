@@ -5,11 +5,12 @@ import 'package:kita_muslim/data/models/local/surah_local_model.dart';
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
 import 'package:kita_muslim/data/providers/api_prayer_provider.dart';
 import 'package:kita_muslim/data/providers/audio_provider.dart';
+import 'package:kita_muslim/presentation/screens/quran_screen/widgets/list_quran_widget.dart';
 import 'package:kita_muslim/presentation/widgets/customwidgets.dart';
 import 'package:kita_muslim/utils/constants.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../../blocs/export.dart';
+import '../../../blocs/export.dart';
 
 class QuranScreen extends StatefulWidget {
   QuranScreen({Key? key}) : super(key: key);
@@ -107,7 +108,7 @@ class listviewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ScrollablePositionedList.separated(
-        separatorBuilder: (context, index) => CustomWidgets.standartDivider(),
+        separatorBuilder: (context, index) => const SizedBox.shrink(),
         itemScrollController: _itemScrollController,
         initialScrollIndex: indexSurah,
         itemCount: data.length,
@@ -136,36 +137,7 @@ class listviewBody extends StatelessWidget {
 
               Navigator.pushNamed(context, '/surahdetail');
             },
-            child: ListTile(
-              minLeadingWidth: 10,
-              leading: Text(
-                '${data[index].number}.',
-                style: const TextStyle(fontSize: Constants.sizeTextTitle),
-              ),
-              title: Text(
-                // data[index].name.transliteration.id,
-                data[index].transliteration_id.toString(),
-                style: const TextStyle(
-                  fontSize: Constants.sizeTextTitle,
-                ),
-              ),
-              subtitle: Text(
-                // '${data[index].name.translation.id} (${data[index].numberOfVerses}) ',
-                '${data[index].translation_id} (${data[index].number_of_verses}) ',
-                style: const TextStyle(
-                  fontSize: Constants.sizeText,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-              trailing: Text(
-                // data[index].name.short,
-                data[index].name_short.toString(),
-                style: const TextStyle(
-                  fontSize: Constants.sizeTextArabian,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            child: ListQuranWidget(data: data, index: index),
           );
         },
       ),

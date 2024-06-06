@@ -11,7 +11,7 @@ import 'package:kita_muslim/presentation/screens/home_screen/homescreen.dart';
 import 'package:kita_muslim/presentation/screens/prayer_schedule_screen/prayer_schedule_screen.dart';
 import 'package:kita_muslim/presentation/screens/qiblah_screen/qiblah_compass.dart';
 import 'package:kita_muslim/presentation/screens/qiblah_screen/qiblah_screen.dart';
-import 'package:kita_muslim/presentation/screens/quranscreen.dart';
+import 'package:kita_muslim/presentation/screens/quran_screen/quranscreen.dart';
 import 'package:kita_muslim/presentation/screens/splash_screen/splashscreen.dart';
 import 'package:kita_muslim/presentation/screens/surah_detail/surah_detail_screen.dart';
 import 'package:kita_muslim/presentation/screens/surah_detail/surahdetailscreen.dart%20old';

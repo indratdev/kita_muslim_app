@@ -69,7 +69,8 @@ class CustomWidgets {
       [List<Widget>? listAction]) {
     return AppBar(
       title: Text(title),
-      backgroundColor: Constants.colorGreenDeep,
+      // backgroundColor: Constants.colorGreenDeep,
+      backgroundColor: Constants.iwhite,
       actions: listAction,
     );
   }

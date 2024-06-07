@@ -345,6 +345,91 @@ class SqlHelper {
     }
   }
 
+  Future<int> readSurahUserExist(
+    Database? db,
+    SqlDatabase instance,
+    int surahNumber,
+  ) async {
+    final db = await instance.database;
+
+    String query = "";
+
+    query = """
+          select count(*) 
+          from $tableSurahUser
+          where surah_number = $surahNumber
+        ;""";
+
+    if (db != null) {
+      final List<Map<String, Object?>> result =
+          await db.rawQuery(''' $query ''');
+      String hasil = result.first.values.first.toString();
+      return int.parse(hasil);
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  Future<int> readStatusFavoriteSurah(
+    Database? db,
+    SqlDatabase instance,
+    int surahNumber,
+  ) async {
+    final db = await instance.database;
+
+    String query = "";
+
+    query = """
+          select is_favorite
+          from $tableSurahUser
+          where surah_number = $surahNumber
+          LIMIT 1
+        ;""";
+
+    if (db != null) {
+      final List<Map<String, Object?>> result =
+          await db.rawQuery(''' $query ''');
+      String hasil = result.first.values.first.toString();
+      return int.parse(hasil);
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  readSurahUser(
+    Database? db,
+    SqlDatabase instance,
+    int surahNumber,
+  ) async {
+    final db = await instance.database;
+
+    String query = "";
+
+    query = """
+          select 
+              id,
+              surah_number,
+              surah_name,
+              is_favorite,
+              total_verse,
+              last_verse_number,
+              active
+          from $tableSurahUser
+          where surah_number = $surahNumber
+          limit 1
+        ;""";
+
+    if (db != null) {
+      final List<Map<String, Object?>> result =
+          await db.rawQuery(''' $query ''');
+      // BELUM SELESE
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  /// INSERT
+
   Future<int> insertSurahHeader(
       Database? db, SqlDatabase instance, surah.Data data) async {
     final db = await instance.database;
@@ -379,19 +464,13 @@ class SqlHelper {
     int number,
     int sequence,
     int numberOfVerses,
-    // spesifik.Name? spesifikName,
-    // spesifik.Revelation? spesifikRevelation,
-    // spesifik.Tafsir? spefisikTafsir,
-    // spesifik.PreBismillah? preBismillah,
-    // spesifik.Verses data,
     spesifik.Data data,
     spesifik.Verses verse,
   ) async {
     final db = await instance.database;
     int result = 0;
     if (db != null) {
-      // deleteSurahDetail(db, number, data.number.inSurah);
-      // deleteSurahDetail(db, number, data.data.verses.first.number.inSurah);
+      // delete before if exist
       deleteSurahDetail(db, number, verse.number.inSurah);
 
       result = await db.rawInsert("""
@@ -478,6 +557,64 @@ class SqlHelper {
     }
     return result;
   }
+
+  /// insert surah user
+  Future<int> insertSurahUser(
+    Database? db,
+    SqlDatabase instance,
+    int isFavorite,
+    DetailSurahLocalModel data,
+  ) async {
+    final db = await instance.database;
+    int result = 0;
+    if (db != null) {
+      result = await db.rawInsert("""
+      INSERT INTO $tableSurahUser 
+      (                              
+            surah_number,
+            surah_name,
+            is_favorite,
+            total_verse,
+            last_verse_number,
+            active
+      )
+      VALUES 
+      (          
+        '${data.number}'
+        ,'${data.name_transliteration_id}'
+        , $isFavorite
+        , '${data.number_of_verses}'
+        , '0'
+        , '1'
+      );
+      """);
+    }
+    return result;
+  }
+
+  /// UPDATE
+  Future<int> updateFavoriteSurahUser(
+    Database? db,
+    SqlDatabase instance,
+    int isFavorite,
+    DetailSurahLocalModel data,
+  ) async {
+    final db = await instance.database;
+    int result = 0;
+
+    if (db != null) {
+      result = await db.rawUpdate('''UPDATE $tableSurahUser
+          SET
+          is_favorite = ?         
+          WHERE surah_number = ?''', [
+        '$isFavorite',
+        '${data.number}',
+      ]);
+    }
+    return result;
+  }
+
+  /// END UPDATE
 
   Future<void> deleteSurahDetail(Database? db, int number, int inSurah) async {
     if (db != null) {

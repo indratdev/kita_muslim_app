@@ -96,4 +96,28 @@ class SurahRepository {
   Future<List<DetailSurahLocalModel>> getDetailSurahLocal(String number) async {
     return await helperDB.getDetailSurah(number);
   }
+
+  Future<int> readStatusFavoriteSurah(int surahNumber) async {
+    return await helperDB.readStatusFavoriteSurah(surahNumber);
+  }
+
+  Future<int> setFavoriteSurah(
+    int surahNumber,
+    int value,
+    DetailSurahLocalModel data,
+  ) async {
+    /// data favorite surah already exist?
+    int isExist = await helperDB.readSurahUserExist(surahNumber);
+
+    /// if not found, insert it!
+    if (isExist == 0) {
+      print(">>>  if not found, insert it!");
+      return await helperDB.insertSurahUser(value, data);
+
+      /// if found, updated!
+    } else {
+      print(">>>  if found, updated!");
+      return await helperDB.updateFavoriteSurahUser(value, data);
+    }
+  }
 }

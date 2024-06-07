@@ -35,6 +35,11 @@ abstract class LocalDataSource {
       spesifik.Data data, spesifik.Verses verses);
   Future<List<SurahLocalModel>> getAllSurah();
   Future<List<DetailSurahLocalModel>> getDetailSurah(String number);
+  Future<int> readSurahUserExist(int surahNumber);
+  Future<int> readStatusFavoriteSurah(int surahNumber);
+  Future<int> insertSurahUser(int isFavorite, DetailSurahLocalModel data);
+  Future<int> updateFavoriteSurahUser(
+      int isFavorite, DetailSurahLocalModel data);
 
 //   // parameter
 //   Future<List<Map<String, dynamic>>> readParamThemes();
@@ -395,5 +400,27 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<List<DetailSurahLocalModel>> getDetailSurah(String number) async {
     return await dbprovider.getDetailSurah(number);
+  }
+
+  @override
+  Future<int> readSurahUserExist(int surahNumber) async {
+    return await dbprovider.readSurahUserExist(surahNumber);
+  }
+
+  @override
+  Future<int> insertSurahUser(
+      int isFavorite, DetailSurahLocalModel data) async {
+    return await dbprovider.insertSurahUser(isFavorite, data);
+  }
+
+  @override
+  Future<int> updateFavoriteSurahUser(
+      int isFavorite, DetailSurahLocalModel data) async {
+    return await dbprovider.updateFavoriteSurahUser(isFavorite, data);
+  }
+
+  @override
+  Future<int> readStatusFavoriteSurah(int surahNumber) async {
+    return await dbprovider.readStatusFavoriteSurah(surahNumber);
   }
 }

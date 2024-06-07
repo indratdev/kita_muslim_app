@@ -101,6 +101,36 @@ class SqlDatabase {
     return result;
   }
 
+  Future<int> readSurahUserExist(int surahNumber) async {
+    final db = await instance.database;
+    final result =
+        await sqlHelper.readSurahUserExist(db, instance, surahNumber);
+    return result;
+  }
+
+  Future<int> readStatusFavoriteSurah(int surahNumber) async {
+    final db = await instance.database;
+    final result =
+        await sqlHelper.readStatusFavoriteSurah(db, instance, surahNumber);
+    return result;
+  }
+
+  Future<int> insertSurahUser(
+      int isFavorite, DetailSurahLocalModel data) async {
+    final db = await instance.database;
+    final result =
+        await sqlHelper.insertSurahUser(db, instance, isFavorite, data);
+    return result;
+  }
+
+  Future<int> updateFavoriteSurahUser(
+      int isFavorite, DetailSurahLocalModel data) async {
+    final db = await instance.database;
+    final result =
+        await sqlHelper.updateFavoriteSurahUser(db, instance, isFavorite, data);
+    return result;
+  }
+
   // //read master category
   // Future<List<CategoryModel>> readCategory(int isDefault) async {
   //   final db = await instance.database;
@@ -200,7 +230,6 @@ class SqlDatabase {
   Future<String> readNumberOfSurah() async {
     final db = await instance.database;
     return await sqlHelper.readNumberOfSurah(db, instance);
-    // return result;
   }
 
   // // saving new passcode

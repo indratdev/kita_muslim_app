@@ -203,3 +203,30 @@ class SuccessGetNumberOfSurahOnLocalStorage extends SurahState {
   @override
   List<Object> get props => [result];
 }
+
+/// Favorite Surah
+class LoadingFavoriteSurah extends SurahState {}
+
+class FailureFavoriteSurah extends SurahState {
+  final String errorMessage;
+
+  FailureFavoriteSurah({
+    required this.errorMessage,
+  });
+
+  List<Object> get props => [errorMessage];
+}
+
+class SuccessFavoriteSurah extends SurahState {
+  final String result;
+  int value;
+
+  SuccessFavoriteSurah({
+    required this.result,
+    this.value = 0,
+  });
+
+  List<Object> get props => [result];
+}
+
+/// 

@@ -79,3 +79,23 @@ class SendIndexDoaHarianEvent extends SurahEvent {
 }
 
 class GetNumberOfSurahOnLocalStorage extends SurahEvent {}
+
+class InitialFavoriteSurah extends SurahEvent {
+  final int surahNumber;
+
+  InitialFavoriteSurah({
+    required this.surahNumber,
+  });
+}
+
+class SetFavoriteSurah extends SurahEvent {
+  final int surahNumber;
+  final int value;
+  final DetailSurahLocalModel data;
+
+  SetFavoriteSurah({
+    required this.surahNumber,
+    required this.value,
+    required this.data,
+  });
+}

@@ -229,4 +229,31 @@ class SuccessFavoriteSurah extends SurahState {
   List<Object> get props => [result];
 }
 
-/// 
+///
+
+/// Last Read Surah
+class LoadingLastReadSurah extends SurahState {}
+
+class FailureLastReadSurah extends SurahState {
+  final String errorMessage;
+
+  FailureLastReadSurah({
+    required this.errorMessage,
+  });
+
+  List<Object> get props => [errorMessage];
+}
+
+class SuccessLastReadSurah extends SurahState {
+  final String result;
+  int value;
+
+  SuccessLastReadSurah({
+    required this.result,
+    this.value = 0,
+  });
+
+  List<Object> get props => [result];
+}
+
+///

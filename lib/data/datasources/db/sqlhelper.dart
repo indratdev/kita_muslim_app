@@ -380,21 +380,45 @@ class SqlHelper {
     String query = "";
 
     query = """
-          select is_favorite
-          from $tableSurahUser
-          where surah_number = $surahNumber
+         SELECT is_favorite
+          FROM $tableSurahUser
+          WHERE surah_number = $surahNumber
           LIMIT 1
         ;""";
 
     if (db != null) {
-      final List<Map<String, Object?>> result =
-          await db.rawQuery(''' $query ''');
-      String hasil = result.first.values.first.toString();
-      return int.parse(hasil);
+      // final List<Map<String, Object?>> result =
+      //     await db.rawQuery(''' $query ''');
+      // String hasil = result.first.values.first.toString();
+      // print(">>> hasil : ${hasil}");
+      // return int.parse(hasil);
+
+      List<Map<String, dynamic>> result = await db.rawQuery(''' $query ''');
+      // Periksa jika ada baris yang dikembalikan
+      if (result.isNotEmpty) {
+        // Jika ada, kembalikan nilai is_favorite
+        return result[0]['is_favorite'] as int;
+      } else {
+        // Jika tidak ada, kembalikan 0
+        return 0;
+      }
     } else {
       throw Exception('DB is NULL');
     }
   }
+
+  //  select is_favorite
+  //         from $tableSurahUser
+  //         where surah_number = $surahNumber
+  //         LIMIT 1
+
+  //  SELECT
+  //       CASE
+  //           WHEN COUNT(*) = 0 THEN 0
+  //           ELSE MAX(is_favorite)
+  //       END AS is_favorite
+  //       FROM $tableSurahUser
+  //         WHERE surah_number = $surahNumber;
 
   readSurahUser(
     Database? db,
@@ -589,7 +613,7 @@ class SqlHelper {
       );
       """);
     }
-    return result;
+    return (result > 0) ? 1 : -1;
   }
 
   /// UPDATE
@@ -610,6 +634,26 @@ class SqlHelper {
         '$isFavorite',
         '${data.number}',
       ]);
+    }
+    return result;
+  }
+
+  Future<int> updateLastReadSurah(
+    Database? db,
+    SqlDatabase instance,
+    int surahNumber,
+    int lastReadSurahNumber,
+  ) async {
+    final db = await instance.database;
+    int result = 0;
+    if (db != null) {
+      result = await db.rawUpdate('''
+      UPDATE $tableSurahUser 
+      SET
+        last_verse_number = $lastReadSurahNumber
+      WHERE 
+        surah_number = ?
+      ''', ['$surahNumber']);
     }
     return result;
   }

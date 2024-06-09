@@ -27,8 +27,6 @@ class GetAllSurahHarian extends SurahEvent {
 
 class ViewDetailSurah extends SurahEvent {
   String number;
-  // BuildContext context;
-  // Route routeName;
 
   ViewDetailSurah({
     required this.number,
@@ -97,5 +95,14 @@ class SetFavoriteSurah extends SurahEvent {
     required this.surahNumber,
     required this.value,
     required this.data,
+  });
+}
+
+class SetLastReadSurah extends SurahEvent {
+  final int surahNumber, lasReadSurahNumber;
+
+  SetLastReadSurah({
+    required this.surahNumber,
+    required this.lasReadSurahNumber,
   });
 }

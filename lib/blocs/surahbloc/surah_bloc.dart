@@ -2,9 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kita_muslim/data/models/local/surah_local_model.dart';
-import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
-    as spesifik;
 import 'package:kita_muslim/data/models/surah/surah_harian_model.dart'
     as harian;
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
@@ -152,12 +149,26 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
       try {
         int result = await surahRepository.setFavoriteSurah(
             event.surahNumber, event.value, event.data);
-        (result > 0)
+        print(">>> result: $result");
+        (result >= 0)
             ? emit(SuccessFavoriteSurah(
                 result: "Berhasil set favorite surah", value: result))
             : FailureFavoriteSurah(errorMessage: "Gagal set favorite surah");
       } catch (e) {
         FailureFavoriteSurah(errorMessage: "Gagal set favorite surah");
+      }
+    });
+
+    on<SetLastReadSurah>((event, emit) async {
+      emit(LoadingLastReadSurah());
+      try {
+        int result = await surahRepository.setLastReadSurah(
+            event.surahNumber, event.lasReadSurahNumber);
+        (result == 1)
+            ? emit(SuccessLastReadSurah(result: "Sukses Update Last Surah"))
+            : emit(FailureLastReadSurah(errorMessage: "Gagal update"));
+      } catch (e) {
+        emit(FailureLastReadSurah(errorMessage: e.toString()));
       }
     });
   }

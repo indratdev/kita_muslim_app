@@ -131,6 +131,14 @@ class SqlDatabase {
     return result;
   }
 
+  Future<int> upadteLastReadSurah(
+      int surahNumber, int lastReadSurahNumber) async {
+    final db = await instance.database;
+    final result = await sqlHelper.updateLastReadSurah(
+        db, instance, surahNumber, lastReadSurahNumber);
+    return result;
+  }
+
   // //read master category
   // Future<List<CategoryModel>> readCategory(int isDefault) async {
   //   final db = await instance.database;

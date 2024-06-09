@@ -117,7 +117,18 @@ class SurahRepository {
       /// if found, updated!
     } else {
       print(">>>  if found, updated!");
-      return await helperDB.updateFavoriteSurahUser(value, data);
+      // return await helperDB.updateFavoriteSurahUser(value, data);
+      int updateResult = await helperDB.updateFavoriteSurahUser(value, data);
+      if (updateResult == 1) {
+        // return await readStatusFavoriteSurah(surahNumber);
+        return await helperDB.readStatusFavoriteSurah(surahNumber);
+      } else {
+        return 0;
+      }
     }
+  }
+
+  Future<int> setLastReadSurah(int surahNumber, int lastReadSurahNumber) async {
+    return await helperDB.updateLastReadSurah(surahNumber, lastReadSurahNumber);
   }
 }

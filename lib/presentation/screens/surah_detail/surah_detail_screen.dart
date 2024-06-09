@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
-import 'package:kita_muslim/data/datasources/db/sqlhelper.dart';
-import 'package:kita_muslim/data/repositories/surah_repository.dart';
+import 'package:kita_muslim/presentation/screens/surah_detail/widgets/favorite_widget.dart';
 
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -24,6 +21,7 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
   bool isAudioFileExist = false;
   bool _isPlay = false;
   String indexAyat = "0";
+  bool _isFavorite = false;
 
   // scroll to index
   void scrollToIndex(int index, [int miliSecondDuration = 3000]) async {
@@ -162,89 +160,9 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                BlocConsumer<SurahBloc, SurahState>(
-                                  listener: (context, state) {
-                                    // Lakukan sesuatu saat state berubah
-                                    if (state is SuccessFavoriteSurah) {
-                                      // Misalnya, tampilkan snackbar atau lakukan tindakan lain
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'Favorite status updated')),
-                                      );
-                                    }
-                                  },
-                                  buildWhen: (previous, current) =>
-                                      current is SuccessFavoriteSurah,
-                                  builder: (context, state) {
-                                    if (state is SuccessFavoriteSurah) {
-                                      int valueFavorite = state.value;
-                                      print(
-                                          ">>> valueFavorite : ${valueFavorite}");
-                                      return IconButton(
-                                        onPressed: () {
-                                          context
-                                              .read<SurahBloc>()
-                                              .add(SetFavoriteSurah(
-                                                surahNumber: int.parse(
-                                                    listData.first.number!),
-                                                value: (valueFavorite == 0)
-                                                    ? 1
-                                                    : 0,
-                                                data: listData.first,
-                                              ));
-                                        },
-                                        icon: (valueFavorite == 0)
-                                            ? const Icon(Icons.favorite_border)
-                                            : const Icon(Icons.favorite,
-                                                color: Colors.red),
-                                      );
-                                    } else {
-                                      return const SizedBox();
-                                    }
-                                  },
-                                ),
-
-                                // BlocBuilder<SurahBloc, SurahState>(
-                                //   buildWhen: (previous, current) =>
-                                //       current is SuccessFavoriteSurah,
-                                //   builder: (context, state) {
-                                //     if (state is SuccessFavoriteSurah) {
-                                //       int valueFavorite = state.value;
-                                //       print(
-                                //           ">>> valueFavorite : ${valueFavorite}");
-                                //       return IconButton(
-                                //         onPressed: () {
-                                //           context
-                                //               .read<SurahBloc>()
-                                //               .add(SetFavoriteSurah(
-                                //                 surahNumber: int.parse(
-                                //                     listData.first.number!),
-                                //                 value: (valueFavorite == 0)
-                                //                     ? 1
-                                //                     : 0,
-                                //                 data: listData.first,
-                                //               ));
-                                //           // SurahRepository().setFavoriteSurah(
-                                //           //     int.parse(listData.first.number!),
-                                //           //     0,
-                                //           //     listData.first);
-                                //           // CustomWidgets.showDialog1Button(
-                                //           //     context,
-                                //           //     "Konfirmasi",
-                                //           //     "Tandai surat sebagai favorit ? ");
-                                //         },
-                                //         icon: (valueFavorite == 0)
-                                //             ? const Icon(Icons.favorite_border)
-                                //             : const Icon(Icons.favorite,
-                                //                 color: Colors.red),
-                                //       );
-                                //     } else {
-                                //       return const SizedBox();
-                                //     }
-                                //   },
-                                // ),
+                                FavoriteWidget(
+                                    isFavorite: _isFavorite,
+                                    listData: listData),
                                 IconButton(
                                   onPressed: () {},
                                   icon: Icon(Icons.play_circle_outline),
@@ -318,84 +236,94 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
 
                           DetailSurahLocalModel detailSurah =
                               listData[hasBismillah ? index - 1 : index];
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: index % 2 == 0
-                                  ? Constants.iwhite
-                                  : Constants.lightGreenColor.withOpacity(0.8),
-                            ),
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Container(
-                                //     color: Colors.blue,
-                                //     width:
-                                //         MediaQuery.sizeOf(context).width / 10,
-                                //     child: IconNumberArabicWidget(
-                                //         number: int.parse(
-                                //             detailSurah.number_insurah!))),
+                          return InkWell(
+                            onTap: () {},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: index % 2 == 0
+                                    ? Constants.iwhite
+                                    : Constants.lightGreenColor
+                                        .withOpacity(0.8),
+                              ),
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Container(
+                                  //     color: Colors.blue,
+                                  //     width:
+                                  //         MediaQuery.sizeOf(context).width / 10,
+                                  //     child: IconNumberArabicWidget(
+                                  //         number: int.parse(
+                                  //             detailSurah.number_insurah!))),
 
-                                Expanded(
-                                  child: Container(
-                                    // color: Colors.amber,
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 24),
-                                    alignment: Alignment.centerRight,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width /
-                                                  10,
-                                              child: IconNumberArabicWidget(
-                                                  number: int.parse(detailSurah
-                                                      .number_insurah!)),
-                                            ),
-                                            Expanded(
-                                              child: Directionality(
-                                                textDirection:
-                                                    TextDirection.rtl,
-                                                child: Text(
-                                                  detailSurah.text_arab ?? "",
-                                                  textAlign: TextAlign.right,
-                                                  style: const TextStyle(
-                                                    fontSize: Constants
-                                                        .sizeTextArabian,
+                                  Expanded(
+                                    child: Container(
+                                      // color: Colors.amber,
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 24),
+                                      alignment: Alignment.centerRight,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: <Widget>[
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width /
+                                                        10,
+                                                child: IconNumberArabicWidget(
+                                                    number: int.parse(
+                                                        detailSurah
+                                                            .number_insurah!)),
+                                              ),
+                                              Expanded(
+                                                child: Directionality(
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  child: Text(
+                                                    detailSurah.text_arab ?? "",
+                                                    textAlign: TextAlign.right,
+                                                    style: const TextStyle(
+                                                      fontSize: Constants
+                                                          .sizeTextArabian,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                          detailSurah.text_transliteration_en ??
-                                              "",
-                                          textAlign: TextAlign.justify,
-                                          style: const TextStyle(
-                                              fontSize: Constants.sizeTextTitle,
-                                              color: Constants.colorGreenDeep),
-                                        ),
-                                        const SizedBox(height: 15),
-                                        Text(
-                                          detailSurah.translation_id ?? "",
-                                          textAlign: TextAlign.justify,
-                                          style: const TextStyle(
-                                              fontSize: Constants.sizeTextTitle,
-                                              color: Constants.colorBlack),
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Text(
+                                            detailSurah
+                                                    .text_transliteration_en ??
+                                                "",
+                                            textAlign: TextAlign.justify,
+                                            style: const TextStyle(
+                                                fontSize:
+                                                    Constants.sizeTextTitle,
+                                                color:
+                                                    Constants.colorGreenDeep),
+                                          ),
+                                          const SizedBox(height: 15),
+                                          Text(
+                                            detailSurah.translation_id ?? "",
+                                            textAlign: TextAlign.justify,
+                                            style: const TextStyle(
+                                                fontSize:
+                                                    Constants.sizeTextTitle,
+                                                color: Constants.colorBlack),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },

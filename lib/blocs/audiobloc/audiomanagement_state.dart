@@ -114,3 +114,20 @@ class ApprovedDownloadAudio extends AudiomanagementState {
   List<Object> get props => [listAudio, directoryStorage];
 }
 // -- End Download List Audio
+
+/// CheckAllAudiFile
+class LoadingCheckAllAudiFileState extends AudiomanagementState {}
+
+class FailedCheckAllAudiFile extends FailedAudioManagement {
+  FailedCheckAllAudiFile({
+    required super.messageInfo,
+  });
+}
+
+class SuccessCheckAllAudiFileState extends AudiomanagementState {
+  bool status;
+
+  SuccessCheckAllAudiFileState({required this.status});
+}
+
+/// end

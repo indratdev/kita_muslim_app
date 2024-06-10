@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kita_muslim/data/models/local/surah_local_model.dart';
 
 import 'package:kita_muslim/data/providers/audio_provider.dart';
+import 'package:kita_muslim/data/repositories/surah_repository.dart';
 
 import 'package:kita_muslim/presentation/widgets/customwidgets.dart';
 import 'package:kita_muslim/utils/constants.dart';
@@ -29,6 +30,9 @@ class _QuranScreenState extends State<QuranScreen> {
   bool isSearch = false;
 
   ReceivePort _port = ReceivePort();
+
+  /// testing
+  final _hh = SurahRepository();
 
   @override
   void initState() {
@@ -66,6 +70,11 @@ class _QuranScreenState extends State<QuranScreen> {
         appBar: CustomWidgets.basicAppBar("Al-Quran",
             centerTitle: true,
             listAction: <Widget>[
+              IconButton(
+                  onPressed: () {
+                    _hh.downloadAllSurahToLocal();
+                  },
+                  icon: Icon(Icons.download)),
               IconButton(
                   onPressed: () {
                     setState(() {

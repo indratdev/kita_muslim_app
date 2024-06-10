@@ -38,6 +38,17 @@ class AudiomanagementBloc
       }
     });
 
+    on<CheckAllAudiFileEvent>((event, emit) async {
+      emit(LoadingCheckAllAudiFileState());
+      try {
+        print(">>> CheckAllAudiFileEvent run...");
+        var aaaa = await audioRepository.isAllAudioAlreadyDownloaded(
+            int.parse(event.from), int.parse(event.to));
+      } catch (e) {
+        emit(FailedCheckAllAudiFile(messageInfo: e.toString()));
+      }
+    });
+
     on<PlayAudioEvent>((event, emit) async {
       var isExistFileAudio = false;
       var uuid = const Uuid().v1();

@@ -16,10 +16,14 @@ class CheckAudioExistEvent extends AudiomanagementEvent {
 }
 
 class CheckAllAudiFileEvent extends AudiomanagementEvent {
-  List<String> listAudio;
+  // List<String> listAudio;
+  String from;
+  String to;
 
   CheckAllAudiFileEvent({
-    required this.listAudio,
+    // required this.listAudio,
+    required this.from,
+    required this.to,
   });
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/presentation/screens/surah_detail/widgets/audio_widget.dart';
 import 'package:kita_muslim/presentation/screens/surah_detail/widgets/favorite_widget.dart';
 
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -163,14 +164,21 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                 FavoriteWidget(
                                     isFavorite: _isFavorite,
                                     listData: listData),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.play_circle_outline),
+                                AudioWidget(
+                                  numberInquran: int.parse(
+                                      listData.first.number_inquran ?? "0"),
+                                  numberOfVerse: int.parse(
+                                      listData.first.number_of_verses ?? "0"),
                                 ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.download),
-                                ),
+
+                                // IconButton(
+                                //   onPressed: () {},
+                                //   icon: Icon(Icons.play_circle_outline),
+                                // ),
+                                // IconButton(
+                                //   onPressed: () {},
+                                //   icon: Icon(Icons.download),
+                                // ),
                                 IconButton(
                                   onPressed: () {},
                                   icon: Icon(Icons.move_down_rounded),

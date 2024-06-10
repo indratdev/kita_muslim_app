@@ -21,7 +21,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final LocalDataSourceImpl _helper = LocalDataSourceImpl();
-  final _hh = SurahRepository();
+  // final _hh = SurahRepository();
 
   @override
   void initState() {

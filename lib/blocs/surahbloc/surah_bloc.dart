@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kita_muslim/blocs/export.dart';
 import 'package:kita_muslim/data/models/surah/surah_harian_model.dart'
     as harian;
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
@@ -157,6 +158,12 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
       } catch (e) {
         FailureSetFavoriteSurah(errorMessage: "Gagal set favorite surah");
       }
+    });
+
+    on<InitialLastReadSurah>((event, emit) async {
+      int result =
+          await surahRepository.readStatusLastReadSurah(event.surahNumber);
+      emit(SuccessInitialLastReadSurah(result: "", value: result));
     });
 
     on<SetLastReadSurah>((event, emit) async {

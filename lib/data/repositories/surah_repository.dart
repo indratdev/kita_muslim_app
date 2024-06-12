@@ -101,6 +101,10 @@ class SurahRepository {
     return await helperDB.readStatusFavoriteSurah(surahNumber);
   }
 
+  Future<int> readStatusLastReadSurah(int surahNumber) async {
+    return await helperDB.readStatusLastReadSurah(surahNumber);
+  }
+
   Future<int> setFavoriteSurah(
     int surahNumber,
     int isFavorite,

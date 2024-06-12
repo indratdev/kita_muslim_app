@@ -280,4 +280,16 @@ class SuccessLastReadSurah extends SurahState {
   List<Object> get props => [result];
 }
 
+class SuccessInitialLastReadSurah extends SurahState {
+  final String result;
+  int value;
+
+  SuccessInitialLastReadSurah({
+    required this.result,
+    this.value = 0,
+  });
+
+  List<Object> get props => [result];
+}
+
 ///

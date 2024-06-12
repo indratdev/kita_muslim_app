@@ -37,6 +37,9 @@ class ListViewBodyWidget extends StatelessWidget {
               context.read<SurahBloc>().add(InitialFavoriteSurah(
                   surahNumber: int.parse(data[index].number.toString())));
 
+              context.read<SurahBloc>().add(InitialLastReadSurah(
+                  surahNumber: int.parse(data[index].number.toString())));
+
               Navigator.pushNamed(context, '/surahdetail');
             },
             child: ListQuranWidget(data: data, index: index),

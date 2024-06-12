@@ -115,6 +115,13 @@ class SqlDatabase {
     return result;
   }
 
+  Future<int> readStatusLastReadSurah(int surahNumber) async {
+    final db = await instance.database;
+    final result =
+        await sqlHelper.readStatusLastVerseSurah(db, instance, surahNumber);
+    return result;
+  }
+
   Future<int> readStatusLastVerseSurah(int surahNumber) async {
     final db = await instance.database;
     final result =

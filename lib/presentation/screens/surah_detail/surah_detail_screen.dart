@@ -22,7 +22,7 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
 
   bool isAudioFileExist = false;
   bool _isPlay = false;
-  String indexAyat = "0";
+  int indexAyat = 0;
   bool _isFavorite = false;
 
   // scroll to index
@@ -133,8 +133,12 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                 current is LoadingSurahDetail ||
                 current is FailureSurahDetail ||
                 current is SuccessGetSurahDetail,
+            // ||
+            // current is SuccessInitialLastReadSurah,
             listener: (context, state) {
               if (state is SuccessLastReadSurah) {
+                indexAyat = state.value;
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Surah sudah ditandai')),
                 );
@@ -143,6 +147,10 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Surah gagal ditandai')),
                 );
+              }
+
+              if (state is SuccessInitialLastReadSurah) {
+                indexAyat = state.value;
               }
             },
             builder: (context, state) {
@@ -217,7 +225,9 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                 //   icon: Icon(Icons.download),
                                 // ),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    scrollToIndex(indexAyat);
+                                  },
                                   icon: const Icon(Icons.move_down_rounded),
                                 ),
                                 // PopupMenuButton(

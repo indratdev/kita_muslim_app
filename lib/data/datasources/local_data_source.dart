@@ -39,6 +39,7 @@ abstract class LocalDataSource {
   ///read
   Future<int> readSurahUserExist(int surahNumber);
   Future<int> readStatusFavoriteSurah(int surahNumber);
+  Future<int> readStatusLastReadSurah(int surahNumber);
   Future<int> readStatusLastVerseSurah(int surahNumber);
 
   ///insert
@@ -431,6 +432,11 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<int> readStatusFavoriteSurah(int surahNumber) async {
     return await dbprovider.readStatusFavoriteSurah(surahNumber);
+  }
+
+  @override
+  Future<int> readStatusLastReadSurah(int surahNumber) async {
+    return await dbprovider.readStatusLastReadSurah(surahNumber);
   }
 
   @override

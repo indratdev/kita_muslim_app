@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kita_muslim/data/repositories/surah_repository.dart';
 import 'package:kita_muslim/presentation/screens/surah_detail/widgets/audio_widget.dart';
 import 'package:kita_muslim/presentation/screens/surah_detail/widgets/favorite_widget.dart';
 

@@ -145,17 +145,17 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     });
 
     on<SetFavoriteSurah>((event, emit) async {
-      emit(LoadingFavoriteSurah());
+      emit(LoadingSetFavoriteSurah());
       try {
         int result = await surahRepository.setFavoriteSurah(
             event.surahNumber, event.value, event.data);
         print(">>> result: $result");
         (result >= 0)
-            ? emit(SuccessFavoriteSurah(
+            ? emit(SuccessSetFavoriteSurah(
                 result: "Berhasil set favorite surah", value: result))
-            : FailureFavoriteSurah(errorMessage: "Gagal set favorite surah");
+            : FailureSetFavoriteSurah(errorMessage: "Gagal set favorite surah");
       } catch (e) {
-        FailureFavoriteSurah(errorMessage: "Gagal set favorite surah");
+        FailureSetFavoriteSurah(errorMessage: "Gagal set favorite surah");
       }
     });
 

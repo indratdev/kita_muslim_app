@@ -17,36 +17,35 @@ class FavoriteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SurahBloc, SurahState>(
       listener: (context, state) {
-        if (state is SuccessFavoriteSurah) {
-          print(">>> state ::: ${state.value}");
-          isFavorite = (state.value == 1) ? true : false;
+        if (state is SuccessSetFavoriteSurah) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Favorite status updated')),
           );
         }
       },
-      buildWhen: (previous, current) => current is SuccessFavoriteSurah,
+      buildWhen: (previous, current) =>
+          current is SuccessFavoriteSurah || current is SuccessSetFavoriteSurah,
       builder: (context, state) {
-        if (state is SuccessFavoriteSurah) {
-          // int valueFavorite = state.value;
+        if (state is SuccessSetFavoriteSurah) {
           isFavorite = (state.value == 1) ? true : false;
-          print(">>> _isFavorite : ${isFavorite}");
-
-          return IconButton(
-            onPressed: () {
-              context.read<SurahBloc>().add(SetFavoriteSurah(
-                    surahNumber: int.parse(listData.first.number!),
-                    value: (isFavorite) ? 0 : 1,
-                    data: listData.first,
-                  ));
-            },
-            icon: (!isFavorite)
-                ? const Icon(Icons.favorite_border)
-                : const Icon(Icons.favorite, color: Colors.red),
-          );
-        } else {
-          return const SizedBox();
         }
+
+        if (state is SuccessFavoriteSurah) {
+          isFavorite = (state.value == 1) ? true : false;
+        }
+
+        return IconButton(
+          onPressed: () {
+            context.read<SurahBloc>().add(SetFavoriteSurah(
+                  surahNumber: int.parse(listData.first.number!),
+                  value: (isFavorite) ? 0 : 1,
+                  data: listData.first,
+                ));
+          },
+          icon: (!isFavorite)
+              ? const Icon(Icons.favorite_border)
+              : const Icon(Icons.favorite, color: Colors.red),
+        );
       },
     );
   }

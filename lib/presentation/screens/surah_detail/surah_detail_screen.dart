@@ -27,6 +27,9 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
   int indexAyat = 0;
   bool _isFavorite = false;
 
+  bool isScrolling = false;
+  int currentIndexScroll = 0;
+
   // scroll to index
   void scrollToIndex(int index, [int miliSecondDuration = 3000]) async {
     _itemScrollController.scrollTo(
@@ -129,6 +132,30 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
             //     ],
             //   ),
             // ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            shape: const StadiumBorder(side: BorderSide.none),
+            elevation: 5,
+            tooltip: 'Move Down',
+            backgroundColor: Constants.colorlightGreenV2,
+            child: (isScrolling)
+                ? Icon(Icons.stop)
+                : Icon(Icons.keyboard_double_arrow_down_sharp),
+            onPressed: () async {
+              isScrolling = !isScrolling;
+
+              if (isScrolling) {
+              } else {
+                for (int i = 0; i <= 200; i++) {
+                  await Future.delayed(const Duration(seconds: 5));
+                  _itemScrollController.scrollTo(
+                    index: i,
+                    duration: const Duration(seconds: 5),
+                    curve: Curves.easeInOutCubic,
+                  );
+                }
+              }
+            },
           ),
           body: BlocConsumer<SurahBloc, SurahState>(
             buildWhen: (previous, current) =>
@@ -236,12 +263,12 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                 ),
 
                                 IconButton(
-                                  onPressed: () {
-                                    _itemScrollController.scrollTo(
-                                      index: 200,
-                                      duration: Duration(seconds: 10),
-                                      curve: Curves.easeInOutCubic,
-                                    );
+                                  onPressed: () async {
+                                    // _itemScrollController.scrollTo(
+                                    //   index: 200,
+                                    //   duration: Duration(seconds: 10),
+                                    //   curve: Curves.easeInOutCubic,
+                                    // );
                                   },
                                   icon: Icon(Icons.downhill_skiing),
                                 ),

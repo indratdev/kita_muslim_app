@@ -19,6 +19,8 @@ class SurahDetailScreen extends StatefulWidget {
 
 class _SurahDetailScreenState extends State<SurahDetailScreen> {
   final ItemScrollController _itemScrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
 
   bool isAudioFileExist = false;
   bool _isPlay = false;
@@ -230,6 +232,17 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                   },
                                   icon: const Icon(Icons.move_down_rounded),
                                 ),
+
+                                IconButton(
+                                  onPressed: () {
+                                    _itemScrollController.scrollTo(
+                                      index: 200,
+                                      duration: Duration(seconds: 10),
+                                      curve: Curves.easeInOutCubic,
+                                    );
+                                  },
+                                  icon: Icon(Icons.downhill_skiing),
+                                ),
                                 // PopupMenuButton(
                                 //   elevation: 20,
                                 //   icon: const Icon(Icons.more_horiz),
@@ -283,6 +296,7 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                     Expanded(
                       child: ScrollablePositionedList.builder(
                         itemScrollController: _itemScrollController,
+                        itemPositionsListener: _itemPositionsListener,
                         itemCount: listData.length + (hasBismillah ? 1 : 0),
                         itemBuilder: (context, index) {
                           if (hasBismillah && index == 0) {
@@ -293,14 +307,7 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                               listData[hasBismillah ? index - 1 : index];
                           return InkWell(
                             onTap: () {
-                              print(">>> ${detailSurah.number_insurah}");
-                              // tap
                               showMarkSurah(detailSurah);
-                              // var aaa = SurahRepository();
-                              // aaa.setLastReadSurah(
-                              //     int.parse(detailSurah.number ?? '0'),
-                              //     int.parse(detailSurah.number_insurah ?? '0'),
-                              //     detailSurah);
                             },
                             child: Container(
                               decoration: BoxDecoration(

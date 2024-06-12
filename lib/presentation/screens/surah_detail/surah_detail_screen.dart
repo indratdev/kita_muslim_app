@@ -140,6 +140,8 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
             listener: (context, state) {
               if (state is SuccessLastReadSurah) {
                 indexAyat = state.value;
+                print(">>> baru : ${state.value}");
+                print(">>> indexAyat baru : $indexAyat");
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Surah sudah ditandai')),
@@ -147,7 +149,7 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
               }
               if (state is FailureLastReadSurah) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Surah gagal ditandai')),
+                  SnackBar(content: Text(state.errorMessage)),
                 );
               }
 

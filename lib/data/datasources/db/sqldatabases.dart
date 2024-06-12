@@ -115,11 +115,18 @@ class SqlDatabase {
     return result;
   }
 
-  Future<int> insertSurahUser(
-      int isFavorite, DetailSurahLocalModel data) async {
+  Future<int> readStatusLastVerseSurah(int surahNumber) async {
     final db = await instance.database;
     final result =
-        await sqlHelper.insertSurahUser(db, instance, isFavorite, data);
+        await sqlHelper.readStatusLastVerseSurah(db, instance, surahNumber);
+    return result;
+  }
+
+  Future<int> insertSurahUser(
+      int isFavorite, DetailSurahLocalModel data, int lastVerseNumber) async {
+    final db = await instance.database;
+    final result = await sqlHelper.insertSurahUser(
+        db, instance, isFavorite, data, lastVerseNumber);
     return result;
   }
 

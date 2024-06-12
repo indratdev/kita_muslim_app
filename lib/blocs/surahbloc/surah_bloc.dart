@@ -163,7 +163,7 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
       emit(LoadingLastReadSurah());
       try {
         int result = await surahRepository.setLastReadSurah(
-            event.surahNumber, event.lasReadSurahNumber);
+            event.surahNumber, event.lasReadSurahNumber, event.data);
         (result == 1)
             ? emit(SuccessLastReadSurah(result: "Sukses Update Last Surah"))
             : emit(FailureLastReadSurah(errorMessage: "Gagal update"));

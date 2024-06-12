@@ -103,7 +103,7 @@ class SurahRepository {
 
   Future<int> setFavoriteSurah(
     int surahNumber,
-    int value,
+    int isFavorite,
     DetailSurahLocalModel data,
   ) async {
     /// data favorite surah already exist?
@@ -112,13 +112,14 @@ class SurahRepository {
     /// if not found, insert it!
     if (isExist == 0) {
       print(">>>  if not found, insert it!");
-      return await helperDB.insertSurahUser(value, data);
+      return await helperDB.insertSurahUser(isFavorite, data, 0);
 
       /// if found, updated!
     } else {
       print(">>>  if found, updated!");
       // return await helperDB.updateFavoriteSurahUser(value, data);
-      int updateResult = await helperDB.updateFavoriteSurahUser(value, data);
+      int updateResult =
+          await helperDB.updateFavoriteSurahUser(isFavorite, data);
       if (updateResult == 1) {
         // return await readStatusFavoriteSurah(surahNumber);
         return await helperDB.readStatusFavoriteSurah(surahNumber);
@@ -128,7 +129,30 @@ class SurahRepository {
     }
   }
 
-  Future<int> setLastReadSurah(int surahNumber, int lastReadSurahNumber) async {
-    return await helperDB.updateLastReadSurah(surahNumber, lastReadSurahNumber);
+  Future<int> setLastReadSurah(
+    int surahNumber,
+    int lastVerseNumber,
+    DetailSurahLocalModel data,
+  ) async {
+    /// data favorite surah already exist?
+    int isExist = await helperDB.readSurahUserExist(surahNumber);
+
+    /// if not found, insert it!
+    if (isExist == 0) {
+      print(">>>  if not found, insert it!");
+      return await helperDB.insertSurahUser(0, data, lastVerseNumber);
+
+      /// if found, updated!
+    } else {
+      print(">>>  if found, updated!");
+      int updateResult =
+          await helperDB.updateLastReadSurah(surahNumber, lastVerseNumber);
+      if (updateResult == 1) {
+        // return await readStatusFavoriteSurah(surahNumber);
+        return await helperDB.readStatusLastVerseSurah(surahNumber);
+      } else {
+        return 0;
+      }
+    }
   }
 }

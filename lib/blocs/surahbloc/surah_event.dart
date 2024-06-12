@@ -100,9 +100,11 @@ class SetFavoriteSurah extends SurahEvent {
 
 class SetLastReadSurah extends SurahEvent {
   final int surahNumber, lasReadSurahNumber;
+  final DetailSurahLocalModel data;
 
   SetLastReadSurah({
     required this.surahNumber,
     required this.lasReadSurahNumber,
+    required this.data,
   });
 }

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/data/repositories/surah_repository.dart';
 import 'package:kita_muslim/presentation/screens/surah_detail/widgets/audio_widget.dart';
 import 'package:kita_muslim/presentation/screens/surah_detail/widgets/favorite_widget.dart';
 
@@ -33,6 +35,35 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
     );
   }
 
+  showMarkSurah(DetailSurahLocalModel data) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: Text(
+            '${data.name_transliteration_id} : Ayat ${data.number_insurah}'),
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            onPressed: () async {
+              context.read<SurahBloc>().add(SetLastReadSurah(
+                    surahNumber: int.parse(data.number ?? '0'),
+                    lasReadSurahNumber: int.parse(data.number_insurah ?? '0'),
+                    data: data,
+                  ));
+              Navigator.of(context).pop();
+            },
+            child: const Text('Tandai Terakhir Dibaca'),
+          ),
+        ],
+        cancelButton: TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Batal', style: TextStyle(color: Colors.red)),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -41,9 +72,7 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
         if (didPop) {
           return;
         }
-
         BlocProvider.of<SurahBloc>(context).add(GetAllSurah());
-
         Navigator.pop(context);
       },
       child: SafeArea(
@@ -106,7 +135,16 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                 current is FailureSurahDetail ||
                 current is SuccessGetSurahDetail,
             listener: (context, state) {
-              // TODO: implement listener
+              if (state is SuccessLastReadSurah) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Surah sudah ditandai')),
+                );
+              }
+              if (state is FailureLastReadSurah) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Surah gagal ditandai')),
+                );
+              }
             },
             builder: (context, state) {
               if (state is LoadingSurahDetail) {
@@ -181,7 +219,7 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                 // ),
                                 IconButton(
                                   onPressed: () {},
-                                  icon: Icon(Icons.move_down_rounded),
+                                  icon: const Icon(Icons.move_down_rounded),
                                 ),
                                 // PopupMenuButton(
                                 //   elevation: 20,
@@ -245,7 +283,16 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                           DetailSurahLocalModel detailSurah =
                               listData[hasBismillah ? index - 1 : index];
                           return InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              print(">>> ${detailSurah.number_insurah}");
+                              // tap
+                              showMarkSurah(detailSurah);
+                              // var aaa = SurahRepository();
+                              // aaa.setLastReadSurah(
+                              //     int.parse(detailSurah.number ?? '0'),
+                              //     int.parse(detailSurah.number_insurah ?? '0'),
+                              //     detailSurah);
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                 color: index % 2 == 0

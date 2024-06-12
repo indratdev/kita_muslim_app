@@ -387,17 +387,42 @@ class SqlHelper {
         ;""";
 
     if (db != null) {
-      // final List<Map<String, Object?>> result =
-      //     await db.rawQuery(''' $query ''');
-      // String hasil = result.first.values.first.toString();
-      // print(">>> hasil : ${hasil}");
-      // return int.parse(hasil);
-
       List<Map<String, dynamic>> result = await db.rawQuery(''' $query ''');
       // Periksa jika ada baris yang dikembalikan
       if (result.isNotEmpty) {
         // Jika ada, kembalikan nilai is_favorite
         return result[0]['is_favorite'] as int;
+      } else {
+        // Jika tidak ada, kembalikan 0
+        return 0;
+      }
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  Future<int> readStatusLastVerseSurah(
+    Database? db,
+    SqlDatabase instance,
+    int surahNumber,
+  ) async {
+    final db = await instance.database;
+
+    String query = "";
+
+    query = """
+         SELECT last_verse_number
+          FROM $tableSurahUser
+          WHERE surah_number = $surahNumber
+          LIMIT 1
+        ;""";
+
+    if (db != null) {
+      List<Map<String, dynamic>> result = await db.rawQuery(''' $query ''');
+      // Periksa jika ada baris yang dikembalikan
+      if (result.isNotEmpty) {
+        // Jika ada, kembalikan nilai is_favorite
+        return result[0]['last_verse_number'] as int;
       } else {
         // Jika tidak ada, kembalikan 0
         return 0;
@@ -588,6 +613,7 @@ class SqlHelper {
     SqlDatabase instance,
     int isFavorite,
     DetailSurahLocalModel data,
+    int lastVerseNumber,
   ) async {
     final db = await instance.database;
     int result = 0;
@@ -608,7 +634,7 @@ class SqlHelper {
         ,'${data.name_transliteration_id}'
         , $isFavorite
         , '${data.number_of_verses}'
-        , '0'
+        , $lastVerseNumber
         , '1'
       );
       """);

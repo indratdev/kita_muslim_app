@@ -82,23 +82,55 @@ class AudiomanagementBloc
       }
     });
 
+    // on<DownloadBatchAudioEvent>((event, emit) async {
+    //   emit(LoadingDownloadAudioState());
+    //   try {
+    //     List<String> listAudio = event.listAudio;
+
+    //     print(">>> bloc DownloadBatchAudioEvent");
+
+    //     // if sdk < 33 user Permission
+    //     DeviceInfo deviceInfo = await LocalServices().checkDeviceInfo();
+    //     if (deviceInfo.sdkInt! < 33) {
+    //       PermissionStatus isGranted =
+    //           // await storageRepository.isStorageGranted();
+    //           await storageRepository.isManageExternalStorageGranted();
+
+    //       if (isGranted != PermissionStatus.granted) {
+    //         openAppSettings();
+    //       }
+    //     }
+
+    //     Directory storageDIR = await storageRepository.getAudioDirectoryPath();
+
+    //     if (await storageDIR.exists()) {
+    //       bool status = await audioRepository.downloadBatchAudio(
+    //           listAudio, storageDIR.path);
+
+    //       if (status) {
+    //         Map<String, dynamic> result =
+    //             await audioRepository.isExistAllAudiFiles(listAudio);
+
+    //         emit(SuccessDownloadAudio(statusFile: result));
+    //       } else {
+    //         emit(FailedDownloadListAudio(messageInfo: "Gagal Download Audio"));
+    //       }
+    //     }
+    //   } catch (e) {
+    //     emit(FailedDownloadListAudio(messageInfo: e.toString()));
+    //   }
+    // });
     on<DownloadBatchAudioEvent>((event, emit) async {
       emit(LoadingDownloadAudioState());
       try {
         List<String> listAudio = event.listAudio;
 
-        // check permission storagenya
-        // PermissionStatus isGranted =
-        //     await storageRepository.isManageExternalStorageGranted();
+        print(">>> bloc DownloadBatchAudioEvent");
 
-        // PermissionStatus isGranted =
-        //     await storageRepository.isManageExternalStorageGranted();
-
-        // if sdk < 33 user Permission
         DeviceInfo deviceInfo = await LocalServices().checkDeviceInfo();
         if (deviceInfo.sdkInt! < 33) {
           PermissionStatus isGranted =
-              await storageRepository.isStorageGranted();
+              await storageRepository.isManageExternalStorageGranted();
 
           if (isGranted != PermissionStatus.granted) {
             openAppSettings();
@@ -108,21 +140,24 @@ class AudiomanagementBloc
         Directory storageDIR = await storageRepository.getAudioDirectoryPath();
 
         if (await storageDIR.exists()) {
-          bool status = await audioRepository.downloadBatchAudio(
-              listAudio, storageDIR.path);
+          await audioRepository.downloadBatchAudio(listAudio, storageDIR.path,
+              (progress) {
+            // add(UpdateDownloadProgressEvent(progress));
+            emit(UpdateDownloadProgressState(progress));
+            print(">>> DownloadBatchAudioEvent progress : $progress");
+          });
 
-          if (status) {
-            Map<String, dynamic> result =
-                await audioRepository.isExistAllAudiFiles(listAudio);
-
-            emit(SuccessDownloadAudio(statusFile: result));
-          } else {
-            emit(FailedDownloadListAudio(messageInfo: "Gagal Download Audio"));
-          }
+          Map<String, dynamic> result =
+              await audioRepository.isExistAllAudiFiles(listAudio);
+          emit(SuccessDownloadAudio(statusFile: result));
         }
       } catch (e) {
         emit(FailedDownloadListAudio(messageInfo: e.toString()));
       }
     });
+
+    // on<UpdateDownloadProgressEvent>((event, emit) {
+    //   emit(DownloadingAudioState(progress: event.progress));
+    // });
   }
 }

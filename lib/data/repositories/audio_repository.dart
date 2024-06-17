@@ -1,5 +1,3 @@
-
-
 import 'package:kita_muslim/data/providers/audio_provider.dart';
 import 'package:kita_muslim/data/services/dio_services.dart';
 
@@ -44,7 +42,11 @@ class AudioRepository {
     return audioProvider.downloadSingleAudio(url, dir);
   }
 
-  downloadBatchAudio(List<String> listUrl, String dir) {
-    return audioProvider.downloadBatchAudio(listUrl, dir);
+  downloadBatchAudio(
+    List<String> listUrl,
+    String dir,
+    dynamic Function(double) onProgress,
+  ) {
+    return audioProvider.downloadBatchAudio(listUrl, dir, onProgress);
   }
 }

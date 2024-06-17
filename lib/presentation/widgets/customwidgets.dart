@@ -273,6 +273,37 @@ class CustomWidgets {
     );
   }
 
+  static showCenterLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return PopScope(
+          onPopInvoked: (didPop) => false,
+          child: AlertDialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+            ),
+            backgroundColor: Constants.colorBlackV2,
+            content: BlocBuilder<AudiomanagementBloc, AudiomanagementState>(
+              builder: (context, state) {
+                return const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularProgressIndicator.adaptive(
+                      valueColor:
+                          AlwaysStoppedAnimation(Constants.colorWhitekV2),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   static showProgressDownload(BuildContext context, int progress, int total) {
     showDialog(
       context: context,

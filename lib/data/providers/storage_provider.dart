@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
@@ -25,18 +26,22 @@ class StorageProvider {
   }
 
   Future<Directory> getAudioDirectoryPath() async {
-    Directory? baseStorage = await getBaseStorage();
-    Directory directory =
-        Directory("${baseStorage!.path}/$_audioDirectoryName");
-    bool isDirectoryExist = await directory.exists();
+    try {
+      final Directory? directory = await getBaseStorage();
+      final path = '${directory?.path}/$_audioDirectoryName';
+      final newDirectory = Directory(path);
 
-    if (!isDirectoryExist) {
-      directory.createSync();
+      if (!newDirectory.existsSync()) {
+        newDirectory.createSync(recursive: true);
+        log('Folder created: $path');
+      } else {
+        log('Folder already exists: $path');
+      }
+      return newDirectory;
+    } catch (e) {
+      log('Error creating folder: $e');
+      rethrow;
     }
-
-    return directory;
-
-    // return Directory("${baseStorage!.path}/$_audioDirectoryName");
   }
 
   Future<bool> checkFileAudios(String nameFile) async {

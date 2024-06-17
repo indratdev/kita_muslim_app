@@ -27,6 +27,22 @@ class _AudioWidgetState extends State<AudioWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: () {}, icon: const Icon(Icons.download));
+    return IconButton(
+        onPressed: () {
+          print(">>> tap:IconButton");
+          List<String> listAudioDwn = [
+            'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3',
+            'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2.mp3',
+            'https://cdn.islamic.network/quran/audio/128/ar.alafasy/3.mp3',
+            'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4.mp3',
+            'https://cdn.islamic.network/quran/audio/128/ar.alafasy/5.mp3',
+            'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6.mp3',
+            'https://cdn.islamic.network/quran/audio/128/ar.alafasy/7.mp3'
+          ];
+          context
+              .read<AudiomanagementBloc>()
+              .add(DownloadBatchAudioEvent(listAudio: listAudioDwn));
+        },
+        icon: const Icon(Icons.download));
   }
 }

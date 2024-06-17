@@ -55,8 +55,18 @@ class AudioProvider {
       var savePath = "$dir/$audioName.mp3";
       if (!isFileAudios) {
         // -------- new
+        // bool statusDownload = await DioServices.downloadSingleFile(
+        //   urlVideo,
+        //   savePath,
+        //   (received, total) {
+        //     double progress = (received / total) * 100;
+        //     log(">>> progress : $progress");
+        //     // onProgress(progress);
+        //   },
+        // );
+
         bool statusDownload =
-            DioServices.downloadSingleFile(urlVideo, savePath);
+            await DioServices.downloadSingleFile(urlVideo, savePath);
 
         (statusDownload) ? countFileHasDownloded += 1 : countFileHasDownloded;
       } else {}
@@ -75,7 +85,18 @@ class AudioProvider {
     var isFileAudios = await checkFileAudios(audioName);
     var savePath = "$dir/$audioName.mp3";
     if (!isFileAudios) {
-      bool statusDownload = DioServices.downloadSingleFile(url, savePath);
+      // bool statusDownload = DioServices.downloadSingleFile(url, savePath);
+      // bool statusDownload = await DioServices.downloadSingleFile(
+      //   url,
+      //   savePath,
+      //   (received, total) {
+      //     double progress = (received / total) * 100;
+      //     log(">>> progress : $progress");
+      //     // onProgress(progress);
+      //   },
+      // );
+
+      bool statusDownload = await DioServices.downloadSingleFile(url, savePath);
 
       (statusDownload) ? countFileHasDownloded += 1 : countFileHasDownloded;
     } else {
@@ -86,25 +107,59 @@ class AudioProvider {
     return status;
   }
 
-  Future<bool> downloadBatchAudio(List<String> listUrl, String dir) async {
-    bool status = false;
-    //new
+  // Future<bool> downloadBatchAudio(List<String> listUrl, String dir) async {
+  //   print(">>> provider downloadBatchAudio ");
+  //   bool status = false;
+  //   //new
+
+  //   for (var url in listUrl) {
+  //     print(">>> url : ${url}");
+  //     // get name video (replace string to get only name audio)
+  //     String audioName = url.substring(55).replaceAll(".mp3", "");
+  //     print(">>> audioName : $audioName ");
+  //     // check files audio already downloaded ?
+  //     var isFileAudios = await checkFileAudios(audioName);
+  //     var savePath = "$dir/$audioName.mp3";
+  //     if (!isFileAudios) {
+  //       // bool statusDownload =
+  //       DioServices.downloadSingleFile(url, savePath);
+  //     }
+
+  //     status = true;
+  //   }
+
+  //   return status;
+  // }
+
+  Future<void> downloadBatchAudio(
+      List<String> listUrl, String dir, Function(double) onProgress) async {
+    print(">>> provider downloadBatchAudio ");
+    int totalFiles = listUrl.length;
+    int downloadedFiles = 0;
 
     for (var url in listUrl) {
-      // get name video (replace string to get only name audio)
+      print(">>> url : $url");
       String audioName = url.substring(55).replaceAll(".mp3", "");
-      // check files audio already downloaded ?
+      print(">>> audioName : $audioName ");
       var isFileAudios = await checkFileAudios(audioName);
       var savePath = "$dir/$audioName.mp3";
       if (!isFileAudios) {
-        // bool statusDownload =
-        DioServices.downloadSingleFile(url, savePath);
+        // bool statusDownload = await DioServices.downloadSingleFile(
+        //     url, savePath, (received, total) {
+        //   // double progress = (received / total) * 100;
+        //   // onProgress(progress);
+        // });
+
+        bool statusDownload =
+            await DioServices.downloadSingleFile(url, savePath);
+
+        if (statusDownload) {
+          downloadedFiles++;
+          double totalProgress = (downloadedFiles / totalFiles) * 100;
+          onProgress(totalProgress);
+        }
       }
-
-      status = true;
     }
-
-    return status;
   }
 
   Future<bool> checkFileAudios(String nameFile) async {

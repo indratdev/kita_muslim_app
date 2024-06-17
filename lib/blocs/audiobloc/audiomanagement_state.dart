@@ -131,3 +131,19 @@ class SuccessCheckAllAudiFileState extends AudiomanagementState {
 }
 
 /// end
+
+class UpdateDownloadProgressState extends AudiomanagementState {
+  final double progress;
+  UpdateDownloadProgressState(this.progress);
+
+  @override
+  List<Object> get props => [progress];
+}
+
+class DownloadingAudioState extends AudiomanagementState {
+  final double progress;
+  DownloadingAudioState({required this.progress});
+
+  @override
+  List<Object> get props => [progress];
+}

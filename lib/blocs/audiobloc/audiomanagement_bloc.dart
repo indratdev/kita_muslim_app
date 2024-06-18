@@ -142,9 +142,7 @@ class AudiomanagementBloc
         if (await storageDIR.exists()) {
           await audioRepository.downloadBatchAudio(listAudio, storageDIR.path,
               (progress) {
-            // add(UpdateDownloadProgressEvent(progress));
             emit(UpdateDownloadProgressState(progress));
-            print(">>> DownloadBatchAudioEvent progress : $progress");
           });
 
           Map<String, dynamic> result =
@@ -156,8 +154,19 @@ class AudiomanagementBloc
       }
     });
 
-    // on<UpdateDownloadProgressEvent>((event, emit) {
-    //   emit(DownloadingAudioState(progress: event.progress));
-    // });
+    on<AllAudioAlreadyDownloadedEvent>((event, emit) async {
+      emit(LoadingAllAudioAlreadyDownloaded());
+      try {
+        print(">>> AllAudioAlreadyDownloadedEvent");
+        Map<String, dynamic> result =
+            await audioRepository.isExistAllAudiFiles(event.listUrlAudio);
+
+        print(">>> result : ${result["audioStatus"]}");
+
+        emit(SuccessAllAudioAlreadyDownloadedState(result: result));
+      } catch (e) {
+        emit(FailureAllAudioAlreadyDownloadedState(messageInfo: e.toString()));
+      }
+    });
   }
 }

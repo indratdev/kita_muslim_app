@@ -187,7 +187,9 @@ class AudioProvider {
           : await getApplicationSupportDirectory();
 
       final myDir = Directory("${baseStorage!.path}/$directoryName/");
+      print(">>> myDir : $myDir");
       resultAudio = "${myDir.path}$audioFileName.mp3";
+      print(">>> resultAudio : $resultAudio");
       return resultAudio;
     } catch (e) {
       return "";
@@ -201,7 +203,8 @@ class AudioProvider {
 
     for (var data in allAudio) {
       String audioName = data.substring(55).replaceAll(".mp3", "");
-      var resultLocation = await getAudioFileLocation(audioName);
+      print(">>> audioName : $audioName");
+      String resultLocation = await getAudioFileLocation(audioName);
       if (resultLocation != "") {
         filenameAudio.add(resultLocation);
       }
@@ -212,8 +215,10 @@ class AudioProvider {
 
     // kalau list mengandung false -> berarti harus download (ada file yang
     // tidak terdownload semua
-    var resultAudioExist = allExist.contains(false);
+    // kalau ada yang tidak lengkap file audionya returnnya : true untuk --> audioStatus
+    bool resultAudioExist = allExist.contains(false);
     result["audioStatus"] = resultAudioExist;
+
     result["listAudio"] = allAudio;
     result["fileNameAudio"] = filenameAudio;
     return result;

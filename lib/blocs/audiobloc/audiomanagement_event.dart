@@ -66,3 +66,12 @@ class DownloadBatchAudioEvent extends AudiomanagementEvent {
     required this.listAudio,
   });
 }
+
+/// Cek apakah semua audio surah sudah didownload semua
+class AllAudioAlreadyDownloadedEvent extends AudiomanagementEvent {
+  List<String> listUrlAudio;
+
+  AllAudioAlreadyDownloadedEvent({
+    required this.listUrlAudio,
+  });
+}

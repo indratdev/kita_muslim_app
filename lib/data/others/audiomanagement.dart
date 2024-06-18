@@ -49,4 +49,23 @@ class AudioManagement {
     }
     return result;
   }
+
+  /// Version 2
+  Future<bool> checkAudioFileExistV2(String fileName) async {
+    bool result = false;
+    try {
+      String audioAssetPath = "assets/audios/$fileName.mp3";
+      ByteData audioData = await rootBundle.load(audioAssetPath);
+
+      if (audioData.lengthInBytes > 0) {
+        result = true;
+      } else {
+        result = false;
+      }
+    } catch (e) {
+      // If an error occurs (e.g., file not found), result will be false
+      result = false;
+    }
+    return result;
+  }
 }

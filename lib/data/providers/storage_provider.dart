@@ -53,4 +53,60 @@ class StorageProvider {
       return false;
     }
   }
+
+  Future<Directory> getAudioDirectoryPathNew() async {
+    try {
+      // Request storage permissions
+      if (await Permission.storage.request().isGranted) {
+        print('Storage permission granted.');
+      } else if (await Permission.manageExternalStorage.request().isGranted) {
+        print('Manage external storage permission granted.');
+      } else {
+        throw Exception('Storage permission not granted');
+      }
+
+      // Get the base storage directory
+      final directory = await getExternalStorageDirectory();
+      if (directory == null) {
+        throw Exception('Unable to get the external storage directory');
+      }
+
+      // Construct the new directory path
+      final path = '${directory.path}/MyAudioDirectory';
+      final newDirectory = Directory(path);
+
+      // Print the new directory path (for debugging purposes)
+      print(">>> newDirectory : ${newDirectory.path}");
+
+      // Check if the directory exists and create it if it doesn't
+      if (!await newDirectory.exists()) {
+        await newDirectory.create(recursive: true);
+        log('Folder created: $path');
+      } else {
+        log('Folder already exists: $path');
+      }
+
+      return newDirectory;
+    } catch (e) {
+      log('Error creating folder: $e');
+      rethrow;
+    }
+  }
+
+  Future<List<FileSystemEntity>> listFilesInDirectoryNew() async {
+    try {
+      const path =
+          '/storage/emulated/0/Android/data/com.indratdev.kitamuslim/files/audios/';
+      final newDirectory = Directory(path);
+      if (await newDirectory.exists()) {
+        List<FileSystemEntity> files = newDirectory.listSync();
+        return files;
+      } else {
+        throw Exception('Directory does not exist');
+      }
+    } catch (e) {
+      log('Error listing files: $e');
+      rethrow;
+    }
+  }
 }

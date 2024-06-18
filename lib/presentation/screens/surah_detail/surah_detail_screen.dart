@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/data/providers/storage_provider.dart';
+import 'package:kita_muslim/presentation/screens/surah_detail/widgets/surah_audio_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -248,28 +250,20 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                     FavoriteWidget(
                                         isFavorite: _isFavorite,
                                         listData: listData),
-                                    IconButton(
-                                        onPressed: () {
-                                          context
-                                              .read<AudiomanagementBloc>()
-                                              .add(DownloadBatchAudioEvent(
-                                                listAudio: listData
-                                                    .map((e) => e
-                                                        .audio_secondary_0
-                                                        .toString())
-                                                    .toList(),
-                                                // [
-                                                //   'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3',
-                                                //   'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2.mp3',
-                                                //   'https://cdn.islamic.network/quran/audio/128/ar.alafasy/3.mp3',
-                                                //   'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4.mp3',
-                                                //   'https://cdn.islamic.network/quran/audio/128/ar.alafasy/5.mp3',
-                                                //   'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6.mp3',
-                                                //   'https://cdn.islamic.network/quran/audio/128/ar.alafasy/7.mp3',
-                                                // ],
-                                              ));
-                                        },
-                                        icon: const Icon(Icons.download)),
+                                    SurahAudioWidget(listAudioUrl: listData),
+                                    // IconButton(
+                                    //     onPressed: () {
+                                    //       context
+                                    //           .read<AudiomanagementBloc>()
+                                    //           .add(DownloadBatchAudioEvent(
+                                    //             listAudio: listData
+                                    //                 .map((e) => e
+                                    //                     .audio_secondary_0
+                                    //                     .toString())
+                                    //                 .toList(),
+                                    //           ));
+                                    //     },
+                                    //     icon: const Icon(Icons.download)),
                                     // AudioWidget(
                                     //   numberInquran: int.parse(
                                     //       listData.first.number_inquran ?? "0"),
@@ -277,11 +271,11 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                     //       listData.first.number_of_verses ??
                                     //           "0"),
                                     // ),
-                                    IconButton(
-                                      onPressed: () async {},
-                                      icon: const Icon(
-                                          Icons.play_circle_fill_rounded),
-                                    ),
+                                    // IconButton(
+                                    //   onPressed: () async {},
+                                    //   icon: const Icon(
+                                    //       Icons.play_circle_fill_rounded),
+                                    // ),
                                     IconButton(
                                       onPressed: () {
                                         scrollToIndex(indexAyat);
@@ -306,6 +300,16 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                     //   },
                                     //   icon: const Icon(Icons.ac_unit_sharp),
                                     // ),
+                                    IconButton(
+                                        onPressed: () async {
+                                          var aaa = await StorageProvider()
+                                              .listFilesInDirectoryNew();
+                                          for (var element in aaa) {
+                                            print(
+                                                ">>> element : ${element.path}");
+                                          }
+                                        },
+                                        icon: Icon(Icons.access_alarms_sharp))
                                   ],
                                 ),
                               ],

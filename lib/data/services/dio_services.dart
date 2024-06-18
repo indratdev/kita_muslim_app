@@ -69,8 +69,8 @@ class DioServices {
         savePath,
         options: Options(
           responseType: ResponseType.bytes,
-          sendTimeout: const Duration(seconds: 30),
-          receiveTimeout: const Duration(seconds: 30),
+          sendTimeout: const Duration(seconds: 60),
+          receiveTimeout: const Duration(seconds: 60),
         ),
         // onReceiveProgress: onReceiveProgress,
       );

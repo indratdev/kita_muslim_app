@@ -147,3 +147,20 @@ class DownloadingAudioState extends AudiomanagementState {
   @override
   List<Object> get props => [progress];
 }
+
+/// Cek apakah semua audio surah sudah didownload semua
+class LoadingAllAudioAlreadyDownloaded extends AudiomanagementState {}
+
+class FailureAllAudioAlreadyDownloadedState extends FailedAudioManagement {
+  FailureAllAudioAlreadyDownloadedState({
+    required super.messageInfo,
+  });
+}
+
+class SuccessAllAudioAlreadyDownloadedState extends AudiomanagementState {
+  Map<String, dynamic> result;
+
+  SuccessAllAudioAlreadyDownloadedState({required this.result});
+}
+
+ /// 

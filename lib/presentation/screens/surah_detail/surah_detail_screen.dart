@@ -35,23 +35,6 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
   int numberOfVerse = 0;
   bool _isProgressDialogShowing = false;
 
-  // Future<void> createFolder(String path) async {
-  //   try {
-  //     final directory = await getExternalStorageDirectory();
-  //     final path = '${directory!.path}/audios';
-  //     final newDirectory = Directory(path);
-
-  //     if (!newDirectory.existsSync()) {
-  //       newDirectory.createSync(recursive: true);
-  //       print('Folder created: $path');
-  //     } else {
-  //       print('Folder already exists: $path');
-  //     }
-  //   } catch (e) {
-  //     print('Error creating folder: $e');
-  //   }
-  // }
-
   /// scroll to index
   void scrollToIndex(int index, [int miliSecondDuration = 3000]) async {
     _itemScrollController.scrollTo(
@@ -250,56 +233,17 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                                     FavoriteWidget(
                                         isFavorite: _isFavorite,
                                         listData: listData),
-                                    SurahAudioWidget(listAudioUrl: listData),
-                                    // IconButton(
-                                    //     onPressed: () {
-                                    //       context
-                                    //           .read<AudiomanagementBloc>()
-                                    //           .add(DownloadBatchAudioEvent(
-                                    //             listAudio: listData
-                                    //                 .map((e) => e
-                                    //                     .audio_secondary_0
-                                    //                     .toString())
-                                    //                 .toList(),
-                                    //           ));
-                                    //     },
-                                    //     icon: const Icon(Icons.download)),
-                                    // AudioWidget(
-                                    //   numberInquran: int.parse(
-                                    //       listData.first.number_inquran ?? "0"),
-                                    //   numberOfVerse: int.parse(
-                                    //       listData.first.number_of_verses ??
-                                    //           "0"),
-                                    // ),
-                                    // IconButton(
-                                    //   onPressed: () async {},
-                                    //   icon: const Icon(
-                                    //       Icons.play_circle_fill_rounded),
-                                    // ),
+                                    // SurahAudioWidget(listAudioUrl: listData),
+                                    SurahAudioWidget(
+                                        listAudioUrl: listData,
+                                        itemScrollController:
+                                            _itemScrollController),
                                     IconButton(
                                       onPressed: () {
                                         scrollToIndex(indexAyat);
                                       },
                                       icon: const Icon(Icons.move_down_rounded),
                                     ),
-                                    // IconButton(
-                                    //   onPressed: () async {
-                                    //     context
-                                    //         .read<AudiomanagementBloc>()
-                                    //         .add(DownloadBatchAudioEvent(
-                                    //           listAudio: [
-                                    //             'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3',
-                                    //             'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2.mp3',
-                                    //             'https://cdn.islamic.network/quran/audio/128/ar.alafasy/3.mp3',
-                                    //             'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4.mp3',
-                                    //             'https://cdn.islamic.network/quran/audio/128/ar.alafasy/5.mp3',
-                                    //             'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6.mp3',
-                                    //             'https://cdn.islamic.network/quran/audio/128/ar.alafasy/7.mp3',
-                                    //           ],
-                                    //         ));
-                                    //   },
-                                    //   icon: const Icon(Icons.ac_unit_sharp),
-                                    // ),
                                     IconButton(
                                         onPressed: () async {
                                           var aaa = await StorageProvider()

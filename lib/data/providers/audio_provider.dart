@@ -218,7 +218,6 @@ class AudioProvider {
     // kalau ada yang tidak lengkap file audionya returnnya : true untuk --> audioStatus
     bool resultAudioExist = allExist.contains(false);
     result["audioStatus"] = resultAudioExist;
-
     result["listAudio"] = allAudio;
     result["fileNameAudio"] = filenameAudio;
     return result;

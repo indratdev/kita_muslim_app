@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/presentation/screens/surah_detail/widgets/export.dart';
 
 import '../../../../blocs/export.dart';
 import '../../../../data/models/local/export.dart';
@@ -18,9 +19,12 @@ class FavoriteWidget extends StatelessWidget {
     return BlocConsumer<SurahBloc, SurahState>(
       listener: (context, state) {
         if (state is SuccessSetFavoriteSurah) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Favorite status updated')),
-          );
+          CustomWidgets.showSnackBarCustom(
+              context,
+              (isFavorite)
+                  ? 'Berhasil menghapus surah dari favorit'
+                  : 'Berhasil menandai surah ke favorit',
+              true);
         }
       },
       buildWhen: (previous, current) =>

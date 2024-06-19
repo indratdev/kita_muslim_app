@@ -30,13 +30,12 @@ class HomeScreenV2 extends StatelessWidget {
         children: [
           Stack(
             children: [
-              SizedBox(height: MediaQuery.sizeOf(context).height / 2.5),
+              SizedBox(height: MediaQuery.sizeOf(context).height / 2.6),
               Positioned(
                 bottom: 30,
-                top: 0,
                 child: Container(
                   alignment: Alignment.topCenter,
-                  height: MediaQuery.sizeOf(context).height / 2.8,
+                  height: MediaQuery.sizeOf(context).height / 2.6,
                   child: SizedBox(
                     child: BlocBuilder<PrayerBloc, PrayerState>(
                       buildWhen: (previous, current) =>

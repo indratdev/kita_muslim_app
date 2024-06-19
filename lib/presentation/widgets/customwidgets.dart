@@ -23,6 +23,17 @@ class CustomWidgets {
     );
   }
 
+  static showSnackBarCustom(
+      BuildContext context, String description, bool isSuccess) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(description),
+        backgroundColor:
+            (isSuccess) ? Constants.deepGreenColor : Constants.redColor,
+      ),
+    );
+  }
+
   ///
 
   static showDialogAppInfo(BuildContext context) {

@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:kita_muslim/data/models/daily_prayer/daily_prayer_model.dart';
+
 import '../datasources/local_data_source.dart';
 import '../models/local/export.dart';
 import '../models/surah/spesifik_surah_model.dart' as spesifik;
@@ -22,7 +24,11 @@ class SurahRepository {
     return prayerApiProvider.getDetailSurah(number);
   }
 
-  Future<List<harian.SurahHarianModel>> getSurahHarian() {
+  // Future<List<harian.SurahHarianModel>> getSurahHarian() {
+  //   return prayerApiProvider.getSurahHarian();
+  // }
+
+  Future<List<DailyPrayerModel>> getSurahHarian() {
     return prayerApiProvider.getSurahHarian();
   }
 

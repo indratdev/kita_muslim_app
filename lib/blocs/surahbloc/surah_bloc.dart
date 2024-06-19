@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kita_muslim/blocs/export.dart';
+import 'package:kita_muslim/data/models/daily_prayer/daily_prayer_model.dart';
 import 'package:kita_muslim/data/models/surah/surah_harian_model.dart'
     as harian;
 import 'package:kita_muslim/data/models/surah/surah_model.dart';
@@ -112,16 +113,16 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
       }
     });
 
-    on<SendIndexDoaHarianEvent>((event, emit) async {
-      try {
-        emit(LoadingSurah());
-        final result = await surahRepository.getSurahHarian();
-        emit(SuccessSendIndexSurahHarian(
-            indexSurah: event.indexSurah, surah: result));
-      } catch (e) {
-        emit(FailureSurah(errorMessage: "Error: Gagal Memuat Index Data"));
-      }
-    });
+    // on<SendIndexDoaHarianEvent>((event, emit) async {
+    //   try {
+    //     emit(LoadingSurah());
+    //     final result = await surahRepository.getSurahHarian();
+    //     emit(SuccessSendIndexSurahHarian(
+    //         indexSurah: event.indexSurah, surah: result));
+    //   } catch (e) {
+    //     emit(FailureSurah(errorMessage: "Error: Gagal Memuat Index Data"));
+    //   }
+    // });
 
     /// localstorage
     on<GetNumberOfSurahOnLocalStorage>((event, emit) async {

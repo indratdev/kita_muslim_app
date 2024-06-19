@@ -39,10 +39,10 @@ class DoaHarianScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    context.read<SurahBloc>().add(SendDoaHarianDetailEvent(
-                          surah: state.surah[index],
-                          indexSurah: index,
-                        ));
+                    // context.read<SurahBloc>().add(SendDoaHarianDetailEvent(
+                    //       surah: state.surah[index],
+                    //       indexSurah: index,
+                    //     ));
                     Navigator.pushNamed(context, '/doahariandetail');
                   },
                   child: ListTile(

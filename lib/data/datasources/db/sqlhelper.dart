@@ -15,6 +15,7 @@ class SqlHelper {
   final String tableDetailSurah = 'td_detailsurah';
   final String tableSurahUser = 'th_surah_user';
   final String tableMasterParameter = 'm_parameter';
+  final String tableDailyPrayer = 'th_daily_prayer';
 
   // init tables
   initDB(Database db) async {
@@ -92,6 +93,16 @@ class SqlHelper {
       total_verse INTEGER,
       last_verse_number INTEGER,
       active INTEGER      
+      )
+      ''');
+
+    await db.execute('''
+    CREATE TABLE $tableDailyPrayer    (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,      
+      title TEXT NULL,
+      text_arab TEXT NULL,
+      text_transliteration_en TEXT NULL,      
+      translation_id TEXT NULL,
       )
       ''');
 

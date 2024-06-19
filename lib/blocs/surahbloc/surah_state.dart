@@ -118,7 +118,8 @@ class SuccessGetSurah extends SurahState {
 }
 
 class SuccessGetSurahHarian extends SurahState {
-  List<harian.SurahHarianModel> surah;
+  // List<harian.SurahHarianModel> surah;
+  List<DailyPrayerModel> surah;
   int indexSurah;
 
   SuccessGetSurahHarian({

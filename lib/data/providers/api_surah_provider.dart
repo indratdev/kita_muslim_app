@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:kita_muslim/data/models/daily_prayer/daily_prayer_model.dart';
 import 'package:kita_muslim/data/models/hadits/hadistRange_model.dart';
 import 'package:kita_muslim/data/models/hadits/hadistsR_model.dart';
 import 'package:kita_muslim/data/models/hadits/hadists_model.dart';
@@ -88,17 +89,45 @@ class ApiSurahProvider {
   //   }
   // }
 
-  Future<List<SurahHarianModel>> getSurahHarian() async {
-    Uri url = Uri.parse("https://doa-doa-api-ahmadramadhan.fly.dev/api");
-    var response = await http.get(url);
-    var result = jsonDecode(response.body) as List;
+  /// OLD
+  // Future<List<SurahHarianModel>> getSurahHarian() async {
+  //   Uri url = Uri.parse("https://doa-doa-api-ahmadramadhan.fly.dev/api");
+  //   var response = await http.get(url);
+  //   var result = jsonDecode(response.body) as List;
 
-    if (result.length > 0 || result.isNotEmpty) {
-      List<SurahHarianModel> finalResult =
-          result.map((e) => SurahHarianModel.fromJson(e)).toList();
-      return finalResult;
-    } else {
-      throw Exception('Failed Get Surah');
+  //   if (result.length > 0 || result.isNotEmpty) {
+  //     List<SurahHarianModel> finalResult =
+  //         result.map((e) => SurahHarianModel.fromJson(e)).toList();
+  //     return finalResult;
+  //   } else {
+  //     throw Exception('Failed Get Surah');
+  //   }
+  // }
+
+  Future<List<DailyPrayerModel>> getSurahHarian() async {
+    try {
+      Response response;
+      String url = "https://doa-doa-api-ahmadramadhan.fly.dev/api";
+      response = await dio.get(url);
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed Get Daily Prayer');
+      }
+
+      List<DailyPrayerModel> parseDailyPrayers(List<dynamic> responseData) {
+        return responseData
+            .map((data) => DailyPrayerModel.fromJson(data))
+            .toList();
+      }
+
+      print(">>> ini jalan");
+
+      List<DailyPrayerModel> listDaily = parseDailyPrayers(response.data);
+
+      return listDaily;
+    } catch (e) {
+      print(e.toString());
+      throw Exception('Failed Get Surah : $e');
     }
   }
 

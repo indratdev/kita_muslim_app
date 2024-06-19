@@ -56,7 +56,7 @@ class DoaHarianDetailScreen extends StatelessWidget {
                             width: double.infinity,
                             decoration: BoxDecoration(
                               boxShadow: [Constants.boxShadowMenu],
-                              color: Constants.iwhite,
+                              color: Constants.whiteColor,
                             ),
                             padding: const EdgeInsets.only(top: 10, bottom: 10),
                             child: Text(
@@ -92,7 +92,7 @@ class DoaHarianDetailScreen extends StatelessWidget {
                             result.latin,
                             textAlign: TextAlign.justify,
                             style: const TextStyle(
-                                color: Constants.igreen,
+                                color: Constants.greenColor,
                                 fontSize: Constants.sizeTextTitle),
                           ),
                         ),

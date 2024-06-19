@@ -60,7 +60,7 @@ class HadistScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width / 3,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: Constants.colorGreenDeep,
+                            color: Constants.deepGreenColor,
                             borderRadius: Constants
                                 .cornerRadiusBox, //BorderRadius.circular(15),
                             boxShadow: [Constants.boxShadowMenuVersion2],
@@ -69,14 +69,14 @@ class HadistScreen extends StatelessWidget {
                             title: Text(
                               data[index].name.toString(),
                               style: const TextStyle(
-                                color: Constants.colorWhite,
+                                color: Constants.whiteColor,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             subtitle: Text(
                               "${data[index].available.toString()} Hadis",
                               style: const TextStyle(
-                                color: Constants.colorWhite,
+                                color: Constants.whiteColor,
                               ),
                             ),
                           ),
@@ -100,7 +100,7 @@ class HadistScreen extends StatelessWidget {
                       width: double.infinity,
                       margin: const EdgeInsets.only(top: 10, bottom: 0),
                       decoration: const BoxDecoration(
-                          color: Constants.colorCream,
+                          color: Constants.whiteColor,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20))),
@@ -160,7 +160,7 @@ class HadistScreen extends StatelessWidget {
                                 text: resulRandom.contents.id.toString(),
                                 style: const TextStyle(
                                   fontSize: Constants.sizeSubTextTitle,
-                                  color: Constants.colorBlack,
+                                  color: Constants.blackColor,
                                 ),
                               ),
                             ),

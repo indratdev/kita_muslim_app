@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kita_muslim/blocs/article_bloc/article_bloc.dart';
+
 import 'package:kita_muslim/data/models/article/article_muslim_model.dart';
-import 'package:kita_muslim/data/providers/api_article_provider.dart';
+
 import 'package:kita_muslim/presentation/screens/article_screen/article_detail_screen.dart';
 import 'package:kita_muslim/utils/constants.dart';
+
+import '../../../../blocs/export.dart';
 
 class NewsMenuWidget extends StatelessWidget {
   const NewsMenuWidget({
@@ -23,7 +24,9 @@ class NewsMenuWidget extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                /// ini belum ada
+              },
               child: const Text(
                 "Lihat semua",
               ),
@@ -40,7 +43,19 @@ class NewsMenuWidget extends StatelessWidget {
                     child: CircularProgressIndicator.adaptive());
               }
               if (state is FailureRandomArticle) {
-                return Center(child: Text(state.message));
+                return Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text("Gagal memuat data"),
+                      TextButton(
+                          style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                          onPressed: () {},
+                          child: const Text("Coba kembali")),
+                    ],
+                  ),
+                );
               }
               if (state is SuccessRandomArticle) {
                 ArticleMuslimModel articles = state.result;
@@ -97,13 +112,6 @@ class NewsMenuWidget extends StatelessWidget {
                                       fit: BoxFit.fill,
                                       imageUrl: e.thumbnail ??
                                           Constants.urlImageNotFound,
-                                      // progressIndicatorBuilder:
-                                      //     (context, url, downloadProgress) =>
-                                      //         Center(
-                                      //   child: CircularProgressIndicator(
-                                      //     value: downloadProgress.progress,
-                                      //   ),
-                                      // ),
                                       errorWidget: (context, url, error) =>
                                           const Center(
                                         child: Icon(Icons.error),

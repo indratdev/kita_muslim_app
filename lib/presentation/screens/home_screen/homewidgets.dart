@@ -6,7 +6,7 @@ class HomeWidgets {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Constants.iwhite,
+        color: Constants.whiteColor,
         borderRadius: Constants.cornerRadiusBox, //BorderRadius.circular(15),
         boxShadow: [Constants.boxShadowMenu],
       ),

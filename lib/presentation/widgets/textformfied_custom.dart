@@ -88,17 +88,17 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
                   ? null
                   : Icon(
                       widget.icon,
-                      color: Constants.colorBlack,
+                      color: Constants.blackColor,
                     ),
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Constants.colorBlack,
+                  color: Constants.blackColor,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4)),
               ),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Constants.colorBlack,
+                  color: Constants.blackColor,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(4)),
               ),
@@ -106,7 +106,7 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
               hintText: widget.hintText,
               hintStyle: const TextStyle(
                 fontSize: 14,
-                color: Constants.colorBlack,
+                color: Constants.blackColor,
               ),
             ),
           ),

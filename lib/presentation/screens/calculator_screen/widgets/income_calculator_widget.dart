@@ -73,7 +73,7 @@ class _IncomeCalculatorWidgetState extends State<IncomeCalculatorWidget> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: Constants.igreen,
+                          color: Constants.greenColor,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         margin: const EdgeInsets.only(top: 12),

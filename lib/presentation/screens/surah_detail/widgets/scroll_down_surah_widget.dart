@@ -29,10 +29,11 @@ class _ScrollDownSurahWidgetState extends State<ScrollDownSurahWidget> {
       shape: const StadiumBorder(side: BorderSide.none),
       elevation: 5,
       tooltip: 'Move Down',
-      backgroundColor: Constants.colorlightGreenV2,
+      backgroundColor: Constants.deepGreenColor,
       child: (widget.isScrolling)
-          ? const Icon(Icons.stop)
-          : const Icon(Icons.keyboard_double_arrow_down_sharp),
+          ? const Icon(Icons.stop, color: Constants.whiteColor)
+          : const Icon(Icons.keyboard_double_arrow_down_sharp,
+              color: Constants.whiteColor),
       onPressed: () async {
         if (widget.isScrolling) {
           setState(() {

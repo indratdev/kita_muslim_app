@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kita_muslim/blocs/article_bloc/article_bloc.dart';
-import 'package:kita_muslim/blocs/calculator_bloc/calculator_bloc.dart';
+
 import 'package:kita_muslim/config/routes.dart';
+import 'package:kita_muslim/utils/constants.dart';
 import 'blocs/export.dart';
 
 void main() async {
@@ -41,6 +41,14 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            color: Constants.deepGreenColor,
+            centerTitle: true,
+            actionsIconTheme: IconThemeData(color: Constants.greyColor),
+            iconTheme: IconThemeData(color: Constants.greyColor),
+          ),
+        ),
         initialRoute: '/splash',
         routes: Routes().getRoutes,
       ),

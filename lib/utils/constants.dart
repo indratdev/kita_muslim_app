@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 
 class Constants {
   static const color1 = Color(0xFF3B2D60);
-  static const color2 = Color(0xFFE78DD2);
-  static const color3 = Color(0xFFDFB59C);
-  static const iblueLight = Color(0xFFDDE6FF);
-  static const iwhite = Color(0xFFFEFEFE);
-  static const igreen = Color(0xFF377D71);
+  // static const color2 = Color(0xFFE78DD2);
+  // static const color3 = Color(0xFFDFB59C);
+  // static const iblueLight = Color(0xFFDDE6FF);
+  // static const iwhite = Color(0xFFFEFEFE);
+  // static const igreen = Color(0xFF377D71);
 
-  static const colorBlack = Color(0xFF100F0F);
-  static const colorGreenDeep = Color(0xFF0F3D3E);
-  static const colorCream = Color(0xFFE2DCC8);
-  static const colorWhite = Color(0xFFF1F1F1);
+  // static const colorBlack = Color(0xFF100F0F);
+  // static const colorGreenDeep = Color(0xFF0F3D3E);
+  // static const colorCream = Color(0xFFE2DCC8);
+  // static const colorWhite = Color(0xFFF1F1F1);
 
-  static const iFebruaryInk1 = Color(0xFFADCCEF);
-  static const iFebruaryInk2 = Color(0xFFE7F0FD);
+  // static const iFebruaryInk1 = Color(0xFFADCCEF);
+  // static const iFebruaryInk2 = Color(0xFFE7F0FD);
 
   /// new color
-  static const lightGreenColor = Color(0xFFd5f3d1);
+  // static const lightGreenColor = Color(0xFFd5f3d1);
 
   static const appName = 'Kita Muslim';
   static const appWallpaper = "assets/images/wallpaper.png";
@@ -51,18 +51,33 @@ class Constants {
   static const backgroundImage = "assets/images/background.png";
   static const frameCircleImage = "assets/images/frame_circle.png";
 
-  static const colorBlackV2 = Color(0xFF323e2a);
-  static const colorDeepGreenV2 = Color(0xFF677842);
-  static const colorDeepYellowV2 = Color(0xFFd8b207);
-  static const colorYellowV2 = Color(0xFFffd102);
-  static const colorWhitekV2 = Color(0xFFedecf2);
+  // static const colorBlackV2 = Color(0xFF323e2a);
+  // static const colorDeepGreenV2 = Color(0xFF677842);
+  // static const colorDeepYellowV2 = Color(0xFFd8b207);
+  // static const colorYellowV2 = Color(0xFFffd102);
+  // static const colorWhitekV2 = Color(0xFFedecf2);
 
-  static const colorDeepBlackV2 = Color(0xFF152232);
-  static const colorDeepBrownV2 = Color(0xFF253c2c);
-  static const colorGreenV2 = Color(0xFF4c683f);
-  static const colorlightGreenV2 = Color(0xFF7d9c72);
-  static const colorLightBlueV2 = Color(0xFFc2d9df);
-  static const colorRedV2 = Color(0xFFf96645);
+  // static const colorDeepBlackV2 = Color(0xFF152232);
+  // static const colorDeepBrownV2 = Color(0xFF253c2c);
+  // static const colorGreenV2 = Color(0xFF4c683f);
+  // static const colorlightGreenV2 = Color(0xFF7d9c72);
+  // static const colorLightBlueV2 = Color(0xFFc2d9df);
+  // static const colorRedV2 = Color(0xFFf96645);
+
+  ///new color
+  static const whiteColor = Color(0xFFedecf2);
+  static const yellowColor = Color(0xFFffd102);
+  static const deepYellowColor = Color(0xFFd8b207);
+  static const lightGreenColor = Color(0xFFcbe58e);
+  static const greenColor = Color(0xFFa1ce3f);
+  static const deepGreenColor = Color(0xFF107e57);
+  static const deepBlueColor = Color(0xFF014760);
+  static const blackColor = Color(0xFF013026);
+  static const redColor = Color(0xFFee3e03);
+  static const backgroundColor = Color(0xFFF1F8E8);
+  static const greyColor = Color(0xFFC7C8CC);
+
+  ///
 
   // end image
 
@@ -101,12 +116,12 @@ class Constants {
     // offset: const Offset(0, 1), // changes position of shadow
   );
 
-  static BoxShadow boxShadowMenuVersion3 = BoxShadow(
-    color: Constants.iFebruaryInk1.withOpacity(1),
-    spreadRadius: 1,
-    blurRadius: 3,
-    // offset: const Offset(0, 1), // changes position of shadow
-  );
+  // static BoxShadow boxShadowMenuVersion3 = BoxShadow(
+  //   color: Constants.iFebruaryInk1.withOpacity(1),
+  //   spreadRadius: 1,
+  //   blurRadius: 3,
+  //   /// offset: const Offset(0, 1), // changes position of shadow
+  // );
 
   static BoxShadow boxShadowMenuNewVersion = BoxShadow(
     color: Constants.color1.withOpacity(0.5),

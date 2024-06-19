@@ -85,7 +85,7 @@ class HadistSRScreen extends StatelessWidget {
                                             "",
                                     style: const TextStyle(
                                       fontSize: Constants.sizeSubTextTitle,
-                                      color: Constants.colorBlack,
+                                      color: Constants.blackColor,
                                     ),
                                   ),
                                 ),
@@ -134,7 +134,7 @@ class HadistSRScreen extends StatelessWidget {
                                             style: const TextStyle(
                                               fontSize:
                                                   Constants.sizeTextArabianSub,
-                                              color: Constants.colorGreenDeep,
+                                              color: Constants.deepGreenColor,
                                             ),
                                           ),
                                         ),
@@ -149,7 +149,7 @@ class HadistSRScreen extends StatelessWidget {
                                             style: const TextStyle(
                                               fontSize:
                                                   Constants.sizeSubTextTitle,
-                                              color: Constants.colorBlack,
+                                              color: Constants.blackColor,
                                             ),
                                           ),
                                         ),

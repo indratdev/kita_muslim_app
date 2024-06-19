@@ -74,7 +74,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   onPressed: () {
                     _hh.downloadAllSurahToLocal();
                   },
-                  icon: Icon(Icons.download)),
+                  icon: const Icon(Icons.download)),
               IconButton(
                   onPressed: () {
                     setState(() {
@@ -83,7 +83,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   },
                   icon: (isSearch)
                       ? const Icon(Icons.search_off_rounded,
-                          color: Constants.colorRedV2)
+                          color: Constants.whiteColor)
                       : const Icon(Icons.search_rounded))
             ]),
         body: Column(
@@ -97,7 +97,13 @@ class _QuranScreenState extends State<QuranScreen> {
                   decoration: InputDecoration(
                     labelText: 'Search',
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Constants.deepGreenColor, width: 2.0),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     prefixIcon: const Icon(Icons.search),
                   ),
                 ),
@@ -123,7 +129,6 @@ class _QuranScreenState extends State<QuranScreen> {
                   );
                 }
                 if (state is SuccessGetSurah) {
-                  print(">>> SuccessGetSurah run");
                   dataSurah = state.surah;
                   filteredDataSurah = query.isEmpty
                       ? List.from(dataSurah)

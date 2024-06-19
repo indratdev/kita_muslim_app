@@ -62,7 +62,7 @@ class _GoldCalculatorWidgetState extends State<GoldCalculatorWidget> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: Constants.igreen,
+                          color: Constants.greenColor,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         margin: const EdgeInsets.only(top: 12),

@@ -4,6 +4,27 @@ import 'package:kita_muslim/utils/constants.dart';
 import '../../blocs/export.dart';
 
 class CustomWidgets {
+  /// new version 2
+  static showLoadingIndicatorWithContainer(
+    BuildContext context,
+    double height,
+    double width,
+  ) {
+    return Container(
+      height: height,
+      width: width,
+      color: Constants.greyColor,
+      alignment: Alignment.center,
+      child: const Center(
+        child: CircularProgressIndicator.adaptive(
+          valueColor: AlwaysStoppedAnimation<Color>(Constants.deepGreenColor),
+        ),
+      ),
+    );
+  }
+
+  ///
+
   static showDialogAppInfo(BuildContext context) {
     return showGeneralDialog(
       context: context,
@@ -79,9 +100,11 @@ class CustomWidgets {
   static PreferredSizeWidget basicAppBar(String title,
       {bool centerTitle = false, List<Widget>? listAction}) {
     return AppBar(
-      title: Text(title),
+      title: Text(
+        title,
+        style: const TextStyle(color: Constants.greyColor),
+      ),
       centerTitle: centerTitle,
-      backgroundColor: Constants.iwhite,
       actions: listAction,
     );
   }
@@ -89,7 +112,7 @@ class CustomWidgets {
   static Decoration decorationBasicUI() {
     return const BoxDecoration(
       gradient: LinearGradient(
-        colors: [Constants.colorGreenDeep, Constants.colorWhite],
+        colors: [Constants.deepGreenColor, Constants.whiteColor],
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
       ),
@@ -98,7 +121,7 @@ class CustomWidgets {
 
   static Divider standartDivider() {
     return const Divider(
-      color: Constants.colorBlack,
+      color: Constants.blackColor,
       height: 5,
     );
   }
@@ -284,15 +307,14 @@ class CustomWidgets {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
-            backgroundColor: Constants.colorBlackV2,
+            backgroundColor: Constants.blackColor,
             content: BlocBuilder<AudiomanagementBloc, AudiomanagementState>(
               builder: (context, state) {
                 return const Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     CircularProgressIndicator.adaptive(
-                      valueColor:
-                          AlwaysStoppedAnimation(Constants.colorWhitekV2),
+                      valueColor: AlwaysStoppedAnimation(Constants.whiteColor),
                     ),
                   ],
                 );

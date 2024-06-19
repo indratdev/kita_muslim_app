@@ -31,7 +31,7 @@ class BismillahWidget extends StatelessWidget {
             textAlign: TextAlign.right,
             style: const TextStyle(
                 fontSize: Constants.sizeTextTitle,
-                color: Constants.colorGreenDeep),
+                color: Constants.deepGreenColor),
           ),
           const SizedBox(height: 15),
           Text(
@@ -39,7 +39,7 @@ class BismillahWidget extends StatelessWidget {
             maxLines: 3,
             textAlign: TextAlign.right,
             style: const TextStyle(
-                fontSize: Constants.sizeTextTitle, color: Constants.colorBlack),
+                fontSize: Constants.sizeTextTitle, color: Constants.blackColor),
           ),
         ],
       ),

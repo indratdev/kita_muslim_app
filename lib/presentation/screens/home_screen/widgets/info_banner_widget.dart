@@ -23,9 +23,9 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      right: 10,
-      left: 10,
-      bottom: 2,
+      right: 18,
+      left: 18,
+      bottom: 5,
       child: Container(
         height: MediaQuery.sizeOf(context).height / 7,
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -88,7 +88,6 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
                   ],
                 ),
               );
-              //  BlocProvider.of<PrayerBloc>(context).add(InitialPrayerEvent());
             } else {
               return const SizedBox();
             }

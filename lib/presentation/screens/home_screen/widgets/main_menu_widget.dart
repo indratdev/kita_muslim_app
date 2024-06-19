@@ -14,7 +14,7 @@ class MainMenuWidget extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height / 4.2,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Constants.color3,
+        color: Constants.whiteColor.withOpacity(.8),
       ),
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(10),
@@ -44,12 +44,10 @@ class MainMenuWidget extends StatelessWidget {
                   backgroundColor: Colors.grey,
                   child: Image.asset(
                     data.menuIcon,
-                    // Constants.appWallpaper,
                     fit: BoxFit.fitHeight,
                   ),
                 ),
                 Text(
-                  // menusController.getListmenuPacket[index].menuName,
                   data.menuName,
                   overflow: TextOverflow.ellipsis,
                 ),

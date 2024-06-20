@@ -1,4 +1,5 @@
 import 'package:kita_muslim/data/datasources/db/sqlhelper.dart';
+import 'package:kita_muslim/data/models/daily_prayer/daily_prayer_model.dart';
 
 import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
     as spesifik;
@@ -89,9 +90,25 @@ class SqlDatabase {
     return result;
   }
 
+  //  insertInitialDailyPrayer(DailyPrayerModel data) async {
+  //   final db = await instance.database;
+  //   final result = await sqlHelper.insertSurahDetail(
+  //     db,
+  //     instance,
+  //     data,
+  //   );
+  //   return result;
+  // }
+
   Future<List<SurahLocalModel>> getAllSurah() async {
     final db = await instance.database;
     final result = await sqlHelper.readAllSurah(db, instance);
+    return result;
+  }
+
+  Future<List<DailyPrayerModel>> getAllDailyPrayer() async {
+    final db = await instance.database;
+    final result = await sqlHelper.readAllDailyPrayer(db, instance);
     return result;
   }
 
@@ -129,11 +146,23 @@ class SqlDatabase {
     return result;
   }
 
+  Future<int> readTotalDailyPrayer() async {
+    final db = await instance.database;
+    final result = await sqlHelper.readTotalDailyPrayer(db, instance);
+    return result;
+  }
+
   Future<int> insertSurahUser(
       int isFavorite, DetailSurahLocalModel data, int lastVerseNumber) async {
     final db = await instance.database;
     final result = await sqlHelper.insertSurahUser(
         db, instance, isFavorite, data, lastVerseNumber);
+    return result;
+  }
+
+  Future<int> insertInitialDailyPrayer(DailyPrayerModel data) async {
+    final db = await instance.database;
+    final result = await sqlHelper.insertInitialDailyPrayer(db, instance, data);
     return result;
   }
 

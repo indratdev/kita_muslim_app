@@ -71,7 +71,6 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     on<GetAllSurahHarian>((event, emit) async {
       try {
         emit(LoadingSurah());
-        // final indexSurah = event.indexSurah;
         final result = await surahRepository.getSurahHarian();
         emit(
             SuccessGetSurahHarian(surah: result, indexSurah: event.indexSurah));

@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
-import 'package:kita_muslim/data/models/hadits/hadistRange_model.dart' as range;
+import 'package:kita_muslim/data/models/daily_prayer/daily_prayer_model.dart';
+// import 'package:kita_muslim/data/models/hadits/hadistRange_model.dart' as range;
 import 'package:kita_muslim/data/models/local/detail_surah_local_model.dart';
 import 'package:kita_muslim/data/models/local/surah_local_model.dart';
 import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
@@ -98,11 +99,12 @@ class SqlHelper {
 
     await db.execute('''
     CREATE TABLE $tableDailyPrayer    (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,      
-      title TEXT NULL,
-      text_arab TEXT NULL,
-      text_transliteration_en TEXT NULL,      
-      translation_id TEXT NULL,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id_id INTEGER,      
+      doa TEXT NULL,
+      ayat TEXT NULL,
+      latin TEXT NULL,      
+      artinya TEXT NULL
       )
       ''');
 
@@ -288,6 +290,27 @@ class SqlHelper {
     if (db != null) {
       final result = await db.rawQuery(''' $query ''');
       return result.map((e) => SurahLocalModel.fromJson(e)).toList();
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  Future<List<DailyPrayerModel>> readAllDailyPrayer(
+    Database? db,
+    SqlDatabase instance,
+  ) async {
+    final db = await instance.database;
+    String query = "";
+    query =
+        "select id,  id_id, doa, ayat, latin, artinya from $tableDailyPrayer ;";
+
+    if (db != null) {
+      try {
+        final result = await db.rawQuery(query);
+        return result.map((e) => DailyPrayerModel.fromJson(e)).toList();
+      } catch (e) {
+        rethrow;
+      }
     } else {
       throw Exception('DB is NULL');
     }
@@ -488,6 +511,26 @@ class SqlHelper {
     }
   }
 
+  Future<int> readTotalDailyPrayer(Database? db, SqlDatabase instance) async {
+    final db = await instance.database;
+
+    String query = "";
+
+    query = """
+          select count(*) 
+          from $tableDailyPrayer          
+        ;""";
+
+    if (db != null) {
+      final List<Map<String, Object?>> result =
+          await db.rawQuery(''' $query ''');
+      String finalResult = result.first.values.first.toString();
+      return int.parse(finalResult);
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
   /// INSERT
 
   Future<int> insertSurahHeader(
@@ -647,6 +690,36 @@ class SqlHelper {
         , '${data.number_of_verses}'
         , $lastVerseNumber
         , '1'
+      );
+      """);
+    }
+    return (result > 0) ? 1 : -1;
+  }
+
+  Future<int> insertInitialDailyPrayer(
+    Database? db,
+    SqlDatabase instance,
+    DailyPrayerModel data,
+  ) async {
+    final db = await instance.database;
+    int result = 0;
+    if (db != null) {
+      result = await db.rawInsert("""
+      INSERT INTO $tableDailyPrayer 
+      (                              
+            id_id,
+            doa,
+            ayat,
+            latin,
+            artinya            
+      )
+      VALUES 
+      (          
+        '${data.id}'
+        ,'${data.doa}'
+        ,'${data.ayat}'
+        ,'${data.latin}'
+        ,'${data.artinya}'        
       );
       """);
     }

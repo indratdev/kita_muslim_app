@@ -24,13 +24,21 @@ class SurahRepository {
     return prayerApiProvider.getDetailSurah(number);
   }
 
-  // Future<List<harian.SurahHarianModel>> getSurahHarian() {
-  //   return prayerApiProvider.getSurahHarian();
-  // }
+  /// daily surah
+  Future<List<DailyPrayerModel>> getSurahHarian() async {
+    int total = await readTotalDailyPrayer();
+    if (total == 0) {
+      await downloadAllDailyPrayer();
+    }
 
-  Future<List<DailyPrayerModel>> getSurahHarian() {
-    return prayerApiProvider.getSurahHarian();
+    return await helperDB.getAllDailyPrayer();
   }
+
+  Future<int> readTotalDailyPrayer() async {
+    return await helperDB.readTotalDailyPrayer();
+  }
+
+  /// end daily surah
 
   Future<List<String>> getAllFavoriteSharedPref() {
     return sharedPref.getAllFavorite();
@@ -64,6 +72,13 @@ class SurahRepository {
       print(">>> downloadAllDetailSurah from $i to 114");
     }
     print("### downloadAllDetailSurah : done");
+  }
+
+  Future<void> downloadAllDailyPrayer() async {
+    List<DailyPrayerModel> result = await prayerApiProvider.getSurahHarian();
+    for (var data in result) {
+      await helperDB.insertInitialDailyPrayer(data);
+    }
   }
 
   saveDetailSurahToLocal(spesifik.SpesifikSurahModel surah) async {

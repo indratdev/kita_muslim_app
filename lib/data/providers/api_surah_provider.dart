@@ -120,14 +120,11 @@ class ApiSurahProvider {
             .toList();
       }
 
-      print(">>> ini jalan");
-
       List<DailyPrayerModel> listDaily = parseDailyPrayers(response.data);
 
       return listDaily;
     } catch (e) {
-      print(e.toString());
-      throw Exception('Failed Get Surah : $e');
+      throw Exception('Failed Get Daily Prayer : $e');
     }
   }
 

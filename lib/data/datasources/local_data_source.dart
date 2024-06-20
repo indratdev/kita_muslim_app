@@ -1,4 +1,5 @@
 import 'package:kita_muslim/data/datasources/db/sqldatabases.dart';
+import 'package:kita_muslim/data/models/daily_prayer/daily_prayer_model.dart';
 import 'package:kita_muslim/data/models/local/detail_surah_local_model.dart';
 import 'package:kita_muslim/data/models/local/surah_local_model.dart';
 import 'package:kita_muslim/data/models/surah/spesifik_surah_model.dart'
@@ -27,13 +28,16 @@ abstract class LocalDataSource {
   insertInitialSurahHeader(Data data);
   insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
       spesifik.Data data, spesifik.Verses verse);
+  insertInitialDailyPrayer(DailyPrayerModel datas);
   // insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
   //     spesifik.PreBismillah? prebismillah, spesifik.Verses verses);
   // insertInitialSurahDetail(Data data);
   Data removeDoubleQuotes(Data data);
   Map<String, dynamic> removeDoubleQuotesVerses(
       spesifik.Data data, spesifik.Verses verses);
+  DailyPrayerModel removeDoubleQuotesDailyPrayer(DailyPrayerModel datas);
   Future<List<SurahLocalModel>> getAllSurah();
+  Future<List<DailyPrayerModel>> getAllDailyPrayer();
   Future<List<DetailSurahLocalModel>> getDetailSurah(String number);
 
   ///read
@@ -41,6 +45,7 @@ abstract class LocalDataSource {
   Future<int> readStatusFavoriteSurah(int surahNumber);
   Future<int> readStatusLastReadSurah(int surahNumber);
   Future<int> readStatusLastVerseSurah(int surahNumber);
+  Future<int> readTotalDailyPrayer();
 
   ///insert
   Future<int> insertSurahUser(
@@ -192,6 +197,13 @@ class LocalDataSourceImpl implements LocalDataSource {
     Map<String, dynamic> result = removeDoubleQuotesVerses(data, verse);
     return dbprovider.insertInitialSurahDetail(
         number, sequence, numberOfVerses, result["data"], result["verse"]);
+  }
+
+  @override
+  insertInitialDailyPrayer(DailyPrayerModel datas) {
+    DailyPrayerModel finalData = removeDoubleQuotesDailyPrayer(datas);
+
+    return dbprovider.insertInitialDailyPrayer(finalData);
   }
 
   // @override
@@ -361,41 +373,6 @@ class LocalDataSourceImpl implements LocalDataSource {
         .replaceAll("'", "`")
         .replaceAll('"', '`');
 
-    // finalData.audio.primary =
-    //     data.audio.primary.toString().replaceAll("'", "`").replaceAll('"', '`');
-    // finalData.audio.secondary[0] = data.audio.secondary[0]
-    //     .toString()
-    //     .replaceAll("'", "`")
-    //     .replaceAll('"', '`');
-    // finalData.audio.secondary[1] = data.audio.secondary[1]
-    //     .toString()
-    //     .replaceAll("'", "`")
-    //     .replaceAll('"', '`');
-    // finalData.text.arab =
-    //     data.text.arab.toString().replaceAll("'", "`").replaceAll('"', '`');
-    // finalData.text.transliteration.en = data.text.transliteration.en
-    //     .toString()
-    //     .replaceAll("'", "`")
-    //     .replaceAll('"', '`');
-    // finalData.translation.en = data.translation.en
-    //     .toString()
-    //     .replaceAll("'", "`")
-    //     .replaceAll('"', '`');
-    // finalData.translation.id = data.translation.id
-    //     .toString()
-    //     .replaceAll("'", "`")
-    //     .replaceAll('"', '`');
-    // finalData.tafsir.id["short"] = data.tafsir.id["short"]
-    //     .toString()
-    //     .toString()
-    //     .replaceAll("'", "`")
-    //     .replaceAll('"', '`');
-    // finalData.tafsir.id["long"] = data.tafsir.id["long"]
-    //     .toString()
-    //     .toString()
-    //     .replaceAll("'", "`")
-    //     .replaceAll('"', '`');
-
     result["data"] = finalData;
     result["verse"] = finalVerse;
 
@@ -403,8 +380,35 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
+  DailyPrayerModel removeDoubleQuotesDailyPrayer(DailyPrayerModel data) {
+    DailyPrayerModel finalData = DailyPrayerModel(
+      id: data.id,
+      doa: data.doa,
+      ayat: data.ayat,
+      latin: data.latin,
+      artinya: data.artinya,
+    );
+
+    finalData.ayat =
+        data.ayat.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.artinya =
+        data.artinya.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.doa =
+        data.doa.toString().replaceAll("'", "`").replaceAll('"', '`');
+    finalData.latin =
+        data.latin.toString().replaceAll("'", "`").replaceAll('"', '`');
+
+    return finalData;
+  }
+
+  @override
   Future<List<SurahLocalModel>> getAllSurah() async {
     return await dbprovider.getAllSurah();
+  }
+
+  @override
+  Future<List<DailyPrayerModel>> getAllDailyPrayer() async {
+    return await dbprovider.getAllDailyPrayer();
   }
 
   @override
@@ -449,5 +453,10 @@ class LocalDataSourceImpl implements LocalDataSource {
       int surahNumber, int lastReadSurahNumber) async {
     return await dbprovider.upadteLastReadSurah(
         surahNumber, lastReadSurahNumber);
+  }
+
+  @override
+  Future<int> readTotalDailyPrayer() async {
+    return await dbprovider.readTotalDailyPrayer();
   }
 }

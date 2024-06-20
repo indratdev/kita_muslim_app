@@ -61,7 +61,6 @@ class MenusController {
       menuName: "Jadwal Shalat",
       menuRoute: (context) {
         Navigator.of(context).pushNamed(Routes.prayerSchedule);
-        // BlocProvider.of<PrayerBloc>(context)..add(NextPrayerTimeEvent())..add(GetPrayerTimeEvent());
         BlocProvider.of<PrayerBloc>(context).add(NextPrayerTimeEvent());
         BlocProvider.of<PrayerBloc>(context).add(GetPrayerTimeEvent());
       },

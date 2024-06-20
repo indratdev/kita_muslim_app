@@ -38,3 +38,13 @@ class DailyPrayerModel {
   /// Connect the generated [_$DailyPrayerModelToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$DailyPrayerModelToJson(this);
 }
+
+class ExpandableDailyPrayerModel {
+  DailyPrayerModel dailyPrayer;
+  bool isExpanded;
+
+  ExpandableDailyPrayerModel({
+    required this.dailyPrayer,
+    this.isExpanded = false,
+  });
+}

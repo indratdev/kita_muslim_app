@@ -206,17 +206,8 @@ class LocalDataSourceImpl implements LocalDataSource {
     return dbprovider.insertInitialDailyPrayer(finalData);
   }
 
-  // @override
-  // insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
-  //     spesifik.PreBismillah? preBismillah, spesifik.Verses verse) {
-  //   spesifik.Verses finalData = removeDoubleQuotesVerses(verse);
-  //   return dbprovider.insertInitialSurahDetail(
-  //       number, sequence, numberOfVerses, preBismillah, finalData);
-  // }
-
   @override
   Data removeDoubleQuotes(Data data) {
-    // Inisialisasi finalData dengan menyalin data yang ada
     Data finalData = Data(
       number: data.number,
       sequence: data.sequence,

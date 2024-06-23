@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kita_muslim/blocs/export.dart';
+import 'package:kita_muslim/utils/constants.dart';
 
 class NextTimeDurationWidget extends StatefulWidget {
   String currentTimeString;
   String targetTimeeString;
 
-   NextTimeDurationWidget({
+  NextTimeDurationWidget({
     super.key,
     required this.datas,
     required this.currentTimeString,
@@ -85,11 +86,19 @@ class _NextTimeDurationWidgetState extends State<NextTimeDurationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      "- ${formatDuration(difference)}",
-      style: TextStyle(
-        fontSize: MediaQuery.sizeOf(context).width / 23,
-        fontWeight: FontWeight.w500,
+    return Container(
+      width: MediaQuery.sizeOf(context).width / 3.5,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Constants.whiteColor.withOpacity(.6),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        "- ${formatDuration(difference)}",
+        style: TextStyle(
+          fontSize: MediaQuery.sizeOf(context).width / 23,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

@@ -48,7 +48,7 @@ class _InfoBannerWidgetState extends State<InfoBannerWidget> {
             }
             if (state is FailureNextPrayerTime) {
               return const Center(
-                child: Text("Failed to load data"),
+                child: Text("Gagal memuat data"),
               );
             }
 

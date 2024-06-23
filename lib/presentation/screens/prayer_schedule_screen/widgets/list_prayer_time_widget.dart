@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kita_muslim/blocs/export.dart';
 
+import '../../../../utils/constants.dart';
+import '../../../widgets/customwidgets.dart';
+
 class ListPrayerTimeWidget extends StatefulWidget {
   const ListPrayerTimeWidget({
     super.key,
@@ -25,9 +28,7 @@ class _ListPrayerTimeWidgetState extends State<ListPrayerTimeWidget> {
           current is FailurePrayerTime,
       builder: (context, state) {
         if (state is FailurePrayerTime) {
-          return const Center(
-            child: Text("Failed to load data"),
-          );
+          return const Center(child: Text("Gagal memuat data"));
         }
 
         if (state is SuccessPrayerTime) {
@@ -37,30 +38,31 @@ class _ListPrayerTimeWidgetState extends State<ListPrayerTimeWidget> {
               .toList();
 
           return Container(
+            padding: const EdgeInsets.only(top: 8),
             width: double.infinity,
             height: MediaQuery.sizeOf(context).height / 18,
-            // decoration: BoxDecoration(
-            //   color: Colors.amber,
-            //   borderRadius: BorderRadius.only(
-            //     topLeft: Radius.circular(12),
-            //     topRight: Radius.circular(12),
-            //   ),
-            // ),
             child: Column(
               children: [
                 ListView.builder(
                   itemCount: prayerTimes.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    // Map<String, dynamic> data = widget.datas[index];
-                    var data = prayerTimes[index];
+                    MapEntry<String, String> data = prayerTimes[index];
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(25, 15, 25, 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(data.key.toString()),
-                          Text(data.value.toString()),
+                          Text(
+                            data.key.toString(),
+                            style: const TextStyle(
+                                fontSize: Constants.sizeSubTextTitle),
+                          ),
+                          Text(
+                            data.value.toString(),
+                            style: const TextStyle(
+                                fontSize: Constants.sizeSubTextTitle),
+                          ),
                         ],
                       ),
                     );
@@ -70,8 +72,10 @@ class _ListPrayerTimeWidgetState extends State<ListPrayerTimeWidget> {
             ),
           );
         } else {
-          return const Center(
-            child: CircularProgressIndicator.adaptive(),
+          return CustomWidgets.showLoadingIndicatorWithContainer(
+            context,
+            MediaQuery.sizeOf(context).height / 5,
+            double.infinity,
           );
         }
       },

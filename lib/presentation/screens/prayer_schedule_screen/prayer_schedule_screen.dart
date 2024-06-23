@@ -1,27 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:kita_muslim/presentation/screens/prayer_schedule_screen/widgets/banner_payer_time_widget.dart';
-import 'package:kita_muslim/presentation/screens/prayer_schedule_screen/widgets/list_prayer_time_widget.dart';
+import 'package:kita_muslim/presentation/screens/surah_detail/widgets/export.dart';
 
+import 'widgets/export.dart';
 
-
-class PrayerScheduleScreen extends StatefulWidget {
+class PrayerScheduleScreen extends StatelessWidget {
   const PrayerScheduleScreen({super.key});
 
   @override
-  State<PrayerScheduleScreen> createState() => _PrayerScheduleScreenState();
-}
-
-class _PrayerScheduleScreenState extends State<PrayerScheduleScreen> {
-
- 
-  @override
-  void initState() {
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: CustomWidgets.basicAppBar(centerTitle: true, "Waktu Shalat"),
       body: const Column(
         children: [
           BannerPrayerTimeWidget(),

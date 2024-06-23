@@ -44,7 +44,15 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
       },
       child: SafeArea(
         child: Scaffold(
-          appBar: CustomWidgets.basicAppBar("Surah", centerTitle: true),
+          appBar: CustomWidgets.basicAppBar(
+            context,
+            backIconFucntion: () {
+              BlocProvider.of<SurahBloc>(context).add(GetAllSurah());
+              Navigator.pop(context);
+            },
+            "Surah",
+            centerTitle: true,
+          ),
           floatingActionButton: BlocBuilder<SurahBloc, SurahState>(
             builder: (context, state) {
               return ScrollDownSurahWidget(

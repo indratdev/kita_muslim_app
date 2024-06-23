@@ -45,8 +45,12 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(
             color: Constants.deepGreenColor,
             centerTitle: true,
-            actionsIconTheme: IconThemeData(color: Constants.greyColor),
-            iconTheme: IconThemeData(color: Constants.greyColor),
+            actionsIconTheme: IconThemeData(
+              color: Constants.greyColor,
+            ),
+            iconTheme: IconThemeData(
+              color: Constants.greyColor,
+            ),
           ),
         ),
         initialRoute: '/splash',

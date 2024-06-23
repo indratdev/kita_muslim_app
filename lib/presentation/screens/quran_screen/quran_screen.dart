@@ -67,7 +67,7 @@ class _QuranScreenState extends State<QuranScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: CustomWidgets.basicAppBar("Al-Quran",
+        appBar: CustomWidgets.basicAppBar(context, "Al-Quran",
             centerTitle: true,
             listAction: <Widget>[
               IconButton(
@@ -95,7 +95,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 child: TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    labelText: 'Search',
+                    labelText: 'Pencarian',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

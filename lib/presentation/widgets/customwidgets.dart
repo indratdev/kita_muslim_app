@@ -108,8 +108,11 @@ class CustomWidgets {
   //   );
   // }
 
-  static PreferredSizeWidget basicAppBar(String title,
-      {bool centerTitle = false, List<Widget>? listAction}) {
+  static PreferredSizeWidget basicAppBar(BuildContext context, String title,
+      {bool centerTitle = true,
+      List<Widget>? listAction,
+      bool needBackIcon = true,
+      Function()? backIconFucntion}) {
     return AppBar(
       title: Text(
         title,
@@ -117,6 +120,14 @@ class CustomWidgets {
       ),
       centerTitle: centerTitle,
       actions: listAction,
+      leading: (needBackIcon)
+          ? IconButton(
+              onPressed: (backIconFucntion == null)
+                  ? () => Navigator.pop(context)
+                  : backIconFucntion,
+              icon: const Icon(Icons.arrow_back_ios_rounded),
+            )
+          : const SizedBox(),
     );
   }
 

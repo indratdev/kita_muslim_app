@@ -24,7 +24,7 @@ class DoaHarianDetailScreen extends StatelessWidget {
       },
       child: SafeArea(
         child: Scaffold(
-          appBar: CustomWidgets.basicAppBar("Surat Harian"),
+          appBar: CustomWidgets.basicAppBar(context, "Surat Harian"),
           body: BlocConsumer<SurahBloc, SurahState>(
             listener: (context, state) {
               // TODO: implement listener

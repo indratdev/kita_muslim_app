@@ -11,7 +11,7 @@ class HadistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomWidgets.basicAppBar("Hadis"),
+      appBar: CustomWidgets.basicAppBar(context, "Hadis"),
       body: Column(
         children: <Widget>[
           BlocBuilder<HadistsBloc, HadistsState>(

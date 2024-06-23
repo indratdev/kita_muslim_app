@@ -10,7 +10,7 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomWidgets.basicAppBar("Surat Favorit"),
+      appBar: CustomWidgets.basicAppBar(context, "Surat Favorit"),
       body: BlocBuilder<FavoriteBloc, FavoriteState>(
         builder: (context, state) {
           if (state is FailureListSurahFavorite) {

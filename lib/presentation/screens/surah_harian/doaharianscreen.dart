@@ -14,7 +14,7 @@ class DoaHarianScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomWidgets.basicAppBar("Doa - doa harian"),
+      appBar: CustomWidgets.basicAppBar(context, "Doa - doa harian"),
       body: BlocBuilder<SurahBloc, SurahState>(
         builder: (context, state) {
           if (state is FailureSurah) {

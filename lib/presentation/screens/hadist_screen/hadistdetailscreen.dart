@@ -37,7 +37,7 @@ class HadistDetailScreen extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        appBar: CustomWidgets.basicAppBar("Hadis"),
+        appBar: CustomWidgets.basicAppBar(context, "Hadis"),
         body: Column(
           children: <Widget>[
             BlocListener<HadistsBloc, HadistsState>(

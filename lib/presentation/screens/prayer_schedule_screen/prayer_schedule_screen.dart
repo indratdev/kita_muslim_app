@@ -9,7 +9,8 @@ class PrayerScheduleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomWidgets.basicAppBar(centerTitle: true, "Waktu Shalat"),
+      appBar:
+          CustomWidgets.basicAppBar(context, centerTitle: true, "Waktu Shalat"),
       body: const Column(
         children: [
           BannerPrayerTimeWidget(),

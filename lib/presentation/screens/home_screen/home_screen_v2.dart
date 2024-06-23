@@ -14,6 +14,8 @@ class HomeScreenV2 extends StatelessWidget {
     return Scaffold(
       backgroundColor: Constants.backgroundColor.withOpacity(.9),
       appBar: CustomWidgets.basicAppBar(
+        context,
+        needBackIcon: false,
         Constants.appName,
         listAction: <Widget>[
           IconButton(

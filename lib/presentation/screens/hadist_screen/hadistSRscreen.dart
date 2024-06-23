@@ -20,7 +20,7 @@ class HadistSRScreen extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        appBar: CustomWidgets.basicAppBar("Hadis"),
+        appBar: CustomWidgets.basicAppBar(context, "Hadis"),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(

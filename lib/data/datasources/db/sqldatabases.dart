@@ -152,6 +152,20 @@ class SqlDatabase {
     return result;
   }
 
+  Future<List<String>> readAllSurahNumberFavorite() async {
+    final db = await instance.database;
+    final result = await sqlHelper.readAllSurahNumberFavorite(db, instance);
+    return result;
+  }
+
+  Future<List<SurahLocalModel>> getAllSurahByNumberOnLocal(
+      String inNumber) async {
+    final db = await instance.database;
+    final result =
+        await sqlHelper.readAllSurahByNumberOnLocal(db, instance, inNumber);
+    return result;
+  }
+
   Future<int> insertSurahUser(
       int isFavorite, DetailSurahLocalModel data, int lastVerseNumber) async {
     final db = await instance.database;

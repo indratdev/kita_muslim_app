@@ -531,6 +531,58 @@ class SqlHelper {
     }
   }
 
+  Future<List<String>> readAllSurahNumberFavorite(
+      Database? db, SqlDatabase instance) async {
+    final db = await instance.database;
+
+    String query = "";
+
+    query = """
+          select surah_number 
+          from $tableSurahUser
+          where is_favorite = 1          
+        ;""";
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+      return result.map((e) => e["surah_number"].toString()).toList();
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
+  Future<List<SurahLocalModel>> readAllSurahByNumberOnLocal(
+      Database? db, SqlDatabase instance, String inNumber) async {
+    final db = await instance.database;
+
+    String query = "";
+
+    // query = """
+    //       select surah_number
+    //       from $tableSurahUser
+    //       where is_favorite = 1
+    //     ;""";
+
+    // if (db != null) {
+    //   final result = await db.rawQuery(''' $query ''');
+    //   return result.map((e) => e["surah_number"].toString()).toList();
+    // } else {
+    //   throw Exception('DB is NULL');
+    // }
+    query = """
+        select id,number,sequence,number_of_verses ,name_short,name_long ,transliteration_en,transliteration_id,translation_en,translation_id,revelation_arab,revelation_en,revelation_id,tafsir 
+        where number in ($inNumber) 
+        from $tableSurah ;
+        """;
+
+    if (db != null) {
+      final result = await db.rawQuery(''' $query ''');
+      return result.map((e) => SurahLocalModel.fromJson(e)).toList();
+    } else {
+      throw Exception('DB is NULL');
+    }
+  }
+
   /// INSERT
 
   Future<int> insertSurahHeader(

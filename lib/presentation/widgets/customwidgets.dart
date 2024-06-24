@@ -112,7 +112,7 @@ class CustomWidgets {
       {bool centerTitle = true,
       List<Widget>? listAction,
       bool needBackIcon = true,
-      Function()? backIconFucntion}) {
+      Function()? backIconFunction}) {
     return AppBar(
       title: Text(
         title,
@@ -122,9 +122,9 @@ class CustomWidgets {
       actions: listAction,
       leading: (needBackIcon)
           ? IconButton(
-              onPressed: (backIconFucntion == null)
+              onPressed: (backIconFunction == null)
                   ? () => Navigator.pop(context)
-                  : backIconFucntion,
+                  : backIconFunction,
               icon: const Icon(Icons.arrow_back_ios_rounded),
             )
           : const SizedBox(),

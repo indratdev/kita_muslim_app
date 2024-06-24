@@ -25,4 +25,6 @@ class SetFavoriteSurahStatus extends FavoriteEvent {
   });
 }
 
-class GetListAllSurahFavoriteEvent extends FavoriteEvent {}
+class GetListAllSurahFavoriteEvent extends FavoriteEvent {} //old
+
+class ListAllSurahFavoriteEvent extends FavoriteEvent {}

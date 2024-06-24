@@ -23,8 +23,8 @@ class DateTimeUtils {
     } else {
       dateTime = dateTime.subtract(const Duration(days: 1));
     }
-    
-   return convertToddMMyyyy(dateTime);
+
+    return convertToddMMyyyy(dateTime);
   }
 
   /// Gets today's date formatted in a custom format.
@@ -36,14 +36,12 @@ class DateTimeUtils {
 
   /// Gets the current hour and minute formatted as 'HH:mm'.
   static String getCurrentTime() {
-    // final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('HH:mm');
     return formatter.format(_getCurrentTime());
   }
 
   bool isTimeStringGreater(String time1, String time2) {
     DateFormat dateFormat = DateFormat('HH:mm');
-
     DateTime dateTime1 = dateFormat.parse(time1);
     DateTime dateTime2 = dateFormat.parse(time2);
 
@@ -52,7 +50,12 @@ class DateTimeUtils {
 
   Map<String, dynamic> sortTimings(Map<String, dynamic> timings) {
     // Filter out the keys to be excluded
-    List<String> excludeKeys = ["Sunset", "Midnight", "Firstthird"];
+    List<String> excludeKeys = [
+      "Sunset",
+      "Midnight",
+      "Firstthird",
+      "Lastthird"
+    ];
     Map<String, String> filteredTimings = Map.from(timings)
       ..removeWhere((key, value) => excludeKeys.contains(key));
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/utils/constants.dart';
 
 class LocationErrorWidget extends StatelessWidget {
   final String? error;
@@ -10,7 +11,7 @@ class LocationErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const box = SizedBox(height: 32);
-    const errorColor = Color(0xffb00020);
+    const errorColor = Constants.redColor;
 
     return Center(
       child: Column(

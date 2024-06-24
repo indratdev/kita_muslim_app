@@ -42,15 +42,14 @@ class PrayerBloc extends Bloc<PrayerEvent, PrayerState> {
           Map<String, dynamic> sortedTimings =
               DateTimeUtils().sortTimings(prayerTime!.data.timings.toJson());
 
-          for (var entry in sortedTimings.entries) {
-            var key = entry.key;
-            var value = entry.value;
+          for (MapEntry<String, dynamic> entry in sortedTimings.entries) {
+            String key = entry.key;
+            dynamic value = entry.value;
             if (!DateTimeUtils().isTimeStringGreater(currentTime, value)) {
               result['description'] = key;
               result['current_times'] = currentTime;
               result['current_timezone_name'] = currentTimeZoneName;
               result['next_times'] = value;
-              // result['next_times'] = '13:19';
               break; // Menghentikan loop setelah menemukan data yang cocok
             }
           }
@@ -103,17 +102,18 @@ class PrayerBloc extends Bloc<PrayerEvent, PrayerState> {
       },
     );
 
-    on<GetRandomWallpaper>((event, emit) async {
-      // https://images.unsplash.com/photo-1574545640323-59dc7a2b4a6d?crop=entropy&cs=srgb&fm=jpg&ixid=M3wyMTMxMTh8MHwxfHNlYXJjaHwxfHxtdXNsaW18ZW58MHwwfHx8MTcxNjkxMjA3MHww&ixlib=rb-4.0.3&q=85
-      emit(LoadingRandomWallpaper());
-      try {
-        String result = await prayerRepository.getRandomWallpaper();
-        print("result : $result");
-        emit(SuccessRandomWallpaper(urlImage: result));
-
-      } catch (e) {
-        emit(FailureRandomWallpaper(message: e.toString()));
-      }
-    },);
+    on<GetRandomWallpaper>(
+      (event, emit) async {
+        // https://images.unsplash.com/photo-1574545640323-59dc7a2b4a6d?crop=entropy&cs=srgb&fm=jpg&ixid=M3wyMTMxMTh8MHwxfHNlYXJjaHwxfHxtdXNsaW18ZW58MHwwfHx8MTcxNjkxMjA3MHww&ixlib=rb-4.0.3&q=85
+        emit(LoadingRandomWallpaper());
+        try {
+          String result = await prayerRepository.getRandomWallpaper();
+          print("result : $result");
+          emit(SuccessRandomWallpaper(urlImage: result));
+        } catch (e) {
+          emit(FailureRandomWallpaper(message: e.toString()));
+        }
+      },
+    );
   }
 }

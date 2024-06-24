@@ -5,6 +5,9 @@ import 'package:kita_muslim/blocs/calculator_bloc/calculator_bloc.dart';
 
 import 'package:kita_muslim/presentation/widgets/textformfied_custom.dart';
 import 'package:kita_muslim/utils/constants.dart';
+import 'package:kita_muslim/utils/number_utils.dart';
+
+import '../../surah_detail/widgets/export.dart';
 
 class IncomeCalculatorWidget extends StatefulWidget {
   const IncomeCalculatorWidget({super.key});
@@ -29,7 +32,7 @@ class _IncomeCalculatorWidgetState extends State<IncomeCalculatorWidget> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: ClampingScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       child: Column(
         // shrinkWrap: true,
         children: [
@@ -41,19 +44,28 @@ class _IncomeCalculatorWidgetState extends State<IncomeCalculatorWidget> {
             controller: _otherIncomeController,
             label: "Penghasilan lain-lainnya /bulan",
           ),
-          ElevatedButton(
-            onPressed: () async {
-              context.read<CalculatorBloc>().add(
-                    CalculateZakatPenghasilanEvent(
-                      income: double.tryParse(_incomeController.text) ?? 0.0,
-                      otherIncome:
-                          double.tryParse(_otherIncomeController.text) ?? 0.0,
-                    ),
-                  );
-              // var result = await ApiMoslemAddProvider().getSellPriceGold();
-              // print("result : $result");
-            },
-            child: const Text("Hitung"),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width / 3,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Constants.deepGreenColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  )),
+              onPressed: () async {
+                context.read<CalculatorBloc>().add(
+                      CalculateZakatPenghasilanEvent(
+                        income: double.tryParse(_incomeController.text) ?? 0.0,
+                        otherIncome:
+                            double.tryParse(_otherIncomeController.text) ?? 0.0,
+                      ),
+                    );
+              },
+              child: const Text(
+                "Hitung",
+                style: TextStyle(color: Constants.whiteColor),
+              ),
+            ),
           ),
           BlocBuilder<CalculatorBloc, CalculatorState>(
             builder: (context, state) {
@@ -62,7 +74,12 @@ class _IncomeCalculatorWidgetState extends State<IncomeCalculatorWidget> {
               }
 
               if (state is LoadingCalculateZakatPenghasilan) {
-                return const Center(child: Text("Loading..."));
+                return Container(
+                    margin: const EdgeInsets.only(top: 12),
+                    child: CustomWidgets.showLoadingIndicatorWithContainer(
+                        context,
+                        MediaQuery.sizeOf(context).height / 4,
+                        MediaQuery.sizeOf(context).width - 50));
               }
 
               if (state is SuccessCalculateZakatPenghasilan) {
@@ -108,14 +125,16 @@ class _IncomeCalculatorWidgetState extends State<IncomeCalculatorWidget> {
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   TextSpan(
-                                      text: "Rp. ${datas["sell_price"]} \n\n"),
+                                      text:
+                                          "${NumberUtils.convertToIdr(datas["sell_price"])} \n\n"),
                                   const TextSpan(
                                     text: 'Nishab 85 gram per bulan: ',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   TextSpan(
-                                      text: "Rp. ${datas["nishab_month"]} \n"),
+                                      text:
+                                          "${NumberUtils.convertToIdr(datas["nishab_month"])} \n"),
                                 ],
                               ),
                             ),
@@ -139,7 +158,8 @@ class _IncomeCalculatorWidgetState extends State<IncomeCalculatorWidget> {
                                       text:
                                           'Total Zakat Penghasilan Sebulan \n'),
                                   TextSpan(
-                                    text: "Rp. ${datas["total_pay"]} \n\n",
+                                    text:
+                                        "${NumberUtils.convertToIdr(datas["total_pay"])} \n\n",
                                     style: TextStyle(
                                       fontSize:
                                           MediaQuery.sizeOf(context).width / 18,

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:kita_muslim/presentation/screens/qiblah_screen/widgets/loading_indicator_widget.dart';
 import 'package:kita_muslim/presentation/screens/qiblah_screen/qiblah_compass.dart';
+import 'package:kita_muslim/presentation/screens/surah_detail/widgets/export.dart';
 
 class QiblahScreen extends StatefulWidget {
+  const QiblahScreen({super.key});
+
   @override
   _QiblahScreenState createState() => _QiblahScreenState();
 }
@@ -14,14 +17,17 @@ class _QiblahScreenState extends State<QiblahScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Arah Kiblat'),
-      ),
+      appBar:
+          CustomWidgets.basicAppBar(context, "Arah Kiblat", centerTitle: true),
       body: FutureBuilder(
         future: _deviceSupport,
         builder: (_, AsyncSnapshot<bool?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const LoadingIndicatorWidget();
+            // return const LoadingIndicatorWidget();
+            return CustomWidgets.showLoadingIndicatorWithContainer(
+                context,
+                MediaQuery.sizeOf(context).height,
+                MediaQuery.sizeOf(context).width - 50);
           }
           if (snapshot.hasError) {
             return Center(
@@ -45,119 +51,3 @@ class _QiblahScreenState extends State<QiblahScreen> {
     );
   }
 }
-
-
-// MaterialApp(
-//       theme: ThemeData(
-//         primaryColor: const Color(0xff0c7b93),
-//         primaryColorLight: const Color(0xff00a8cc),
-//         primaryColorDark: const Color(0xff27496d),
-//         colorScheme: ColorScheme.fromSwatch()
-//             .copyWith(secondary: const Color(0xffecce6d)),
-//       ),
-//       darkTheme: ThemeData.dark().copyWith(
-//           colorScheme: ColorScheme.fromSwatch()
-//               .copyWith(secondary: const Color(0xffecce6d))),
-
-/*class CenterEx extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: FlatButton(
-            color: Colors.green,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return Example();
-                  },
-                ),
-              );
-            },
-            child: Text('Open Qiplah'),
-          ),
-        ));
-  }
-}*/
-
-
-// class CenterEx extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Plugin example app'),
-//         ),
-//         body: Center(
-//           child: RaisedButton(
-//             color: Theme.of(context).accentColor,
-//             onPressed: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) {
-//                     return Scaffold(
-//                       appBar: AppBar(
-//                         title: Text("Compass"),
-//                       ),
-//                       body: TestingCompassWidget(),
-//                     );
-//                   },
-//                 ),
-//               );
-//             },
-//             child: Text('Open Compass'),
-//           ),
-//         ));
-//   }
-// }
-//
-// class TestingCompassWidget extends StatefulWidget {
-//   @override
-//   _TestingCompassWidgetState createState() => _TestingCompassWidgetState();
-// }
-//
-// class _TestingCompassWidgetState extends State<TestingCompassWidget> {
-//   @override
-//   void dispose() {
-//     FlutterCompass().dispose();
-//     super.dispose();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: _buildManualReader(),
-//     );
-//   }
-//
-//   Widget _buildManualReader() {
-//     return Padding(
-//       padding: const EdgeInsets.all(16.0),
-//       child: StreamBuilder<double>(
-//           stream: FlutterCompass.events,
-//           builder: (context, snapshot) {
-//             if (snapshot.hasError) {
-//               return Text('Error reading heading: ${snapshot.error}');
-//             }
-//
-//             if (snapshot.connectionState == ConnectionState.waiting) {
-//               return Center(
-//                 child: CircularProgressIndicator(),
-//               );
-//             }
-//
-//             double direction = snapshot.data;
-//             return Text(
-//               '$direction',
-//               style: Theme.of(context).textTheme.button,
-//             );
-//           }),
-//     );
-//   }
-// }

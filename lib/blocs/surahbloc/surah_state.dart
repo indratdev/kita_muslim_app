@@ -25,9 +25,11 @@ class SuccessGetSurahDetail extends SurahState {
   // String status;
   // var uuid = Uuid().v1();
   List<DetailSurahLocalModel> data;
+  bool isFavorite;
 
   SuccessGetSurahDetail({
     required this.data,
+    required this.isFavorite,
     // this.status = "",
     // required this.context,
     // required this.routeName,

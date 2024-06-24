@@ -1,7 +1,6 @@
 import 'package:kita_muslim/data/providers/api_prayer_provider.dart';
 
 import '../models/prayer_time/prayer_time_model.dart';
-import '../others/shared_preferences.dart';
 
 class PrayerRepository {
   final prayerApiProvider = ApiPrayerProvider();
@@ -11,7 +10,8 @@ class PrayerRepository {
   //             .getPrayerTimeSpesific(DateTimeUtils.getTodayDate(),
   //                 locations.latitude, locations.longitude);
 
-  Future<PrayerTimeModel?> getPrayerTimeSpesific(String today, double lat, double long) async {
+  Future<PrayerTimeModel?> getPrayerTimeSpesific(
+      String today, double lat, double long) async {
     return await prayerApiProvider.getPrayerTimeSpesific(today, lat, long);
   }
 

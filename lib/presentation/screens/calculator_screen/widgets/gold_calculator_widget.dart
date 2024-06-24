@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kita_muslim/blocs/calculator_bloc/calculator_bloc.dart';
+import 'package:kita_muslim/presentation/screens/surah_detail/widgets/export.dart';
 
 import 'package:kita_muslim/presentation/widgets/textformfied_custom.dart';
 import 'package:kita_muslim/utils/constants.dart';
+
+import '../../../../utils/number_utils.dart';
 
 class GoldCalculatorWidget extends StatefulWidget {
   const GoldCalculatorWidget({super.key});
@@ -26,23 +29,33 @@ class _GoldCalculatorWidgetState extends State<GoldCalculatorWidget> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: ClampingScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       child: Column(
-        // shrinkWrap: true,
         children: [
           CustomTextfieldWidget(
             controller: _goldController,
             label: "Jumlah emas /gram",
           ),
-          ElevatedButton(
-            onPressed: () async {
-              context.read<CalculatorBloc>().add(
-                    CalculateZakatGoldEvent(
-                      gold: double.tryParse(_goldController.text) ?? 0.0,
-                    ),
-                  );
-            },
-            child: const Text("Hitung"),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width / 3,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Constants.deepGreenColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  )),
+              onPressed: () async {
+                context.read<CalculatorBloc>().add(
+                      CalculateZakatGoldEvent(
+                        gold: double.tryParse(_goldController.text) ?? 0.0,
+                      ),
+                    );
+              },
+              child: const Text(
+                "Hitung",
+                style: TextStyle(color: Constants.whiteColor),
+              ),
+            ),
           ),
           BlocBuilder<CalculatorBloc, CalculatorState>(
             builder: (context, state) {
@@ -51,7 +64,12 @@ class _GoldCalculatorWidgetState extends State<GoldCalculatorWidget> {
               }
 
               if (state is LoadingCalculateZakatGold) {
-                return const Center(child: Text("Loading..."));
+                return Container(
+                    margin: const EdgeInsets.only(top: 12),
+                    child: CustomWidgets.showLoadingIndicatorWithContainer(
+                        context,
+                        MediaQuery.sizeOf(context).height / 4,
+                        MediaQuery.sizeOf(context).width - 50));
               }
 
               if (state is SuccessCalculateZakatGold) {
@@ -97,14 +115,26 @@ class _GoldCalculatorWidgetState extends State<GoldCalculatorWidget> {
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   TextSpan(
-                                      text: "Rp. ${datas["sell_price"]} \n\n"),
+                                      text:
+                                          "${NumberUtils.convertToIdr(datas["sell_price"])} \n\n"),
                                   const TextSpan(
-                                    text: 'Nishab 85 gram per bulan: ',
+                                    text: 'Nishab Emas (85 gram)',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   TextSpan(
-                                      text: "Rp. ${datas["nishab_month"]} \n"),
+                                      text:
+                                          " ${NumberUtils.convertToIdr(datas["hishab_emas"])} \n"),
+                                  TextSpan(
+                                    text:
+                                        'Sesuai SK Ketua BAZNAS No. 01 Tahun 2023',
+                                    style: TextStyle(
+                                        fontSize:
+                                            MediaQuery.sizeOf(context).width /
+                                                40,
+                                        color: Constants.redColor,
+                                        fontWeight: FontWeight.w500),
+                                  ),
                                 ],
                               ),
                             ),
@@ -127,7 +157,8 @@ class _GoldCalculatorWidgetState extends State<GoldCalculatorWidget> {
                                   const TextSpan(
                                       text: 'Total Zakat Emas Setahun \n'),
                                   TextSpan(
-                                    text: "Rp. ${datas["total_pay"]} \n\n",
+                                    text:
+                                        "${NumberUtils.convertToIdr(datas["total_pay"])} \n\n",
                                     style: TextStyle(
                                       fontSize:
                                           MediaQuery.sizeOf(context).width / 18,

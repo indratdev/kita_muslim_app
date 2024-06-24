@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kita_muslim/presentation/screens/qiblah_screen/widgets/loading_indicator_widget.dart';
+
 import 'package:kita_muslim/presentation/screens/qiblah_screen/widgets/location_error_widget.dart';
 import 'package:kita_muslim/utils/constants.dart';
+
+import '../surah_detail/widgets/export.dart';
 
 class QiblahCompassWidget extends StatefulWidget {
   @override
@@ -44,7 +47,11 @@ class _QiblahCompassWidgetState extends State<QiblahCompassWidget> {
           stream: stream,
           builder: (context, AsyncSnapshot<LocationStatus> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const LoadingIndicatorWidget();
+              // return const LoadingIndicatorWidget();
+              return CustomWidgets.showLoadingIndicatorWithContainer(
+                  context,
+                  MediaQuery.sizeOf(context).height,
+                  MediaQuery.sizeOf(context).width);
             }
             if (snapshot.data!.enabled == true) {
               switch (snapshot.data!.status) {
@@ -110,7 +117,10 @@ class QiblahCompassWidgetWidget extends StatelessWidget {
       stream: FlutterQiblah.qiblahStream,
       builder: (_, AsyncSnapshot<QiblahDirection> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const LoadingIndicatorWidget();
+          return CustomWidgets.showLoadingIndicatorWithContainer(
+              context,
+              MediaQuery.sizeOf(context).height,
+              MediaQuery.sizeOf(context).width);
         }
 
         final qiblahDirection = snapshot.data!;

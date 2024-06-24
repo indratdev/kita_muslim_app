@@ -35,7 +35,7 @@ class _BannerPrayerTimeWidgetState extends State<BannerPrayerTimeWidget> {
         if (state is LoadingNextPrayerTime) {
           return CustomWidgets.showLoadingIndicatorWithContainer(
             context,
-            MediaQuery.sizeOf(context).height / 5,
+            MediaQuery.sizeOf(context).height / 3.5,
             double.infinity,
           );
         }
@@ -136,7 +136,7 @@ class _BannerPrayerTimeWidgetState extends State<BannerPrayerTimeWidget> {
         } else {
           return CustomWidgets.showLoadingIndicatorWithContainer(
             context,
-            MediaQuery.sizeOf(context).height / 5,
+            MediaQuery.sizeOf(context).height / 3.5,
             double.infinity,
           );
         }

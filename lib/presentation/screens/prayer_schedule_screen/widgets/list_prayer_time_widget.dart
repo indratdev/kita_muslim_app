@@ -38,6 +38,7 @@ class _ListPrayerTimeWidgetState extends State<ListPrayerTimeWidget> {
               .toList();
 
           return Container(
+            margin: const EdgeInsets.only(top: 8),
             padding: const EdgeInsets.only(top: 8),
             width: double.infinity,
             height: MediaQuery.sizeOf(context).height / 18,
@@ -72,11 +73,14 @@ class _ListPrayerTimeWidgetState extends State<ListPrayerTimeWidget> {
             ),
           );
         } else {
-          return CustomWidgets.showLoadingIndicatorWithContainer(
-            context,
-            MediaQuery.sizeOf(context).height / 5,
-            double.infinity,
-          );
+          return Container(
+              margin: const EdgeInsets.only(top: 8),
+              color: Constants.whiteColor,
+              child: CustomWidgets.showLoadingIndicatorWithContainer(
+                context,
+                MediaQuery.sizeOf(context).height / 5,
+                double.infinity,
+              ));
         }
       },
     );

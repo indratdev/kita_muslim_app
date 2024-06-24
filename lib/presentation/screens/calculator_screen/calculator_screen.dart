@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kita_muslim/blocs/export.dart';
+import 'package:kita_muslim/presentation/screens/surah_detail/widgets/export.dart';
 
 import 'widgets/export.dart';
 
@@ -31,8 +33,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Kalkulator"),
+      appBar: CustomWidgets.basicAppBar(
+        context,
+        "Kalkulator",
+        backIconFunction: () {
+          context.read<CalculatorBloc>().add(InitialCalculatorEvent());
+          Navigator.pop(context);
+        },
       ),
       body: SingleChildScrollView(
         child: Padding(

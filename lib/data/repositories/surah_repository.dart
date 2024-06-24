@@ -16,8 +16,12 @@ class SurahRepository {
   final sharedPref = MySharedPref();
 
   Future<SurahModel> getAllSurah() {
-    log(">>> Surah Repository Run : getAllSurah ");
     return prayerApiProvider.getSurah();
+  }
+
+  Future<List<SurahLocalModel>> getAllSurahByNumberOnLocal(
+      String number) async {
+    return await helperDB.getAllSurahByNumberOnLocal(number);
   }
 
   Future<spesifik.SpesifikSurahModel> getDetailSurah(String number) {
@@ -164,20 +168,23 @@ class SurahRepository {
 
     /// if not found, insert it!
     if (isExist == 0) {
-      print(">>>  if not found, insert it!");
       return await helperDB.insertSurahUser(0, data, lastVerseNumber);
 
       /// if found, updated!
     } else {
-      print(">>>  if found, updated!");
       int updateResult =
           await helperDB.updateLastReadSurah(surahNumber, lastVerseNumber);
       if (updateResult == 1) {
-        // return await readStatusFavoriteSurah(surahNumber);
         return await helperDB.readStatusLastVerseSurah(surahNumber);
       } else {
         return 0;
       }
     }
+  }
+
+  Future<List<String>> getAllSurahFavoriteLocal() async {
+    List<String> listNumberFavorite =
+        await helperDB.readAllSurahNumberFavorite();
+    return listNumberFavorite;
   }
 }

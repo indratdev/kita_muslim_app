@@ -53,3 +53,5 @@ class SuccessCalculateZakatGold extends CalculatorState {
   @override
   List<Object> get props => [result];
 }
+
+class InitialCalculatorState extends CalculatorState {}

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kita_muslim/blocs/favoritebloc/favorite_bloc.dart';
 import 'package:kita_muslim/presentation/screens/home_screen/homescreen.dart';
 import 'package:kita_muslim/utils/constants.dart';
 
@@ -85,6 +86,7 @@ class MenusController {
       menuRoute: (context) {
         Navigator.of(context).pushNamed(Routes.favoriteSurah);
         context.read<FavoriteBloc>().add(GetListAllSurahFavoriteEvent());
+        context.read<FavoriteBloc>().add(ListAllSurahFavoriteEvent());
       },
     ),
     MenuModel(

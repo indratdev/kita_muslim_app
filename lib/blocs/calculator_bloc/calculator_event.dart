@@ -7,6 +7,8 @@ sealed class CalculatorEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class InitialCalculatorEvent extends CalculatorEvent {}
+
 class CalculateZakatPenghasilanEvent extends CalculatorEvent {
   double income;
   double otherIncome;

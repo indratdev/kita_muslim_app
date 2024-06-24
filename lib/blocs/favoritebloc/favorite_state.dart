@@ -70,3 +70,29 @@ class SuccessListSurahFavorite extends FavoriteState {
   @override
   List<Object> get props => [result];
 }
+
+/// new
+class LoadingListAllSurahFavorite extends FavoriteState {}
+
+class FailureListAllSurahFavorite extends FavoriteState {
+  String messageError;
+
+  FailureListAllSurahFavorite({
+    required this.messageError,
+  });
+
+  @override
+  List<Object> get props => [messageError];
+}
+
+class SuccessListAllSurahFavorite extends FavoriteState {
+  List<DetailSurahLocalModel> result;
+
+  SuccessListAllSurahFavorite({
+    required this.result,
+  });
+
+  @override
+  List<Object> get props => [result];
+}
+/// 

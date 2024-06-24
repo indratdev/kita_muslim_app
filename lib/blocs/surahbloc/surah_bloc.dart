@@ -41,7 +41,12 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
 
         List<DetailSurahLocalModel> result =
             await surahRepository.getDetailSurahLocal(event.number);
-        emit(SuccessGetSurahDetail(data: result));
+
+        int fav = await surahRepository
+            .readStatusFavoriteSurah(int.parse(event.number));
+        bool isFavorite = (fav == 1) ? true : false;
+
+        emit(SuccessGetSurahDetail(data: result, isFavorite: isFavorite));
       } catch (e) {
         emit(FailureSurahDetail(info: "Error: Gagal Memuat Detail Surat"));
       }

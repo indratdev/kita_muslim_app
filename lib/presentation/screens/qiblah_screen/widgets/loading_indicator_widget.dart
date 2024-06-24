@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class LoadingIndicatorWidget extends StatelessWidget {
-  const LoadingIndicatorWidget({super.key});
+// class LoadingIndicatorWidget extends StatelessWidget {
+//   const LoadingIndicatorWidget({super.key});
 
-  @override
-  Widget build(BuildContext context) => const Center(
-        child: CircularProgressIndicator.adaptive(),
-      );
-}
+//   @override
+//   Widget build(BuildContext context) => const Center(
+//         child: CircularProgressIndicator.adaptive(),
+//       );
+// }

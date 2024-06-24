@@ -9,6 +9,10 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   CalculatorBloc() : super(CalculatorInitial()) {
     final moslemRepository = MoslemRepository();
 
+    on<InitialCalculatorEvent>((event, emit) {
+      emit(InitialCalculatorState());
+    });
+
     on<CalculateZakatPenghasilanEvent>((event, emit) async {
       emit(LoadingCalculateZakatPenghasilan());
       try {
@@ -61,6 +65,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
         result["total_gold"] = totalGold;
         result["total_pay"] = totalPay;
         result["description"] = description;
+        result["hishab_emas"] = 82312725;
 
         emit(SuccessCalculateZakatGold(result: result));
       } catch (e) {

@@ -46,7 +46,7 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
         child: Scaffold(
           appBar: CustomWidgets.basicAppBar(
             context,
-            backIconFucntion: () {
+            backIconFunction: () {
               BlocProvider.of<SurahBloc>(context).add(GetAllSurah());
               Navigator.pop(context);
             },
@@ -166,6 +166,7 @@ class _SurahDetailScreenState extends State<SurahDetailScreen> {
                         listData.first.prebismillah_arab != "null";
                     numberOfVerse =
                         int.parse(state.data.first.number_of_verses ?? "0");
+                    _isFavorite = state.isFavorite;
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.center,

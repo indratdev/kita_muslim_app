@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:kita_muslim/presentation/widgets/customwidgets.dart';
 import 'package:kita_muslim/presentation/widgets/textformfied_custom.dart';
@@ -52,63 +51,142 @@ class HadistMenuScreen extends StatelessWidget {
                 if (state is SuccessSelectedHadistSpesifikRange) {
                   _isSpesifik = state.result;
                 }
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
-                      'Spesifik',
-                      style: TextStyle(fontSize: Constants.sizeSubTextTitle),
-                    ),
-                    Switch.adaptive(
-                        value: _isSpesifik,
-                        onChanged: (values) {
-                          BlocProvider.of<HadistsBloc>(context)
-                              .add(SelectedHadistEvent(isSpesifik: values));
-                          resetNumber();
-                        }),
-                    const Text(
-                      'Range',
-                      style: TextStyle(fontSize: Constants.sizeSubTextTitle),
-                    ),
-                  ],
+                return Container(
+                  margin: const EdgeInsets.only(top: 21),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            color: (!_isSpesifik)
+                                ? Constants.deepGreenColor
+                                : Constants.whiteColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        padding: const EdgeInsets.all(14),
+                        margin: const EdgeInsets.symmetric(horizontal: 14),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                                height: MediaQuery.sizeOf(context).height / 25,
+                                width: MediaQuery.sizeOf(context).height / 25,
+                                child: Image.asset(
+                                  Constants.specificIcon,
+                                  color: (!_isSpesifik)
+                                      ? Constants.whiteColor
+                                      : Constants.blackColor,
+                                )),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Spesifik',
+                              style: TextStyle(
+                                  color: (!_isSpesifik)
+                                      ? Constants.whiteColor
+                                      : Constants.blackColor,
+                                  fontSize: Constants.sizeSubTextTitle),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Switch.adaptive(
+                          value: _isSpesifik,
+                          activeColor: Constants.deepGreenColor,
+                          onChanged: (values) {
+                            BlocProvider.of<HadistsBloc>(context)
+                                .add(SelectedHadistEvent(isSpesifik: values));
+                            resetNumber();
+                          }),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: (_isSpesifik)
+                                ? Constants.deepGreenColor
+                                : Constants.whiteColor,
+                            borderRadius: BorderRadius.circular(15)),
+                        padding: const EdgeInsets.all(14),
+                        margin: const EdgeInsets.symmetric(horizontal: 14),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                                height: MediaQuery.sizeOf(context).height / 25,
+                                width: MediaQuery.sizeOf(context).height / 25,
+                                child: Image.asset(
+                                  Constants.rangeIcon,
+                                  color: (_isSpesifik)
+                                      ? Constants.whiteColor
+                                      : Constants.blackColor,
+                                )),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Range',
+                              style: TextStyle(
+                                  color: (_isSpesifik)
+                                      ? Constants.whiteColor
+                                      : Constants.blackColor,
+                                  fontSize: Constants.sizeSubTextTitle),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 36),
           BlocBuilder<HadistsBloc, HadistsState>(
             builder: (context, state) {
               if (state is SuccessSelectedHadistSpesifikRange) {
                 return (!state.result)
                     ? Column(
                         children: <Widget>[
-                          Column(
-                            children: [
-                              const Text("Nomer Hadis : "),
-                              Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: Colors.amber,
-                                  ),
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  child: CustomTextfieldWidget(
+                          Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  "Masukan Nomer Hadist : ",
+                                  style: TextStyle(
+                                      fontSize: Constants.sizeSubTextTitle),
+                                ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 4,
+                                  child: TextField(
                                     controller: numSpesifikController,
+                                    autocorrect: false,
                                     keyboardType: TextInputType.number,
-                                  )
-                                  // TextField(
-                                  //   controller: numSpesifikController,
-                                  //   autocorrect: false,
-                                  //   keyboardType: TextInputType.number,
-
-                                  // ),
                                   ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 10),
-                          Align(
-                            alignment: Alignment.center,
+                          const SizedBox(height: 14),
+                          // Align(
+                          //   alignment: Alignment.center,
+                          //   child: ElevatedButton(
+                          //     onPressed: () {
+                          //       BlocProvider.of<HadistsBloc>(context).add(
+                          //           GetSpesifikRangeHadistEvent(
+                          //               isSpesifik: _isSpesifik,
+                          //               numRange1: 0,
+                          //               numRange2: 0,
+                          //               numSpesifik: int.parse(
+                          //                   numSpesifikController.text),
+                          //               nameHadist: nameHadist.toString()));
+                          //       Navigator.pushNamed(context, '/hadistsSR');
+                          //     },
+                          //     child: const Text("Proses"),
+                          //   ),
+                          // )
+                          SizedBox(
+                            width: MediaQuery.sizeOf(context).width / 3,
                             child: ElevatedButton(
-                              onPressed: () {
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Constants.deepGreenColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  )),
+                              onPressed: () async {
                                 BlocProvider.of<HadistsBloc>(context).add(
                                     GetSpesifikRangeHadistEvent(
                                         isSpesifik: _isSpesifik,
@@ -119,9 +197,12 @@ class HadistMenuScreen extends StatelessWidget {
                                         nameHadist: nameHadist.toString()));
                                 Navigator.pushNamed(context, '/hadistsSR');
                               },
-                              child: const Text("Proses"),
+                              child: const Text(
+                                "Proses",
+                                style: TextStyle(color: Constants.whiteColor),
+                              ),
                             ),
-                          )
+                          ),
                         ],
                       )
                     : Column(

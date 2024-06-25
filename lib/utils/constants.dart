@@ -45,6 +45,8 @@ class Constants {
   static const prayShalatIcon = "assets/icons/pray_shalat.png";
   static const qiblaIcon = "assets/icons/qibla.png";
   static const calculatorIcon = "assets/icons/calculator.png";
+  static const specificIcon = "assets/icons/specific.png";
+  static const rangeIcon = "assets/icons/range.png";
   static const bannerImage = "assets/images/banner_image.png";
   static const compassImage = "assets/images/compass.png";
   static const needleImage = "assets/images/needle.png";
@@ -156,3 +158,6 @@ class Constants {
 
 ///bingkai
 ///https://toppng.com/freepng/162901/round-frame-gold-clip-picture-frame#google_vignette
+///
+// <a href="https://www.flaticon.com/free-icons/range" title="range icons">Range icons created by Freepik - Flaticon</a>
+// <a href="https://www.flaticon.com/free-icons/central" title="central icons">Central icons created by Iconjam - Flaticon</a>

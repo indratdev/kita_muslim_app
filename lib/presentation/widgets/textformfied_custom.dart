@@ -22,6 +22,7 @@ class CustomTextfieldWidget extends StatefulWidget {
   EdgeInsetsGeometry customPadding;
   String label;
   String? initialValue;
+  bool useBorder;
 
   CustomTextfieldWidget({
     super.key,
@@ -42,6 +43,7 @@ class CustomTextfieldWidget extends StatefulWidget {
     this.customPadding = const EdgeInsets.only(bottom: 8.0),
     this.label = "",
     this.initialValue,
+    this.useBorder = false,
   });
 
   @override
@@ -62,8 +64,12 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
           (widget.titleTextfield == null)
               ? const SizedBox()
               : Text(widget.titleTextfield!),
-          const SizedBox(height: 8),
+          // const SizedBox(height: 8),
           TextFormField(
+            style: TextStyle(
+              fontSize: MediaQuery.sizeOf(context).width / 20,
+              fontWeight: FontWeight.w800,
+            ),
             onChanged: widget.onChanges,
             initialValue: widget.initialValue,
             readOnly: widget.readOnly,
@@ -80,7 +86,7 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
                 (widget.isUppercase) ? [UpperCaseTextFormatter()] : [],
             decoration: InputDecoration(
               labelText: widget.label,
-              // labelText: ,
+              border: InputBorder.none,
               filled: widget.readOnly,
               suffixIcon: widget.suffixIcon,
               fillColor: Colors.grey.shade300,
@@ -90,24 +96,25 @@ class _CustomTextfieldWidgetState extends State<CustomTextfieldWidget> {
                       widget.icon,
                       color: Constants.blackColor,
                     ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Constants.blackColor,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Constants.blackColor,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-              ),
-              contentPadding: const EdgeInsets.all(10),
+              // enabledBorder: const OutlineInputBorder(
+              //   borderSide: BorderSide(
+              //     color: Constants.blackColor,
+              //   ),
+              //   borderRadius: BorderRadius.all(Radius.circular(4)),
+              // ),
+              // focusedBorder: const OutlineInputBorder(
+              //   borderSide: BorderSide(
+              //     color: Constants.blackColor,
+              //   ),
+              //   borderRadius: BorderRadius.all(Radius.circular(4)),
+              // ),
+              // contentPadding: const EdgeInsets.all(8),
               hintText: widget.hintText,
-              hintStyle: const TextStyle(
-                fontSize: 14,
-                color: Constants.blackColor,
-              ),
+              // hintStyle: const TextStyle(
+              //   fontSize: 42,
+              //   fontWeight: FontWeight.bold,
+              //   color: Constants.blackColor,
+              // ),
             ),
           ),
         ],

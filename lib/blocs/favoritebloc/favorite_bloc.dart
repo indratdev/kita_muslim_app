@@ -39,20 +39,20 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       }
     });
 
-    on<GetListAllSurahFavoriteEvent>((event, emit) async {
-      try {
-        emit(LoadingListSurahFavorite());
-        var listSharedSurah = await surahRepository.getAllFavoriteSharedPref();
+    // on<GetListAllSurahFavoriteEvent>((event, emit) async {
+    //   try {
+    //     emit(LoadingListSurahFavorite());
+    //     var listSharedSurah = await surahRepository.getAllFavoriteSharedPref();
 
-        List<SpesifikSurahModel> result =
-            await ApiSurahProvider().getListFavoriteSurah(listSharedSurah);
+    //     List<SpesifikSurahModel> result =
+    //         await ApiSurahProvider().getListFavoriteSurah(listSharedSurah);
 
-        emit(SuccessListSurahFavorite(result: result));
-      } catch (e) {
-        emit(FailureListSurahFavorite(
-            messageError: "Error: Memuat Data Surat Favorit"));
-      }
-    });
+    //     emit(SuccessListSurahFavorite(result: result));
+    //   } catch (e) {
+    //     emit(FailureListSurahFavorite(
+    //         messageError: "Error: Memuat Data Surat Favorit"));
+    //   }
+    // });
 
     /// new
     on<ListAllSurahFavoriteEvent>((event, emit) async {
@@ -67,7 +67,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
         List<SurahLocalModel> result =
             await surahRepository.getAllSurahByNumberOnLocal(inClause);
 
-        print(">>> result : $result");
+        emit(SuccessListAllSurahFavorite(result: result));
       } catch (e) {
         emit(FailureListAllSurahFavorite(messageError: e.toString()));
       }

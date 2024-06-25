@@ -85,7 +85,6 @@ class MenusController {
       menuName: "Favorit",
       menuRoute: (context) {
         Navigator.of(context).pushNamed(Routes.favoriteSurah);
-        context.read<FavoriteBloc>().add(GetListAllSurahFavoriteEvent());
         context.read<FavoriteBloc>().add(ListAllSurahFavoriteEvent());
       },
     ),

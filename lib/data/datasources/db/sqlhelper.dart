@@ -571,8 +571,9 @@ class SqlHelper {
     // }
     query = """
         select id,number,sequence,number_of_verses ,name_short,name_long ,transliteration_en,transliteration_id,translation_en,translation_id,revelation_arab,revelation_en,revelation_id,tafsir 
+        from $tableSurah
         where number in ($inNumber) 
-        from $tableSurah ;
+        ;
         """;
 
     if (db != null) {

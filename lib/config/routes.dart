@@ -40,7 +40,7 @@ class Routes {
     detailSurah: (_) => SurahDetailScreen(),
     dailyPrayer: (_) => DoaHarianScreen(),
     detailDailyPrayer: (_) => DoaHarianDetailScreen(),
-    favoriteSurah: (_) => const FavoriteScreen(),
+    favoriteSurah: (_) => FavoriteScreen(),
     hadists: (_) => const HadistScreen(),
     hadistDetail: (_) => HadistDetailScreen(nameHadist: ""),
     hadistsSR: (_) => HadistSRScreen(),

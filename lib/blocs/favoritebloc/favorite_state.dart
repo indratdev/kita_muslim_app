@@ -86,7 +86,7 @@ class FailureListAllSurahFavorite extends FavoriteState {
 }
 
 class SuccessListAllSurahFavorite extends FavoriteState {
-  List<DetailSurahLocalModel> result;
+  List<SurahLocalModel> result;
 
   SuccessListAllSurahFavorite({
     required this.result,

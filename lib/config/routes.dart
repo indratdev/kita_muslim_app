@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:kita_muslim/presentation/screens/article_screen/article_screen.dart';
 import 'package:kita_muslim/presentation/screens/calculator_screen/calculator_screen.dart';
-import 'package:kita_muslim/presentation/screens/favorite_screens/favoritescreen.dart';
+import 'package:kita_muslim/presentation/screens/favorite_screens/favorite_screen.dart';
 import 'package:kita_muslim/presentation/screens/hadist_screen/hadistSRscreen.dart';
-import 'package:kita_muslim/presentation/screens/hadist_screen/hadistdetailscreen.dart';
+import 'package:kita_muslim/presentation/screens/hadist_screen/hadist_menu_screen.dart';
 
-import 'package:kita_muslim/presentation/screens/hadist_screen/hadistscreen.dart';
+import 'package:kita_muslim/presentation/screens/hadist_screen/hadist_screen.dart';
 import 'package:kita_muslim/presentation/screens/home_screen/home_screen_v2.dart';
-import 'package:kita_muslim/presentation/screens/home_screen/homescreen.dart';
+
 import 'package:kita_muslim/presentation/screens/prayer_schedule_screen/prayer_schedule_screen.dart';
-import 'package:kita_muslim/presentation/screens/qiblah_screen/qiblah_compass.dart';
+
 import 'package:kita_muslim/presentation/screens/qiblah_screen/qiblah_screen.dart';
 import 'package:kita_muslim/presentation/screens/quran_screen/quran_screen.dart';
 import 'package:kita_muslim/presentation/screens/splash_screen/splashscreen.dart';
 import 'package:kita_muslim/presentation/screens/surah_detail/surah_detail_screen.dart';
-import 'package:kita_muslim/presentation/screens/surah_detail/surahdetailscreen.dart%20old';
+
 import 'package:kita_muslim/presentation/screens/surah_harian/doahariandetailscreen.dart';
 import 'package:kita_muslim/presentation/screens/surah_harian/doaharianscreen.dart';
 
@@ -42,7 +42,7 @@ class Routes {
     detailDailyPrayer: (_) => DoaHarianDetailScreen(),
     favoriteSurah: (_) => FavoriteScreen(),
     hadists: (_) => const HadistScreen(),
-    hadistDetail: (_) => HadistDetailScreen(nameHadist: ""),
+    hadistDetail: (_) => HadistMenuScreen(nameHadist: ""),
     hadistsSR: (_) => HadistSRScreen(),
     splash: (_) => const SplashScreen(),
     prayerSchedule: (_) => const PrayerScheduleScreen(),

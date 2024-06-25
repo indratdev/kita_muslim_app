@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kita_muslim/presentation/widgets/customwidgets.dart';
-import 'package:kita_muslim/presentation/screens/hadist_screen/hadistdetailscreen.dart';
+import 'package:kita_muslim/presentation/screens/hadist_screen/hadist_menu_screen.dart';
 
 import 'package:kita_muslim/utils/constants.dart';
 
@@ -14,13 +14,22 @@ class HadistSRScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        HadistDetailScreen(nameHadist: _nameHadist);
+        // HadistMenuScreen(nameHadist: _nameHadist);
+        // HadistMenuScreen(hadist:  ),
         BlocProvider.of<HadistsBloc>(context)
             .add(SelectedHadistEvent(isSpesifik: false));
         return true;
       },
       child: Scaffold(
-        appBar: CustomWidgets.basicAppBar(context, "Hadis"),
+        appBar: CustomWidgets.basicAppBar(
+          context,
+          "Hadis",
+          backIconFunction: () {
+            BlocProvider.of<HadistsBloc>(context)
+                .add(SelectedHadistEvent(isSpesifik: false));
+            Navigator.pop(context);
+          },
+        ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(

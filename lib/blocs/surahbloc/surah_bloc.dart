@@ -18,7 +18,7 @@ part 'surah_state.dart';
 
 class SurahBloc extends Bloc<SurahEvent, SurahState> {
   final surahRepository = SurahRepository();
-  final pref = MySharedPref();
+  // final pref = MySharedPref();
 
   SurahBloc() : super(SurahInitial()) {
     on<GetAllSurah>((event, emit) async {
@@ -52,26 +52,26 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
       }
     });
 
-    on<MarkLastAyatSurah>((event, emit) {
-      try {
-        emit(LoadingMarkLastAyatSurah());
-        // pref.markLastSurah(event.surah, event.ayat);
-        surahRepository.markLastAyatSurah(event.surah, event.ayat);
-        emit(SuccessMarkLastAyatSurah());
-      } catch (e) {
-        emit(FailureMarkLastAyatSurah(info: "Error: Gagal Menandai Surat"));
-      }
-    });
+    // on<MarkLastAyatSurah>((event, emit) {
+    //   try {
+    //     emit(LoadingMarkLastAyatSurah());
+    //     // pref.markLastSurah(event.surah, event.ayat);
+    //     surahRepository.markLastAyatSurah(event.surah, event.ayat);
+    //     emit(SuccessMarkLastAyatSurah());
+    //   } catch (e) {
+    //     emit(FailureMarkLastAyatSurah(info: "Error: Gagal Menandai Surat"));
+    //   }
+    // });
 
-    on<GetLastAyatSurah>((event, emit) async {
-      try {
-        var result = await pref.getMarkLastSurah(event.surah);
-        emit(SuccessGetLastAyatSurah(ayat: result));
-      } catch (e) {
-        emit(FailureGetLastAyatSurah(
-            info: "Error: Gagal Memuat Data, Silahkan dicoba Kembali"));
-      }
-    });
+    // on<GetLastAyatSurah>((event, emit) async {
+    //   try {
+    //     var result = await pref.getMarkLastSurah(event.surah);
+    //     emit(SuccessGetLastAyatSurah(ayat: result));
+    //   } catch (e) {
+    //     emit(FailureGetLastAyatSurah(
+    //         info: "Error: Gagal Memuat Data, Silahkan dicoba Kembali"));
+    //   }
+    // });
 
     on<GetAllSurahHarian>((event, emit) async {
       try {

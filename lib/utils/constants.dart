@@ -52,6 +52,7 @@ class Constants {
   static const needleImage = "assets/images/needle.png";
   static const backgroundImage = "assets/images/background.png";
   static const frameCircleImage = "assets/images/frame_circle.png";
+  static const settingsIcon = "assets/icons/settings.png";
 
   // static const colorBlackV2 = Color(0xFF323e2a);
   // static const colorDeepGreenV2 = Color(0xFF677842);
@@ -170,3 +171,4 @@ class Constants {
 ///
 // <a href="https://www.flaticon.com/free-icons/range" title="range icons">Range icons created by Freepik - Flaticon</a>
 // <a href="https://www.flaticon.com/free-icons/central" title="central icons">Central icons created by Iconjam - Flaticon</a>
+// <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Freepik - Flaticon</a>

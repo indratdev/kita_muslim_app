@@ -29,7 +29,7 @@ class ListMasterHadistWidget extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        HadistMenuScreen(nameHadist: data[index].id),
+                        HadistMenuScreen(dataBook: data[index]),
                   ));
               BlocProvider.of<HadistsBloc>(context)
                   .add(SelectedHadistEvent(isSpesifik: false));

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kita_muslim/presentation/screens/article_screen/article_screen.dart';
 import 'package:kita_muslim/presentation/screens/calculator_screen/calculator_screen.dart';
 import 'package:kita_muslim/presentation/screens/favorite_screens/favorite_screen.dart';
-import 'package:kita_muslim/presentation/screens/hadist_screen/hadistSRscreen.dart';
+import 'package:kita_muslim/presentation/screens/hadist_screen/hadist_result_screen.dart';
 import 'package:kita_muslim/presentation/screens/hadist_screen/hadist_menu_screen.dart';
 
 import 'package:kita_muslim/presentation/screens/hadist_screen/hadist_screen.dart';
@@ -28,7 +28,7 @@ class Routes {
   static const String favoriteSurah = "/favoriteSurah";
   static const String hadists = "/hadists";
   static const String hadistDetail = "/hadistdetail";
-  static const String hadistsSR = "/hadistsSR";
+  static const String hadistResultScreen = "/hadistsSR";
   static const String prayerSchedule = "/prayerschedule";
   static const String qiblahScreen = "/qiblahscreen";
   static const String calculatorScreen = "/calculatorscreen";
@@ -42,8 +42,8 @@ class Routes {
     detailDailyPrayer: (_) => DoaHarianDetailScreen(),
     favoriteSurah: (_) => FavoriteScreen(),
     hadists: (_) => const HadistScreen(),
-    hadistDetail: (_) => HadistMenuScreen(nameHadist: ""),
-    hadistsSR: (_) => HadistSRScreen(),
+    hadistDetail: (_) => HadistMenuScreen(),
+    hadistResultScreen: (_) => HadistResultScreen(),
     splash: (_) => const SplashScreen(),
     prayerSchedule: (_) => const PrayerScheduleScreen(),
     qiblahScreen: (_) => QiblahScreen(),

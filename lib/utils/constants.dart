@@ -118,6 +118,15 @@ class Constants {
     // offset: const Offset(0, 1), // changes position of shadow
   );
 
+  static List<BoxShadow>? basicShadow = [
+    BoxShadow(
+      color: Colors.grey.withOpacity(0.5),
+      spreadRadius: 5,
+      blurRadius: 7,
+      offset: const Offset(0, 2), // changes position of shadow
+    )
+  ];
+
   // static BoxShadow boxShadowMenuVersion3 = BoxShadow(
   //   color: Constants.iFebruaryInk1.withOpacity(1),
   //   spreadRadius: 1,

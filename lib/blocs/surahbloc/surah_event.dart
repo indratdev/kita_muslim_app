@@ -116,3 +116,5 @@ class SetLastReadSurah extends SurahEvent {
     required this.data,
   });
 }
+
+class DownloadAllSurah extends SurahEvent {}

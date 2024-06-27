@@ -63,11 +63,51 @@ class SurahRepository {
     print("### downloadAllDetailSurah : done");
   }
 
+  ///testing
+  downloadAllSurahToLocal2(
+    dynamic Function(double) onProgress,
+  ) async {
+    SurahModel result = await prayerApiProvider.getSurah();
+    print(">>> downloadAllSurahToLocal");
+    for (var element in result.data) {
+      await helperDB.insertInitialSurahHeader(element);
+    }
+
+    print("### downloadAllSurahToLocal : done");
+    return downloadAllDetailSurah2(onProgress);
+  }
+
+  downloadAllDetailSurah2(Function(double) onProgress) async {
+    for (var i = 1; i <= 114; i++) {
+      spesifik.SpesifikSurahModel details =
+          await prayerApiProvider.getDetailSurah(i.toString());
+      saveDetailSurahToLocal(details);
+
+      print(">>> downloadAllDetailSurah from $i to 114");
+      double totalProgress = (i / 144) * 100;
+      onProgress(totalProgress);
+    }
+    print("### downloadAllDetailSurah : done");
+  }
+
+  /// end testing
+
   Future<void> downloadAllDailyPrayer() async {
     List<DailyPrayerModel> result = await prayerApiProvider.getSurahHarian();
     for (var data in result) {
       await helperDB.insertInitialDailyPrayer(data);
     }
+  }
+
+  downloadAllSurahToLocalVersi2() async {
+    SurahModel result = await prayerApiProvider.getSurah();
+    print(">>> downloadAllSurahToLocal");
+    for (var element in result.data) {
+      await helperDB.insertInitialSurahHeader(element);
+    }
+
+    print("### downloadAllSurahToLocal : done");
+    downloadAllDetailSurah();
   }
 
   saveDetailSurahToLocal(spesifik.SpesifikSurahModel surah) async {

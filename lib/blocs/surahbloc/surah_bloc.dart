@@ -184,5 +184,23 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
         emit(FailureLastReadSurah(errorMessage: e.toString()));
       }
     });
+
+    on<DownloadAllSurah>((event, emit) async {
+      emit(LoadingDownloadAllSurahState());
+      double status = 0.0;
+
+      try {
+        await surahRepository.downloadAllSurahToLocal2((progress) {
+          status = progress;
+          emit(ProgressDownloadAllSurahState(progress: progress));
+        });
+
+        if (status == 100) {
+          emit(SuccessDownloadAllSurahState(status: true));
+        }
+      } catch (e) {
+        emit(FailureDownloadAllSurahState(errorMessage: e.toString()));
+      }
+    });
   }
 }

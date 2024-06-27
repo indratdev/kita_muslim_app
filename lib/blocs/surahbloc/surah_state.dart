@@ -296,3 +296,49 @@ class SuccessInitialLastReadSurah extends SurahState {
 }
 
 ///
+
+/// download all surah
+class LoadingDownloadAllSurahState extends SurahState {}
+
+class FailureDownloadAllSurahState extends SurahState {
+  final String errorMessage;
+
+  FailureDownloadAllSurahState({
+    required this.errorMessage,
+  });
+
+  List<Object> get props => [errorMessage];
+}
+
+class ProgressDownloadAllSurahState extends SurahState {
+  // int progress;
+  // int total;
+
+  // ProgressDownloadAllSurahState({
+  //   required this.progress,
+  //   required this.total,
+  // });
+
+  // @override
+  // List<Object> get props => [progress, total];
+  final double progress;
+  ProgressDownloadAllSurahState({
+    required this.progress,
+  });
+
+  @override
+  List<Object> get props => [progress];
+}
+
+class SuccessDownloadAllSurahState extends SurahState {
+  // Map<String, dynamic> statusFile;
+  bool status;
+
+  SuccessDownloadAllSurahState({
+    required this.status,
+  });
+
+  @override
+  List<Object> get props => [status];
+}
+ /// end 

@@ -26,8 +26,8 @@ abstract class LocalDataSource {
   // Future<bool>
   Future<String> readNumberOfSurah();
   insertInitialSurahHeader(Data data);
-  insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
-      spesifik.Data data, spesifik.Verses verse);
+  Future<void> insertInitialSurahDetail(int number, int sequence,
+      int numberOfVerses, spesifik.Data data, spesifik.Verses verse);
   insertInitialDailyPrayer(DailyPrayerModel datas);
   // insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
   //     spesifik.PreBismillah? prebismillah, spesifik.Verses verses);
@@ -189,7 +189,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  insertInitialSurahDetail(
+  Future<void> insertInitialSurahDetail(
     int number,
     int sequence,
     int numberOfVerses,

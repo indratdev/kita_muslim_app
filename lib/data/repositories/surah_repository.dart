@@ -56,7 +56,7 @@ class SurahRepository {
     for (var i = 1; i <= 114; i++) {
       spesifik.SpesifikSurahModel details =
           await prayerApiProvider.getDetailSurah(i.toString());
-      saveDetailSurahToLocal(details);
+      await saveDetailSurahToLocal(details);
 
       print(">>> downloadAllDetailSurah from $i to 114");
     }
@@ -69,7 +69,7 @@ class SurahRepository {
   ) async {
     SurahModel result = await prayerApiProvider.getSurah();
     print(">>> downloadAllSurahToLocal");
-    for (var element in result.data) {
+    for (Data element in result.data) {
       await helperDB.insertInitialSurahHeader(element);
     }
 
@@ -81,10 +81,11 @@ class SurahRepository {
     for (var i = 1; i <= 114; i++) {
       spesifik.SpesifikSurahModel details =
           await prayerApiProvider.getDetailSurah(i.toString());
-      saveDetailSurahToLocal(details);
+      await saveDetailSurahToLocal(details);
 
+      double totalProgress = (i / 114) * 100;
       print(">>> downloadAllDetailSurah from $i to 114");
-      double totalProgress = (i / 144) * 100;
+      print(">>> downloadAllDetailSurah totalProgress : $totalProgress ");
       onProgress(totalProgress);
     }
     print("### downloadAllDetailSurah : done");
@@ -110,10 +111,10 @@ class SurahRepository {
     downloadAllDetailSurah();
   }
 
-  saveDetailSurahToLocal(spesifik.SpesifikSurahModel surah) async {
+  Future<void> saveDetailSurahToLocal(spesifik.SpesifikSurahModel surah) async {
     spesifik.Data allData = surah.data;
 
-    for (var verse in allData.verses) {
+    for (spesifik.Verses verse in allData.verses) {
       print("======== run $verse ==========");
       await helperDB.insertInitialSurahDetail(allData.number, allData.sequence,
           allData.numberOfVerses, allData, verse);

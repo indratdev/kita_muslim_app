@@ -75,8 +75,8 @@ class SqlDatabase {
   //   return result;
   // }
 
-  insertInitialSurahDetail(int number, int sequence, int numberOfVerses,
-      spesifik.Data data, spesifik.Verses verse) async {
+  Future<int> insertInitialSurahDetail(int number, int sequence,
+      int numberOfVerses, spesifik.Data data, spesifik.Verses verse) async {
     final db = await instance.database;
     final result = await sqlHelper.insertSurahDetail(
       db,

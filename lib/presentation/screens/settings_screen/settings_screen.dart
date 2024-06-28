@@ -70,7 +70,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             } else if (state is SuccessDownloadAllSurahState ||
                 state is FailureDownloadAllSurahState) {
               if (_isProgressDialogShowing) {
-                Navigator.of(context, rootNavigator: true).pop();
+                Navigator.of(context, rootNavigator: true)
+                  ..pop()
+                  ..pop();
                 _isProgressDialogShowing = false;
               }
             }
